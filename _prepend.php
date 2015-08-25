@@ -27,6 +27,11 @@
 
 if (!defined('DC_RC_PATH')) { return; }
 
+global $__autoload;
 $__autoload['view'] = dirname(__FILE__).'/inc/class.majordome.view.php';
 $__autoload['newFormView'] = dirname(__FILE__).'/inc/class.majordome.newFormView.php';
 $__autoload['homeView'] = dirname(__FILE__).'/inc/class.majordome.homeView.php';
+
+// Register the available pages
+view::register('homeView', true);
+view::register('newFormView');

@@ -27,7 +27,7 @@
 
 if (!defined('DC_CONTEXT_ADMIN')) {return;}
 
-global $core;
+global $core, $_menu;
 
 # ajouter le plugin dans la liste des plugins du menu de l'administration
 $_menu['Plugins']->addItem(

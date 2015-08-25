@@ -25,14 +25,21 @@
  * SOFTWARE.
  *
  ******************************************************************************/
-class homeView implements view
-{
+__('My forms');
 
-    public function render()
+class homeView extends view
+{
+	function __construct()
+	{
+    	$this->id       = 'home';
+    	$this->title    = 'My forms';
+	}
+
+    public function content()
     {
         global $p_url, $core;
 
-        return '<h3>' . __('My forms') . '</h3>' .
+        return '<h3>' . $this->title . '</h3>' .
 
             // TODO Display the current form list
 

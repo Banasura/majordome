@@ -24,12 +24,18 @@
  * SOFTWARE.
  *
  ******************************************************************************/
+__('Create a new form');
 
-class newFormView implements view
+class newFormView extends view
 {
-
-    public function render()
+    function __construct()
     {
-        return '<h3>' . __('Create a new form') . '</h3>';
+	    $this->id       = 'newForm';
+	    $this->title    = 'Create a new form';
+    }
+    
+    public function content()
+    {
+        return '<h3>' . $this->title . '</h3>';
     }
 }

@@ -26,21 +26,5 @@
  ******************************************************************************/
 if (!defined('DC_CONTEXT_ADMIN')) {return;}
 
-// See how to structure the plugin
-$view;
-if (isset($_GET['page']) && ($_GET['page']) === 'newForm') $view = new newFormView();
-else {
-    // Display the home page
-    $view = new homeView();
-}
-
-echo '<html>',
-        '<head>',
-	        '<title>Majordome</title>',
-        '</head>',
-        '<body>',
-            dcPage::breadcrumb(array(__('Plugins') => '', 'Majordome' => '')),
-            $view->render(),
-
-        '</body>',
-    '</html>';
+$default_tab = isset($_GET['page']) ? $_GET['page'] : 'home';
+view::display();
