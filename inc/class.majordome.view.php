@@ -52,12 +52,19 @@ class view
      */
     private $js;
     
+    /**
+     * List of the different CSS to include ot the page
+     * @var array
+     */
+    private $css;
+    
 	function __construct()
 	{
 		$this->pages = array();
 		$this->home = null;
 		$this->current = isset($_GET['page']) ? $_GET['page'] : 'home';
 		$this->js = array();
+		$this->css = array();
 	}
 
     /**
@@ -68,34 +75,58 @@ class view
      */
     public function display()
     {
-    	global $p_url, $default_tab;
-    	
-    	// TODO Find a way to use self::id to get the current id & not those from parent
+    	global $p_url;
 
         echo '<html>',
                 '<head>',
-        	        '<title>Majordome</title>',
-                    dcPage::jsPageTabs($default_tab),
+                	dcPage::jsPageTabs($this->current);
+        
+			        // Add the CSS files
+			        foreach ($this->css as $key => $file) {
+			        	echo '<link rel="stylesheet" type="text/css" href="', $file, '">';
+			        }
+        
+       echo	        '<title>Majordome</title>',
                 '</head>',
                 '<body>',
                     dcPage::breadcrumb(array(__('Plugins') => '', 'Majordome' => ''));
 
-        // Display the tabs
-        foreach ($this->pages as $id_page => $page) {
-           	// Remove the link and only keep the tab
-           	echo '<div class="multi-part" id="', $id_page, '" title="', $page->title, '">',
-           			$page->content(),
-           		'</div>';
-        }
+			        // Display the tabs
+			        foreach ($this->pages as $id_page => $page) {
+			           	echo '<div class="multi-part" id="', $id_page, '" title="', $page->title, '">',
+			           			$page->content(),
+			           		'</div>';
+			        }
+			        
+			        // Add the JS files
+			        foreach ($this->js as $key => $file) {
+			        	echo '<script src="', $file, '"></script>';
+			        }
 
         echo	'</body>',
             '</html>';
     }
     
+    /**
+     * Add a CSS file to the page.
+     * @param string $path	The path to the file
+     */
+    public function add_css($path)
+    {
+    	// Remove backslashes if any and replace them by slashes
+    	$this->css[] = str_replace("\\", '/', $path);
+    }
+    
+    /**
+     * Add a Javascript file to the page.
+     * @param string $path	The path to the file	
+     */
     public function add_js($path)
     {
-    	$this->js[] = $path;
+    	// Remove backslashes if any and replace them by slashes
+    	$this->js[] = str_replace("\\", '/', $path);
     }
+    
 
     /**
      * Register a new page to be displayed. The page must be a subclass of

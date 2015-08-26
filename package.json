@@ -1,0 +1,16 @@
+{
+  "name": "majordome",
+  "version": "0.1.0",
+  "homepage": "https://github.com/Banasura/majordome",
+  "authors": [
+    "William Hiver <william|dot|hiver|at|free|dot|fr>"
+  ],
+  "description": "A Dotclear plugin which allow user to easily create and manage user forms.",
+  "main": "Gruntfile.coffee",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-cssmin": "~0.6.2",
+    "grunt-contrib-uglify": "~0.2.5"
+  }
+}

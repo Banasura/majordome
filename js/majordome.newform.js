@@ -1,4 +1,3 @@
-<?php
 /*******************************************************************************
  *
  * The MIT License (MIT)
@@ -24,29 +23,8 @@
  * SOFTWARE.
  *
  ******************************************************************************/
-__('Create a new form');
 
-class newFormPage extends page
-{
-	function __construct($view)
-	{
-    	parent::__construct($view, 'newForm', 'Create a new form');
-    	global $core;
-    	
-    	// Add Formbuilder dependencies
-    	$this->view->add_js(dcPage::getPF('/majordome/vendor/vendor.js'));
-    	$this->view->add_js(dcPage::getPF('/majordome/js/formbuilder/dist/formbuilder.js'));
-    	$this->view->add_css(dcPage::getPF('/majordome/vendor/vendor.css'));
-    	$this->view->add_css(dcPage::getPF('/majordome/js/formbuilder/dist/formbuilder.css'));
-		dcPage::cssLoad(dcPage::getPF('/majordome/js/formbuilder/dist/formbuilder.css'));
-    	
-    	// Run Formbuilder
-    	$this->view->add_js(dcPage::getPF('/majordome/js/majordome.newform.js'));
-	}
-    
-    public function content()
-    {
-        return '<h3>' . $this->title . '</h3>' .
-          '<div id="newform-builder"></div>';
-    }
-}
+// Init the form builder page
+;(function () {
+	var formbuilder = new Formbuilder({ selector: '#newform-builder' });
+})();

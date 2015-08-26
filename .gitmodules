@@ -1,0 +1,3 @@
+[submodule "js/formbuilder"]
+	path = js/formbuilder
+	url = https://github.com/Banasura/formbuilder.git
