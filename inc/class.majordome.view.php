@@ -26,38 +26,39 @@
  *
  ******************************************************************************/
 
-abstract class view
+class view
 {
     /**
      * The list of the different pages
      * @var array
      */
-    public static $pages = array();
+    private $pages;
 
     /**
      * The default page to display
      * @var view
      */
-    public static $home = null;
+    private $home;
     
     /**
-     * The unique identifier of the page
+     * The id of the current page displayed
      * @var string
      */
-    public $id = null;
-
-    /**
-     * The title of the page displayed by the current view
-     * @var string
-     */
-    public $title;
+    public $current;
     
     /**
-     * Returns the HTML content of the current page
-     * @method render
-     * @return string   the HTML content of the page
+     * List of the different Js to include ot the page
+     * @var array
      */
-    abstract public function content();
+    private $js;
+    
+	function __construct()
+	{
+		$this->pages = array();
+		$this->home = null;
+		$this->current = isset($_GET['page']) ? $_GET['page'] : 'home';
+		$this->js = array();
+	}
 
     /**
      * Display the page including the givent content.
@@ -65,7 +66,7 @@ abstract class view
      * @param  string  $content The content of the page, added in the <body> tag
      * @return void
      */
-    static public function display()
+    public function display()
     {
     	global $p_url, $default_tab;
     	
@@ -80,7 +81,7 @@ abstract class view
                     dcPage::breadcrumb(array(__('Plugins') => '', 'Majordome' => ''));
 
         // Display the tabs
-        foreach (self::$pages as $id_page => $page) {
+        foreach ($this->pages as $id_page => $page) {
            	// Remove the link and only keep the tab
            	echo '<div class="multi-part" id="', $id_page, '" title="', $page->title, '">',
            			$page->content(),
@@ -90,45 +91,33 @@ abstract class view
         echo	'</body>',
             '</html>';
     }
-
-    /**
-     * Returns an instance of the view corresponding to the page id.
-     * @method getPage
-     * @param  string  $page_id The id of the page (givent in the URL)
-     * @return view             An instance of the view handling this page
-     */
-    public static function getPage($page_id)
+    
+    public function add_js($path)
     {
-        if (isset(self::$pages[$page_id])) return self::$pages[$page_id];
-        else {
-            // Return the default page
-            if (self::$home !== null) return self::$home;
-            else {
-                throw new Exception('No page to display.');
-            }
-        }
+    	$this->js[] = $path;
     }
 
     /**
      * Register a new page to be displayed. The page must be a subclass of
      * "view".
      * @method register
-     * @param  view     $view_class     The class to be added
+     * @param  view     $page_class     The class to be added
      * @param  boolean  $default        Use this page as default
      * @return void
      */
-    public static function register($view_class, $default = false)
+    public function register($page_class, $default = false)
     {
-        if (!is_subclass_of($view_class, __CLASS__)) {
-            throw new InvalidArgumentException('Argument does not extend view.');
+        if (!is_subclass_of($page_class, 'page')) {
+            throw new InvalidArgumentException('Argument does not extend page.');
         }
 
-        if (!property_exists ($view_class, 'id')) {
-            throw new InvalidArgumentException('Given class does not have a unique identifier: attribute "id" is missing.');
-        }
+        $page = new $page_class($this);
 
-        $page = new $view_class();
-        self::$pages[$page->id] = $page;
-        if ($default === true) self::$home = $page;
+        if (empty($page->id)) {
+            throw new InvalidArgumentException('Given class "' . $page_class . '" does not have a unique identifier: attribute "id" is missing.');
+        }
+        
+        $this->pages[$page->id] = $page;
+        if ($default === true) $this->home = $page;
     }
 }

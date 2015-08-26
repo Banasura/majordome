@@ -26,5 +26,9 @@
  ******************************************************************************/
 if (!defined('DC_CONTEXT_ADMIN')) {return;}
 
-$default_tab = isset($_GET['page']) ? $_GET['page'] : 'home';
-view::display();
+// Register the available pages
+$view = new view();
+$view->register('homePage', true);
+$view->register('newFormPage');
+
+$view->display();

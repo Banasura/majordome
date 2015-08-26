@@ -1,4 +1,5 @@
 <?php
+
 /*******************************************************************************
  *
  * The MIT License (MIT)
@@ -24,18 +25,23 @@
  * SOFTWARE.
  *
  ******************************************************************************/
-__('Create a new form');
+__('My forms');
 
-class newFormView extends view
+class homePage extends page
 {
-    function __construct()
-    {
-	    $this->id       = 'newForm';
-	    $this->title    = 'Create a new form';
-    }
-    
+	function __construct($view)
+	{
+    	parent::__construct($view, 'home', 'My forms');
+	}
+
     public function content()
     {
-        return '<h3>' . $this->title . '</h3>';
+        global $p_url, $core;
+
+        return '<h3>' . $this->title . '</h3>' .
+
+            // TODO Display the current form list
+
+            '<a class="button add" href="#newForm">' . __('Create a form') . '</a>';
     }
 }

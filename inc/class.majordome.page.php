@@ -1,5 +1,4 @@
 <?php
-
 /*******************************************************************************
  *
  * The MIT License (MIT)
@@ -25,28 +24,21 @@
  * SOFTWARE.
  *
  ******************************************************************************/
-__('My forms');
 
-class homeView extends view
-{
-	function __construct()
+abstract class page {
+	
+	/**
+	 * page class constructor
+	 * @param view 		$view
+	 * @param string 	$id
+	 * @param string 	$title
+	 */
+	function __construct($view, $id, $title)
 	{
-    	$this->id       = 'home';
-    	$this->title    = 'My forms';
+		$this->id = $id;
+		$this->title = $title;
+		$this->view = $view;
 	}
-
-    public function content()
-    {
-        global $p_url, $core;
-
-        return '<h3>' . $this->title . '</h3>' .
-
-            // TODO Display the current form list
-
-            // Create a new form
-            '<form method="post" action="' . $p_url . '&page=newForm">' .
-                '<input type="submit" name="add_form" value="' . __('Create a form') . '" />' .
-                $core->formNonce() .
-            '</form>';
-    }
+	
+	abstract public function content();
 }

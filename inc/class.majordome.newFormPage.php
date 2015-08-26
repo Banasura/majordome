@@ -24,11 +24,18 @@
  * SOFTWARE.
  *
  ******************************************************************************/
+__('Create a new form');
 
-if (!defined('DC_RC_PATH')) { return; }
-
-global $__autoload;
-$__autoload['view'] = dirname(__FILE__).'/inc/class.majordome.view.php';
-$__autoload['page'] = dirname(__FILE__).'/inc/class.majordome.page.php';
-$__autoload['newFormPage'] = dirname(__FILE__).'/inc/class.majordome.newFormPage.php';
-$__autoload['homePage'] = dirname(__FILE__).'/inc/class.majordome.homePage.php';
+class newFormPage extends page
+{
+	function __construct($view)
+	{
+    	parent::__construct($view, 'newForm', 'Create a new form');
+	}
+    
+    public function content()
+    {
+        return '<h3>' . $this->title . '</h3>' .
+          '<div class="newform-builder"></div>';
+    }
+}
