@@ -1,6 +1,6 @@
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 
-<p style="text-align:center;">![majordome-logo 1](https://cloud.githubusercontent.com/assets/394565/9514771/33ee07e2-4c9d-11e5-83ba-dad5c7b28750.png)</p>
+![majordome-logo 1](https://cloud.githubusercontent.com/assets/394565/9514771/33ee07e2-4c9d-11e5-83ba-dad5c7b28750.png)
 
 # Majordome
 **A Dotclear plugin which allow user to easily create and manage user forms.**
