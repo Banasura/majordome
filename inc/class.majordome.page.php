@@ -36,9 +36,13 @@ abstract class page {
 	function __construct($view, $id, $title)
 	{
 		$this->id = $id;
-		$this->title = $title;
+		$this->title = __($title);
 		$this->view = $view;
 	}
 	
+	/**
+	 * Display the content of the page
+	 * @return void
+	 */
 	abstract public function content();
 }

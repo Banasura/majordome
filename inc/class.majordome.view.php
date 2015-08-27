@@ -58,6 +58,12 @@ class view
      */
     private $css;
     
+    /**
+     * Custom header to inject in the view
+     * @var unknown
+     */
+    private $header;
+    
 	function __construct()
 	{
 		$this->pages = array();
@@ -87,15 +93,16 @@ class view
 			        }
         
        echo	        '<title>Majordome</title>',
+       				$this->header,
                 '</head>',
                 '<body>',
                     dcPage::breadcrumb(array(__('Plugins') => '', 'Majordome' => ''));
 
 			        // Display the tabs
 			        foreach ($this->pages as $id_page => $page) {
-			           	echo '<div class="multi-part" id="', $id_page, '" title="', $page->title, '">',
-			           			$page->content(),
-			           		'</div>';
+			           	echo '<div class="multi-part" id="', $id_page, '" title="', $page->title, '">';
+			           			$page->content();
+			           		echo '</div>';
 			        }
 			        
 			        // Add the JS files
@@ -110,8 +117,9 @@ class view
     /**
      * Add a CSS file to the page.
      * @param string $path	The path to the file
+     * @return void
      */
-    public function add_css($path)
+    public function addCss($path)
     {
     	// Remove backslashes if any and replace them by slashes
     	$this->css[] = str_replace("\\", '/', $path);
@@ -119,12 +127,23 @@ class view
     
     /**
      * Add a Javascript file to the page.
-     * @param string $path	The path to the file	
+     * @param string $path	The path to the file
+     * @return void
      */
-    public function add_js($path)
+    public function addJs($path)
     {
     	// Remove backslashes if any and replace them by slashes
     	$this->js[] = str_replace("\\", '/', $path);
+    }
+    
+    /**
+     * Inject an HTML string into the <head> tag of the page
+     * @param string $html The string to inject
+     * @return void
+     */
+    public function addHeader($html)
+    {
+    	$this->header .= $html;
     }
     
 

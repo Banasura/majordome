@@ -38,10 +38,10 @@ class homePage extends page
     {
         global $p_url, $core;
 
-        return '<h3>' . $this->title . '</h3>' .
+        echo '<h3>', $this->title, '</h3>',
 
             // TODO Display the current form list
 
-            '<a class="button add" href="#newForm">' . __('Create a form') . '</a>';
+            '<a class="button add" href="#newForm">', __('Create a form'), '</a>';
     }
 }

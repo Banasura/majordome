@@ -26,5 +26,28 @@
 
 // Init the form builder page
 ;(function () {
-	var formbuilder = new Formbuilder({ selector: '#newform-builder' });
+	// FIXME Find a proper way to inject the CSS in the plugin page
+	$(document.head).append('<link rel="stylesheet" href="../plugins/majordome/js/formbuilder/dist/formbuilder.css">')
+					.append('<link rel="stylesheet" href="../plugins/majordome/vendor/vendor.css">')
+					.append('<link rel="stylesheet" href="../plugins/majordome/css/admin.css">');
+	
+	Formbuilder.options.AUTOSAVE = false;
+	
+	var formbuilder = new Formbuilder({
+		selector: '#newform-builder',
+	}),
+		lastSaved	= null;
+
+	// Log JSON save
+	formbuilder.on("save", function (payload) {
+		lastSaved = payload;
+		console.log(payload);
+	});
+	
+	// Save the form content on submit
+	$("#mj_new_form").on("submit", function (ev) {
+		// Get the json
+		formbuilder.mainView.saveForm();
+		$("#mj_form_content").val(lastSaved);
+	});
 })();

@@ -1,4 +1,3 @@
-<?php
 /*******************************************************************************
  *
  * The MIT License (MIT)
@@ -25,11 +24,6 @@
  *
  ******************************************************************************/
 
-if (!defined('DC_RC_PATH')) { return; }
-
-global $__autoload;
-$__autoload['majordome'] = dirname(__FILE__).'/inc/lib.majordome.php';
-$__autoload['view'] = dirname(__FILE__).'/inc/class.majordome.view.php';
-$__autoload['page'] = dirname(__FILE__).'/inc/class.majordome.page.php';
-$__autoload['newFormPage'] = dirname(__FILE__).'/inc/class.majordome.newFormPage.php';
-$__autoload['homePage'] = dirname(__FILE__).'/inc/class.majordome.homePage.php';
+#dotclear-admin #content #newform-builder {
+	position: relative;
+}

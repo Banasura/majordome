@@ -26,8 +26,9 @@
  ******************************************************************************/
 if (!defined('DC_CONTEXT_ADMIN')) {return;}
 
-// Register the available pages
 $view = new view();
+
+// Register the available pages
 $view->register('homePage', true);
 $view->register('newFormPage');
 
