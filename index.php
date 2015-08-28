@@ -29,7 +29,7 @@ if (!defined('DC_CONTEXT_ADMIN')) {return;}
 $view = new view();
 
 // Register the available pages
-$view->register('homePage', true);
+$view->register('homePage');
 $view->register('newFormPage');
 
 $view->display();

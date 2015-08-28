@@ -60,6 +60,7 @@ class newFormPage extends page
     public function content()
     {
     	global $core, $p_url;
+    	
         echo '<h3>', $this->title, '</h3>',
         	'<p>', __('Create a new form by entering its name and choosing its fields. You will then be able to add your brand new form wherever you want in your blog.'), '</p>',
         	'<form method="POST" id="mj_new_form" action="', $p_url, '&amp;page=', $this->id, '">',
@@ -71,8 +72,19 @@ class newFormPage extends page
         					'<abbr title="', __('Required field'), '">*</abbr>',
         					__('Form name'),
         				'</label>',
-        				form::field('mj_form_name', 40, 50, ''),
+        				form::field('mj_form_name', 50, 50, ''),
         			'</p>',
+        			'<p class="form-note">',
+        				__('The name of the form will allow you to identify later. Only use alphanumeric characters (a-zA-Z0-9) or dashes.'),
+        			'</p>',
+        			
+        			'<p>',
+        				'<label for="mj_form_desc">',
+        					__('Form description'),
+        				'</label>',
+        				form::field('mj_form_desc', 50, 255, ''),
+        			'</p>',
+        			
         			'<p>',
         				'<label class="required" for="mj_form_action">',
         					'<abbr title="', __('Required field'), '">*</abbr>',
@@ -99,32 +111,37 @@ class newFormPage extends page
     	
     	// Form name check
     	if (empty($_POST['mj_form_name'])) {
-    		$core->error->add(__('Please enter a form name'));
+    		$core->error->add(__('Please enter a form name.'));
     	} elseif (strlen($_POST['mj_form_name']) > 50) {
-    		$core->error->add(__('The form name is too long'));
+    		$core->error->add(__('The form name is too long.'));
+    	}
+    	
+    	// Form description check
+    	if (!empty($_POST['mj_form_desc']) && strlen($_POST['mj_form_desc']) > 250) {
+    		$core->error->add(__('The form description is too long.'));
     	}
     	
     	// Form data handler check
     	if (empty($_POST['mj_form_action'])) {
-    		$core->error->add(__('Please choose a handler for the form results'));
+    		$core->error->add(__('Please choose a handler for the form results.'));
     	} else if (!in_array($_POST['mj_form_action'], majordome::getDataHandlerList())) {
-    		$core->error->add(__('The chosen data handler does not exists'));
+    		$core->error->add(__('The chosen data handler does not exists.'));
     	}
     	
     	// Form fields check
     	if (empty($_POST['mj_form_content'])) {
-    		$core->error->add(__('The form has no field'));
+    		$core->error->add(__('The form has no field.'));
     	}
 
     	if ($core->error->flag() === false) {
     		// The form is valid, we store the result in the DB
     		$db =& $core->con;
-    		$success = majordomeDBHandler::insert($_POST['mj_form_name'], $_POST['mj_form_action'], $_POST['mj_form_content']);
+    		$success = majordomeDBHandler::insert($_POST['mj_form_name'], $_POST['mj_form_desc'], $_POST['mj_form_action'], $_POST['mj_form_content']);
     		
     		if ($success) {
-    			dcPage::addSuccessNotice(__('The form has been successfully created'));
+    			dcPage::addSuccessNotice(__('The form has been successfully created.'));
     		} else {
-    			$core->error->add(__('An error occurred: the form could not be saved'));
+    			$core->error->add(sprintf(__('The form “%s” already exists. Please choose another name or edit the existing form.'), html::escapeHTML($_POST['mj_form_name'])));
     		}
     	}
     }

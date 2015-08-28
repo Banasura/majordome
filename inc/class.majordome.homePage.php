@@ -32,34 +32,76 @@ class homePage extends page
 	function __construct($view)
 	{
     	parent::__construct($view, 'home', 'My forms');
+    	
+    	// Handle form operations
+    	if (!empty($_POST['delete'])) {
+    		$this->deleteForm();
+    	} elseif (!empty($_POST['edit'])) {
+    		// Add a new specific page to the view, and pass the form ID as parameter
+    		$form_ids = array_keys($_POST['edit']);
+    		$page = $this->view->register('editFormPage', $form_ids[0]);
+    		$this->view->setCurrent($page->id);
+    	}
 	}
 
     public function content()
     {
         global $p_url, $core;
-        $formList = majordomeDBHandler::getFormList();
+        $form_list = majordomeDBHandler::getFormList();
 
-        echo '<h3>', $this->title, '</h3>',
+        echo '<h3 class="no-margin">', $this->title, '</h3>',
+            '<p class="right"><a class="button add" href="#newForm">', __('Create a form'), '</a></p>',
 
             // Display the current form list
-            '<table>',
-            	'<thead>',
-            		'<th>', __('Name'), '</th>',
-            		'<th>', __('Handler'), '</th>',
-            	'</thead>',
-            	'<tbody>';
-        
-			        foreach($formList as $key => $form)
-			        {
-			        	echo '<tr>',
-			        			'<td>', $form->name, '</td>',
-			        			'<td>', $form->handler, '</td>',
-			        		'</tr>';
-			        }
-            		
-
-            	echo '</tbody>',
-            '</table>',
-            '<p><a class="button add" href="#newForm">', __('Create a form'), '</a></p>';
+            '<form method="POST" action="', $p_url, '&amp;page=', $this->id, '">',
+            	$core->formNonce(),
+	            '<table>',
+	            	'<thead>',
+	            		'<th>', __('Name'), '</th>',
+	            		'<th class="nowrap">', __('Handler'), '</th>',
+	            		'<th class="nowrap">', __('Action'), '</th>',
+	            	'</thead>',
+	            	'<tbody>';
+	        
+				        foreach($form_list as $key => $form)
+				        {
+				        	echo '<tr>',
+				        			'<td class="maximal">', $form->name, '</td>',
+				        			'<td class="nowrap">', $form->handler, '</td>',
+				        			'<td class="module-actions nowrap">',
+				        				'<input class="button" type="submit" name="edit[', $form->name, ']" value="', __('Edit'), '"> ',
+				        				'<input class="delete" type="submit" name="delete[', $form->name, ']" value="', __('Delete'), '">',
+				        			'</td>',
+				        		'</tr>';
+				        }
+	            		
+	
+	            	echo '</tbody>',
+	            '</table>',
+			'</form>';
+    }
+    
+    /**
+     * Delete a form
+     */
+    private function deleteForm()
+    {
+    	global $core;
+    	$success = null;
+    	
+    	try {
+	    	foreach($_POST['delete'] as $form_id => $v) {
+	    		$success = $success || majordomeDBHandler::delete($form_id);
+	    	}
+    	} catch (InvalidArgumentException $e) {
+    		dcPage::addErrorNotice(__('Unable to delete the form: unknown form identifier'));
+    		return;
+    	}
+    	
+    	if ($success) {
+    		dcPage::addSuccessNotice(__('The form has been successfully deleted'));
+    	} else {
+    		$core->error->add(__('Unable to delete the form'));
+    	}
     }
 }

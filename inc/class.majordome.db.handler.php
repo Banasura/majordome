@@ -39,25 +39,48 @@ class majordomeDBHandler {
 	/**
 	 * Insert a new form in the database
 	 * @param string 	$name
+	 * @param string 	$desc
 	 * @param string 	$handler
 	 * @param string 	$fields
-	 * @return boolean	true if the insertion succeed
+	 * @return boolean	true if the insertion succeed, false if the form name already exists
 	 */
-	static public function insert($name, $handler, $fields)
+	static public function insert($name, $desc, $handler, $fields)
 	{
 		global $core;
 		$db =& $core->con;
 		$dataSet = $db->openCursor(self::getTableName());
 		
-		// Find the next form ID
-		$res = $db->select('SELECT MAX(id) as m_id FROM ' . self::getTableName());
-		$m_id = $res->m_id;
+		// Look for an already existing form of this name
+		$res = $db->select('SELECT name FROM ' . self::getTableName() .
+						' WHERE name = \'' . $db->escape($name) . '\'');
 		
-		$dataSet->id = $m_id + 1;
+		if (!$res->isEmpty()) {
+			// The form already exists
+			return false;
+		}
+		
 		$dataSet->name = $name;
+		$dataSet->desc = $desc;
 		$dataSet->handler = $handler;
 		$dataSet->fields = $fields;
 		return $dataSet->insert();				
+	}
+	
+	/**
+	 * Delete a form given its name
+	 * @param int $form_id	the identifier of the form
+	 */
+	static public function delete($form_id)
+	{
+		global $core;
+		
+		if (empty($form_id)) {
+			throw new InvalidArgumentException('Form ID is null');
+		}
+
+		$db =& $core->con;
+		$db->execute('DELETE FROM ' . self::getTableName() . ' WHERE name = \'' . $db->escape($form_id) . '\'');
+		return $db->changes() > 0;
 	}
 	
 	/**

@@ -33,4 +33,5 @@ $__autoload['majordomeDBHandler'] = dirname(__FILE__).'/inc/class.majordome.db.h
 $__autoload['view'] = dirname(__FILE__).'/inc/class.majordome.view.php';
 $__autoload['page'] = dirname(__FILE__).'/inc/class.majordome.page.php';
 $__autoload['newFormPage'] = dirname(__FILE__).'/inc/class.majordome.newFormPage.php';
+$__autoload['editFormPage'] = dirname(__FILE__).'/inc/class.majordome.editFormPage.php';
 $__autoload['homePage'] = dirname(__FILE__).'/inc/class.majordome.homePage.php';

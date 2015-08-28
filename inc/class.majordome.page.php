@@ -26,6 +26,23 @@
  ******************************************************************************/
 
 abstract class page {
+	/**
+	 * The ID of the current page
+	 * @var string
+	 */
+	public $id;
+	
+	/**
+	 * The title of the current page
+	 * @var string
+	 */
+	public $title;
+	
+	/**
+	 * The current view instance
+	 * @var view
+	 */
+	public $view;
 	
 	/**
 	 * page class constructor

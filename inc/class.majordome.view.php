@@ -35,12 +35,6 @@ class view
     private $pages;
 
     /**
-     * The default page to display
-     * @var view
-     */
-    private $home;
-    
-    /**
      * The id of the current page displayed
      * @var string
      */
@@ -67,7 +61,6 @@ class view
 	function __construct()
 	{
 		$this->pages = array();
-		$this->home = null;
 		$this->current = isset($_GET['page']) ? $_GET['page'] : 'home';
 		$this->js = array();
 		$this->css = array();
@@ -146,28 +139,42 @@ class view
     	$this->header .= $html;
     }
     
+    /**
+     * Change the page to display by default
+     * @param unknown $id	The ID to display
+     */
+    public function setCurrent($id) {
+    	$this->current = $id;
+    }
+    
 
     /**
      * Register a new page to be displayed. The page must be a subclass of
      * "view".
      * @method register
      * @param  view     $page_class     The class to be added
-     * @param  boolean  $default        Use this page as default
-     * @return void
+     * @param  mixed	$params			An additional parameter to pass to the constructor
+     * @return page						The instance newly created
      */
-    public function register($page_class, $default = false)
+    public function register($page_class, $params = null)
     {
+    	$page = null;
+    	
         if (!is_subclass_of($page_class, 'page')) {
             throw new InvalidArgumentException('Argument does not extend page.');
         }
-
-        $page = new $page_class($this);
+		
+        if (empty($params)) {
+	        $page = new $page_class($this);
+        } else {
+	        $page = new $page_class($this, $params);
+        }
 
         if (empty($page->id)) {
             throw new InvalidArgumentException('Given class "' . $page_class . '" does not have a unique identifier: attribute "id" is missing.');
         }
         
         $this->pages[$page->id] = $page;
-        if ($default === true) $this->home = $page;
+        return $page;
     }
 }

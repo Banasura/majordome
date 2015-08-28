@@ -47,11 +47,11 @@ $core->setVersion('majordome', $current_version);
 // Update the DB
 $s = new dbStruct($core->con,$core->prefix);
 $new_table = $s->table($core->prefix . 'mj_forms');
-$new_table->id('integer',0,false)
-		->name('varchar', 50, false)
+$new_table->name('varchar', 50, false)
+		->desc('varchar', 250, true)
 		->handler('varchar', 50, false)
 		->fields('text', 0, false)
-		->primary('pk_mj_forms', 'id');
+		->primary('pk_mj_forms', 'name');
 
 $sync = new dbStruct($core->con, $core->prefix);
 $changes = $sync->synchronize($s);
