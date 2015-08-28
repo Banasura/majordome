@@ -11,8 +11,6 @@ This project use some resources from other people.
 
 - The original Majordome's icon comes from [Mihaiciuc Bogdan](http://bogo-d.deviantart.com/)
 
-[![Dotclear](http://fr.dotclear.org/affiliates/o-logo.png)]()
-
 ## License
 
 This project is distributed under the **MIT** license. You can read more about

@@ -96,15 +96,12 @@ class newFormPage extends page
     private function saveForm()
     {
     	global $core;
-    	$title = null;
     	
     	// Form name check
     	if (empty($_POST['mj_form_name'])) {
     		$core->error->add(__('Please enter a form name'));
     	} elseif (strlen($_POST['mj_form_name']) > 50) {
     		$core->error->add(__('The form name is too long'));
-    	} else {
-    		$title = htmlentities($_POST['mj_form_name']);
     	}
     	
     	// Form data handler check
@@ -122,10 +119,13 @@ class newFormPage extends page
     	if ($core->error->flag() === false) {
     		// The form is valid, we store the result in the DB
     		$db =& $core->con;
+    		$success = majordomeDBHandler::insert($_POST['mj_form_name'], $_POST['mj_form_action'], $_POST['mj_form_content']);
     		
-    		// TODO Implement save
-    		
-    		dcPage::addSuccessNotice(__('The form has been successfully created'));
+    		if ($success) {
+    			dcPage::addSuccessNotice(__('The form has been successfully created'));
+    		} else {
+    			$core->error->add(__('An error occurred: the form could not be saved'));
+    		}
     	}
     }
 }

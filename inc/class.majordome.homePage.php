@@ -37,11 +37,29 @@ class homePage extends page
     public function content()
     {
         global $p_url, $core;
+        $formList = majordomeDBHandler::getFormList();
 
         echo '<h3>', $this->title, '</h3>',
 
-            // TODO Display the current form list
+            // Display the current form list
+            '<table>',
+            	'<thead>',
+            		'<th>', __('Name'), '</th>',
+            		'<th>', __('Handler'), '</th>',
+            	'</thead>',
+            	'<tbody>';
+        
+			        foreach($formList as $key => $form)
+			        {
+			        	echo '<tr>',
+			        			'<td>', $form->name, '</td>',
+			        			'<td>', $form->handler, '</td>',
+			        		'</tr>';
+			        }
+            		
 
-            '<a class="button add" href="#newForm">', __('Create a form'), '</a>';
+            	echo '</tbody>',
+            '</table>',
+            '<p><a class="button add" href="#newForm">', __('Create a form'), '</a></p>';
     }
 }

@@ -29,6 +29,7 @@ if (!defined('DC_RC_PATH')) { return; }
 
 global $__autoload;
 $__autoload['majordome'] = dirname(__FILE__).'/inc/lib.majordome.php';
+$__autoload['majordomeDBHandler'] = dirname(__FILE__).'/inc/class.majordome.db.handler.php';
 $__autoload['view'] = dirname(__FILE__).'/inc/class.majordome.view.php';
 $__autoload['page'] = dirname(__FILE__).'/inc/class.majordome.page.php';
 $__autoload['newFormPage'] = dirname(__FILE__).'/inc/class.majordome.newFormPage.php';
