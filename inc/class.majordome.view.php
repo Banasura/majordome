@@ -52,12 +52,6 @@ class view
      */
     private $css;
     
-    /**
-     * Custom header to inject in the view
-     * @var unknown
-     */
-    private $header;
-    
 	function __construct()
 	{
 		$this->pages = array();
@@ -76,17 +70,17 @@ class view
     {
     	global $p_url;
 
-        echo '<html>',
+        echo '<!doctype html>',
+        	'<html>',
                 '<head>',
                 	dcPage::jsPageTabs($this->current);
         
 			        // Add the CSS files
 			        foreach ($this->css as $key => $file) {
-			        	echo '<link rel="stylesheet" type="text/css" href="', $file, '">';
+			        	echo '<link rel="stylesheet" type="text/css" href="', $file, '"/>';
 			        }
         
        echo	        '<title>Majordome</title>',
-       				$this->header,
                 '</head>',
                 '<body>',
                     dcPage::breadcrumb(array(__('Plugins') => '', 'Majordome' => ''));
@@ -99,11 +93,8 @@ class view
 			        }
 			        
 			        // Add the JS files
-			        foreach ($this->js as $key => $file) {
-			        	echo '<script src="', $file, '"></script>';
-			        }
-
-        echo	'</body>',
+			   		echo implode('', $this->js),
+        		'</body>',
             '</html>';
     }
     
@@ -120,23 +111,14 @@ class view
     
     /**
      * Add a Javascript file to the page.
-     * @param string $path	The path to the file
+     * @param string $path	The path to the file or its content if $inline is set to true
+     * @param boolean $inline Is it an inline script?
      * @return void
      */
-    public function addJs($path)
+    public function addJs($path, $inline = false)
     {
-    	// Remove backslashes if any and replace them by slashes
-    	$this->js[] = str_replace("\\", '/', $path);
-    }
-    
-    /**
-     * Inject an HTML string into the <head> tag of the page
-     * @param string $html The string to inject
-     * @return void
-     */
-    public function addHeader($html)
-    {
-    	$this->header .= $html;
+    	$this->js[] = $inline 	? '<script>' . $path . '</script>'
+    							: '<script src="' . $path . '" type="text/javascript"></script>';
     }
     
     /**

@@ -26,11 +26,6 @@
 
 // Init the form builder page
 ;(function () {
-	// FIXME Find a proper way to inject the CSS in the plugin page
-	$(document.head).append('<link rel="stylesheet" href="../plugins/majordome/js/formbuilder/dist/formbuilder.css">')
-					.append('<link rel="stylesheet" href="../plugins/majordome/vendor/vendor.css">')
-					.append('<link rel="stylesheet" href="../plugins/majordome/css/admin.css">');
-	
 	Formbuilder.options.AUTOSAVE = false;
 	
 	var formbuilder = new Formbuilder({

@@ -10,17 +10,17 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.initConfig({
         pkg: '<json:package.json>',
         srcFolder: 'src',
         distFolder: 'dist',
-        vendorFolder: 'vendor',
 
         concat: {
             all: {
                 files: {
-                    '<%= vendorFolder %>/vendor.js': [
+                    'js/vendor.js': [
                         'bower_components/ie8-node-enum/index.js',
                         'bower_components/jquery-ui/ui/jquery.ui.core.js',
                         'bower_components/jquery-ui/ui/jquery.ui.widget.js',
@@ -34,15 +34,12 @@ module.exports = function(grunt) {
                         'bower_components/rivets/dist/rivets.js',
                         'bower_components/backbone/backbone.js',
                         'bower_components/backbone-deep-model/src/deep-model.js'
-                    ],
-                    '<%= vendorFolder %>/vendor.css': [
-                        'bower_components/font-awesome/css/font-awesome.css'
                     ]
                 }
             },
             mobile_friendly: {
                 files: {
-                    '<%= vendorFolder %>/js/vendor_mobile_friendly.js': [
+                    'js/vendor_mobile_friendly.js': [
                         'bower_components/ie8-node-enum/index.js',
                         'bower_components/jquery.scrollWindowTo/index.js',
                         'bower_components/underscore.mixin.deepExtend/index.js',
@@ -56,7 +53,7 @@ module.exports = function(grunt) {
         cssmin: {
             dist: {
                 files: {
-                    '<%= vendorFolder %>/vendor.css': 'bower_components/font-awesome/css/font-awesome.css'
+                    'css/admin.css': 'css/admin.css'
                 }
             }
         },
@@ -64,7 +61,16 @@ module.exports = function(grunt) {
         uglify: {
             dist: {
                 files: {
-                    '<%= vendorFolder %>/vendor.js': '<%= distFolder %>/vendor.js'
+                    'js/vendor.js': '<%= distFolder %>/vendor.js'
+                }
+            }
+        },
+
+        copy: {
+            dist: {
+                files: {
+                    src: 'inc/**',
+                    dest: 'dist/inc/'
                 }
             }
         }
@@ -72,5 +78,5 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ALL_TASKS);
     grunt.registerTask('mobile_friendly', ['concat:mobile_friendly']);
-    return grunt.registerTask('dist', ['cssmin:dist', 'uglify:dist']);
+    return grunt.registerTask('dist', ['cssmin:dist', 'uglify:dist', 'copy:dist']);
 };

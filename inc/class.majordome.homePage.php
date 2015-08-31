@@ -32,6 +32,7 @@ class homePage extends page
 	function __construct($view)
 	{
     	parent::__construct($view, 'home', 'My forms');
+    	$this->view->addCss(dcPage::getPF('majordome/css/admin.css'));
     	
     	// Handle form operations
     	if (!empty($_POST['delete'])) {
