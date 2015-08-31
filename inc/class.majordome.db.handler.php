@@ -90,7 +90,7 @@ class majordomeDBHandler {
 	{
 		global $core;
 		$db =& $core->con;
-		$list = $db->select('SELECT name, handler FROM ' . self::getFullTableName());
+		$list = $db->select('SELECT \'name\', \'desc\', \'handler\' FROM ' . self::getFullTableName());
 		return $list;
 	}
 	

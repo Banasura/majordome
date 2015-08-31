@@ -55,31 +55,39 @@ class homePage extends page
 
             // Display the current form list
             '<form method="POST" action="', $p_url, '&amp;page=', $this->id, '">',
-            	$core->formNonce(),
-	            '<table>',
-	            	'<thead>',
-	            		'<th>', __('Name'), '</th>',
-	            		'<th class="nowrap">', __('Handler'), '</th>',
-	            		'<th class="nowrap">', __('Action'), '</th>',
-	            	'</thead>',
-	            	'<tbody>';
-	        
-				        foreach($form_list as $key => $form)
-				        {
-				        	echo '<tr>',
-				        			'<td class="maximal">', $form->name, '</td>',
-				        			'<td class="nowrap">', $form->handler, '</td>',
-				        			'<td class="module-actions nowrap">',
-				        				'<input class="button" type="submit" name="edit[', $form->name, ']" value="', __('Edit'), '"> ',
-				        				'<input class="delete" type="submit" name="delete[', $form->name, ']" value="', __('Delete'), '">',
-				        			'</td>',
-				        		'</tr>';
-				        }
-	            		
-	
+            	$core->formNonce();
+
+				if ($form_list->isEmpty()) {
+					// Display a message instead of table
+					echo '<p>', __('You currently do not have any form. Create one by clicking the button!'), '</p>';
+				} else {
+					// Display each existing form
+	            	echo '<table>',
+							'<thead>',
+								'<th>', __('Identifier'), '</th>',
+								'<th>', __('Description'), '</th>',
+								'<th class="nowrap">', __('Handler'), '</th>',
+								'<th class="nowrap">', __('Action'), '</th>',
+							'</thead>',
+							'<tbody>';
+
+					foreach($form_list as $key => $form)
+					{
+						echo '<tr>',
+								'<td class="nowrap">', $form->name, '</td>',
+								'<td class="maximal">', $form->desc, '</td>',
+								'<td class="nowrap">', $form->handler, '</td>',
+								'<td class="module-actions nowrap">',
+									'<input class="button" type="submit" name="edit[', $form->name, ']" value="', __('Edit'), '"> ',
+									'<input class="delete" type="submit" name="delete[', $form->name, ']" value="', __('Delete'), '">',
+								'</td>',
+							'</tr>';
+					}
 	            	echo '</tbody>',
-	            '</table>',
-			'</form>';
+	            		'</table>';
+				}
+
+			echo '</form>';
     }
     
     /**
