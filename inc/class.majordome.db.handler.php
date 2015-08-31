@@ -48,10 +48,10 @@ class majordomeDBHandler {
 	{
 		global $core;
 		$db =& $core->con;
-		$dataSet = $db->openCursor(self::getTableName());
+		$dataSet = $db->openCursor(self::getFullTableName());
 		
 		// Look for an already existing form of this name
-		$res = $db->select('SELECT name FROM ' . self::getTableName() .
+		$res = $db->select('SELECT name FROM ' . self::getFullTableName() .
 						' WHERE name = \'' . $db->escape($name) . '\'');
 		
 		if (!$res->isEmpty()) {
@@ -79,7 +79,7 @@ class majordomeDBHandler {
 		}
 
 		$db =& $core->con;
-		$db->execute('DELETE FROM ' . self::getTableName() . ' WHERE name = \'' . $db->escape($form_id) . '\'');
+		$db->execute('DELETE FROM ' . self::getFullTableName() . ' WHERE name = \'' . $db->escape($form_id) . '\'');
 		return $db->changes() > 0;
 	}
 	
@@ -90,11 +90,16 @@ class majordomeDBHandler {
 	{
 		global $core;
 		$db =& $core->con;
-		$list = $db->select('SELECT name, handler FROM ' . self::getTableName());
+		$list = $db->select('SELECT name, handler FROM ' . self::getFullTableName());
 		return $list;
 	}
 	
 	static public function getTableName()
+	{
+		return self::$TABLE_NAME;
+	}
+
+	static public function getFullTableName()
 	{
 		return DC_DBPREFIX . self::$TABLE_NAME;
 	}

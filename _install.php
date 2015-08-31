@@ -46,7 +46,7 @@ $core->setVersion('majordome', $current_version);
 
 // Update the DB
 $s = new dbStruct($core->con,$core->prefix);
-$new_table = $s->table($core->prefix . 'mj_forms');
+$new_table = $s->table('mj_forms');
 $new_table->name('varchar', 50, false)
 		->desc('varchar', 250, true)
 		->handler('varchar', 50, false)

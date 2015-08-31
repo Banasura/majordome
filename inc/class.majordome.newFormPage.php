@@ -110,12 +110,12 @@ class newFormPage extends page
         			'<p>',
         				'<label class="required" for="mj_form_name">',
         					'<abbr title="', __('Required field'), '">*</abbr>',
-        					__('Form name'),
+        					__('Form identifier'),
         				'</label>',
         				form::field('mj_form_name', 50, 50, ''),
         			'</p>',
         			'<p class="form-note">',
-        				__('The name of the form will allow you to identify later. Only use alphanumeric characters (a-zA-Z0-9) or dashes.'),
+        				__('This field will allow you to identify your form later. Only use alphanumeric characters (a-zA-Z0-9) or dashes.'),
         			'</p>',
 
         			'<p>',
@@ -151,9 +151,9 @@ class newFormPage extends page
 
     	// Form name check
     	if (empty($_POST['mj_form_name'])) {
-    		$core->error->add(__('Please enter a form name.'));
+    		$core->error->add(__('Please enter a form identifier.'));
     	} elseif (strlen($_POST['mj_form_name']) > 50) {
-    		$core->error->add(__('The form name is too long.'));
+    		$core->error->add(__('The form identifier is too long.'));
     	}
 
     	// Form description check

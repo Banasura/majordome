@@ -83,7 +83,8 @@ class view
        echo	        '<title>Majordome</title>',
                 '</head>',
                 '<body>',
-                    dcPage::breadcrumb(array(__('Plugins') => '', 'Majordome' => ''));
+                    dcPage::breadcrumb(array(__('Plugins') => '', 'Majordome' => '')),
+                    dcPage::notices();
 
 			        // Display the tabs
 			        foreach ($this->pages as $id_page => $page) {

@@ -5,6 +5,10 @@
   "authors": [
     "William Hiver <william|dot|hiver|at|free|dot|fr>"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Banasura/majordome.git"
+  },
   "description": "A Dotclear plugin which allow user to easily create and manage user forms.",
   "main": "Gruntfile.coffee",
   "devDependencies": {

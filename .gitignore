@@ -5,3 +5,5 @@
 /node_modules
 /vendor
 /js/vendor.js
+.idea
+maquette.ep
