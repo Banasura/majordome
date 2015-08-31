@@ -154,7 +154,9 @@ class newFormPage extends page
     		$core->error->add(__('Please enter a form identifier.'));
     	} elseif (strlen($_POST['mj_form_name']) > 50) {
     		$core->error->add(__('The form identifier is too long.'));
-    	}
+    	} elseif (preg_match('/^[-_a-zA-Z0-9]+$/', $_POST['mj_form_name']) !== 1) {
+			$core->error->add(__('The form identifier must contain only alphanumeric or dashes characters.'));
+		}
 
     	// Form description check
     	if (!empty($_POST['mj_form_desc']) && strlen($_POST['mj_form_desc']) > 250) {
