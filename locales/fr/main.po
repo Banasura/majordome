@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Majordome 0.1.0\n"
-"POT-Creation-Date: 2015-09-17 14:35+0100\n"
-"PO-Revision-Date: 2015-09-17 14:36+0100\n"
+"POT-Creation-Date: 2015-09-17 18:13+0100\n"
+"PO-Revision-Date: 2015-09-17 18:14+0100\n"
 "Last-Translator: William Hiver <william DOT hiver AT ovh DOT fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -58,10 +58,18 @@ msgid "Action"
 msgstr "Action"
 
 #: inc/class.majordome.homePage.php:79
+msgid "Show this form on the blog"
+msgstr "Voir ce formulaire sur le blog"
+
+#: inc/class.majordome.homePage.php:79
+msgid "Show"
+msgstr "Voir"
+
+#: inc/class.majordome.homePage.php:80
 msgid "Edit"
 msgstr "Éditer"
 
-#: inc/class.majordome.homePage.php:80
+#: inc/class.majordome.homePage.php:81
 msgid "Delete"
 msgstr "Supprimer"
 
