@@ -102,7 +102,7 @@ class newFormPage extends page
     	global $core, $p_url;
 
         echo '<h3>', $this->title, '</h3>',
-        	'<p>', __('Create a new form by entering its name and choosing its fields. You will then be able to add your brand new form wherever you want in your blog.'), '</p>',
+        	'<p>', __('Create a new form by entering its title and choosing its fields. You will then be able to add your brand new form wherever you want in your blog.'), '</p>',
         	'<form method="POST" id="mj_new_form" action="', $p_url, '&amp;page=', $this->id, '">',
         		$core->formNonce(),
         		'<div class="fieldset">',
@@ -110,12 +110,12 @@ class newFormPage extends page
         			'<p>',
         				'<label class="required" for="mj_form_name">',
         					'<abbr title="', __('Required field'), '">*</abbr>',
-        					__('Form identifier'),
+        					__('Form name'),
         				'</label>',
         				form::field('mj_form_name', 50, 50, ''),
         			'</p>',
         			'<p class="form-note">',
-        				__('This field will allow you to identify your form later. Only use alphanumeric characters (a-zA-Z0-9) or dashes.'),
+        				__('The form name must not exceed 50 characters.'),
         			'</p>',
 
         			'<p>',
@@ -124,6 +124,9 @@ class newFormPage extends page
         				'</label>',
         				form::field('mj_form_desc', 50, 255, ''),
         			'</p>',
+					'<p class="form-note">',
+					__('The form description must not exceed 250 characters.'),
+					'</p>',
 
         			'<p>',
         				'<label class="required" for="mj_form_action">',
@@ -151,12 +154,10 @@ class newFormPage extends page
 
     	// Form name check
     	if (empty($_POST['mj_form_name'])) {
-    		$core->error->add(__('Please enter a form identifier.'));
+    		$core->error->add(__('Please enter a form name.'));
     	} elseif (strlen($_POST['mj_form_name']) > 50) {
-    		$core->error->add(__('The form identifier is too long.'));
-    	} elseif (preg_match('/^[-_a-zA-Z0-9]+$/', $_POST['mj_form_name']) !== 1) {
-			$core->error->add(__('The form identifier must contain only alphanumeric or dashes characters.'));
-		}
+    		$core->error->add(__('The form name is too long.'));
+    	}
 
     	// Form description check
     	if (!empty($_POST['mj_form_desc']) && strlen($_POST['mj_form_desc']) > 250) {

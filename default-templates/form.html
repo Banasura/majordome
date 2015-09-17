@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+    <meta charset=UTF-8">
+    <meta name="MSSmartTagsPreventParsing" content="TRUE" />
+
+    <title>{{tpl:FormName}} - {{tpl:BlogName encode_html="1"}}</title>
+
+    {{tpl:include src="_head.html"}}
+</head>
+
+<body class="dc-majordomePublicPage">
+<div id="page">
+    {{tpl:include src="_top.html"}}
+
+    <div id="wrapper">
+
+        <div id="main">
+            <div id="content">
+
+                <div id="content-info">
+                    <h2>{{tpl:FormName}}</h2>
+                    <p class="form-desc">{{tpl:FormDescription}}</p>
+                </div>
+
+                <div class="content-inner">
+                    <form class="majordome-form">
+                        <tpl:FormItems>
+                            {{tpl:FormItem}}
+                        </tpl:FormItems>
+                    </form>
+                </div>
+
+            </div>
+        </div> <!-- End #main -->
+
+        <div id="sidebar">
+            <div id="blognav">
+                {{tpl:Widgets type="nav"}}
+            </div> <!-- End #blognav -->
+
+            <div id="blogextra">
+                {{tpl:Widgets type="extra"}}
+            </div> <!-- End #blogextra -->
+        </div>
+
+    </div> <!-- End #wrapper -->
+
+    {{tpl:include src="_footer.html"}}
+</div> <!-- End #page -->
+</body>
+</html>

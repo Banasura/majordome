@@ -47,22 +47,36 @@ class majordomeDBHandler {
 	static public function insert($name, $desc, $handler, $fields)
 	{
 		global $core;
+		$id = 0;
 		$db =& $core->con;
 		$dataSet = $db->openCursor(self::getFullTableName());
 		
-		// Look for an already existing form of this name
-		$res = $db->select('SELECT name FROM ' . self::getFullTableName() .
-						' WHERE name = \'' . $db->escape($name) . '\'');
-		
+		// Look for the last form ID
+		$res = $db->select('SELECT MAX(form_id) as lastid FROM ' . self::getFullTableName() . ';');
+
 		if (!$res->isEmpty()) {
-			// The form already exists
-			return false;
+			// We use the next id, which should be available
+			$id = $res->lastid + 1;
 		}
-		
-		$dataSet->name = $name;
-		$dataSet->desc = $desc;
-		$dataSet->handler = $handler;
-		$dataSet->fields = $fields;
+
+		// Create a unique form URL
+		$res = $db->select('SELECT COUNT(form_name) AS nbf FROM ' . self::getFullTableName() .
+							' WHERE form_name = \'' . $db->escape($name) . '\';');
+
+		$url = html::escapeURL($name);
+
+		if ($res->nbf > 0) {
+			// At least one other form with the same name exists: we add a number
+			// at the end of the URL to avoid conflicts
+			$url .= $res->nbf + 1;
+		}
+
+		$dataSet->form_id = $id;
+		$dataSet->form_url = $url;
+		$dataSet->form_name = $name;
+		$dataSet->form_desc = $desc;
+		$dataSet->form_handler = $handler;
+		$dataSet->form_fields = $fields;
 		return $dataSet->insert();				
 	}
 	
@@ -74,12 +88,14 @@ class majordomeDBHandler {
 	{
 		global $core;
 		
-		if (empty($form_id)) {
+		if (!isset($form_id)) {
 			throw new InvalidArgumentException('Form ID is null');
+		} elseif (!is_int($form_id)) {
+			$form_id = (int) $form_id;
 		}
 
 		$db =& $core->con;
-		$db->execute('DELETE FROM ' . self::getFullTableName() . ' WHERE name = \'' . $db->escape($form_id) . '\'');
+		$db->execute('DELETE FROM ' . self::getFullTableName() . ' WHERE form_id = ' . $form_id . ';');
 		return $db->changes() > 0;
 	}
 	
@@ -90,8 +106,24 @@ class majordomeDBHandler {
 	{
 		global $core;
 		$db =& $core->con;
-		$list = $db->select('SELECT `name`, `desc`, `handler` FROM ' . self::getFullTableName());
+		$list = $db->select('SELECT `form_id`, `form_url`, `form_name`, `form_handler` FROM ' . self::getFullTableName());
 		return $list;
+	}
+
+	/**
+	 * Returns the content of a form
+	 * @param int $url The form URL
+	 * @return DBResult|boolean the form or false if no form found
+	 */
+	static public function getFormData($url)
+	{
+		global $core;
+		$db =& $core->con;
+
+		$data = $db->select('SELECT * FROM ' . self::getFullTableName()
+							. ' WHERE form_url = \'' . $db->escape($url) . '\';');
+
+		return $data->isEmpty() ? false : $data;
 	}
 	
 	static public function getTableName()

@@ -35,3 +35,7 @@ $__autoload['page'] = dirname(__FILE__).'/inc/class.majordome.page.php';
 $__autoload['newFormPage'] = dirname(__FILE__).'/inc/class.majordome.newFormPage.php';
 $__autoload['editFormPage'] = dirname(__FILE__).'/inc/class.majordome.editFormPage.php';
 $__autoload['homePage'] = dirname(__FILE__).'/inc/class.majordome.homePage.php';
+$__autoload['formView'] = dirname(__FILE__).'/inc/class.majordome.formView.php';
+
+// Register Majordome's public URLs
+$core->url->register('majordome_view','form','^form/(.+)$',array('formView','handleURL'));

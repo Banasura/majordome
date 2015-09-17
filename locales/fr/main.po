@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Majordome 0.1.0\n"
-"POT-Creation-Date: 2015-08-31 22:31+0100\n"
-"PO-Revision-Date: 2015-08-31 22:31+0100\n"
+"POT-Creation-Date: 2015-09-17 14:35+0100\n"
+"PO-Revision-Date: 2015-09-17 14:36+0100\n"
 "Last-Translator: William Hiver <william DOT hiver AT ovh DOT fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -46,39 +46,35 @@ msgstr ""
 "cliquant sur le bouton !"
 
 #: inc/class.majordome.homePage.php:67
-msgid "Identifier"
-msgstr "Identifiant"
+msgid "Name"
+msgstr "Nom"
 
 #: inc/class.majordome.homePage.php:68
-msgid "Description"
-msgstr "Description"
-
-#: inc/class.majordome.homePage.php:69
 msgid "Handler"
 msgstr "Mode de traitement"
 
-#: inc/class.majordome.homePage.php:70
+#: inc/class.majordome.homePage.php:69
 msgid "Action"
 msgstr "Action"
 
-#: inc/class.majordome.homePage.php:81
+#: inc/class.majordome.homePage.php:79
 msgid "Edit"
 msgstr "Éditer"
 
-#: inc/class.majordome.homePage.php:82
+#: inc/class.majordome.homePage.php:80
 msgid "Delete"
 msgstr "Supprimer"
 
-#: inc/class.majordome.homePage.php:106
+#: inc/class.majordome.homePage.php:104
 msgid "Unable to delete the form: unknown form identifier"
 msgstr ""
 "Impossible de supprimer le formulaire : identifiant du formulaire invalide"
 
-#: inc/class.majordome.homePage.php:111
+#: inc/class.majordome.homePage.php:109
 msgid "The form has been successfully deleted"
 msgstr "Le formulaire a été supprimé avec succès"
 
-#: inc/class.majordome.homePage.php:113
+#: inc/class.majordome.homePage.php:111
 msgid "Unable to delete the form"
 msgstr "Impossible de supprimer le formulaire"
 
@@ -188,11 +184,11 @@ msgstr "Minimum/Maximum"
 
 #: inc/class.majordome.newFormPage.php:68
 msgid "Above"
-msgstr "Borne supérieure"
+msgstr "Maximum"
 
 #: inc/class.majordome.newFormPage.php:69
 msgid "Below"
-msgstr "Borne inférieure"
+msgstr "Minimum"
 
 #: inc/class.majordome.newFormPage.php:70
 msgid "Length limit"
@@ -268,7 +264,7 @@ msgstr "Sans titre"
 
 #: inc/class.majordome.newFormPage.php:105
 msgid ""
-"Create a new form by entering its name and choosing its fields. You will "
+"Create a new form by entering its title and choosing its fields. You will "
 "then be able to add your brand new form wherever you want in your blog."
 msgstr ""
 "Créez un nouveau formulaire en saisissant son nom et en lui ajoutant des "
@@ -280,75 +276,68 @@ msgid "Form options"
 msgstr "Options du formulaire"
 
 #: inc/class.majordome.newFormPage.php:112
-#: inc/class.majordome.newFormPage.php:130
+#: inc/class.majordome.newFormPage.php:133
 msgid "Required field"
 msgstr "Champ requis"
 
 #: inc/class.majordome.newFormPage.php:113
-msgid "Form identifier"
-msgstr "Identifiant du formulaire"
+msgid "Form name"
+msgstr "Nom du formulaire"
 
 #: inc/class.majordome.newFormPage.php:118
-msgid ""
-"This field will allow you to identify your form later. Only use alphanumeric "
-"characters (a-zA-Z0-9) or dashes."
-msgstr ""
-"Ce champ vous permettra d'identifier votre formulaire par la suite. Seuls "
-"les caractères alphanumériques (a-zA-Z0-9) et les tirets sont acceptés."
+msgid "The form name must not exceed 50 characters."
+msgstr "Le nom du formulaire ne doit pas dépasser 50 caractères."
 
 #: inc/class.majordome.newFormPage.php:123
 msgid "Form description"
 msgstr "Description du formulaire"
 
-#: inc/class.majordome.newFormPage.php:131
+#: inc/class.majordome.newFormPage.php:128
+msgid "The form description must not exceed 250 characters."
+msgstr "La description du formulaire ne doit pas dépasser 250 caractères."
+
+#: inc/class.majordome.newFormPage.php:134
 msgid "Data handling"
 msgstr "Traitement des réponses"
 
-#: inc/class.majordome.newFormPage.php:137
+#: inc/class.majordome.newFormPage.php:140
 msgid "Form fields"
 msgstr "Champs du formulaire"
 
-#: inc/class.majordome.newFormPage.php:141
+#: inc/class.majordome.newFormPage.php:144
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: inc/class.majordome.newFormPage.php:154
-msgid "Please enter a form identifier."
-msgstr "Veuillez saisir un identifiant de formulaire"
+#: inc/class.majordome.newFormPage.php:157
+msgid "Please enter a form name."
+msgstr "Veuillez saisir un nom de formulaire."
 
-#: inc/class.majordome.newFormPage.php:156
-msgid "The form identifier is too long."
-msgstr "L'identifiant du formulaire est trop long."
+#: inc/class.majordome.newFormPage.php:159
+msgid "The form name is too long."
+msgstr "Le nom du formulaire est trop long."
 
-#: inc/class.majordome.newFormPage.php:158
-msgid ""
-"The form identifier must contain only alphanumeric or dashes characters."
-msgstr ""
-"L'identifiant du formulaire ne doit contenir que des caractères "
-"alphanumériques ou des tirets."
-
-#: inc/class.majordome.newFormPage.php:163
+#: inc/class.majordome.newFormPage.php:164
 msgid "The form description is too long."
 msgstr "La description du formulaire est trop longue."
 
-#: inc/class.majordome.newFormPage.php:168
+#: inc/class.majordome.newFormPage.php:169
 msgid "Please choose a handler for the form results."
 msgstr ""
 "Veuillez choisir une méthode de traitement des résultats du formulaire."
 
-#: inc/class.majordome.newFormPage.php:170
+#: inc/class.majordome.newFormPage.php:171
 msgid "The chosen data handler does not exists."
 msgstr "La méthode de traitement des résultats choisie n'existe pas."
 
-#: inc/class.majordome.newFormPage.php:175
+#: inc/class.majordome.newFormPage.php:176
 msgid "The form has no field."
 msgstr "Le formulaire ne comporte aucun champ."
 
-#: inc/class.majordome.newFormPage.php:184
+#: inc/class.majordome.newFormPage.php:185
 msgid "The form has been successfully created."
 msgstr "Le formulaire a été créé avec succès."
 
-#: inc/class.majordome.newFormPage.php:186
+#: inc/class.majordome.newFormPage.php:187
 #, php-format
 msgid ""
 "The form “%s” already exists. Please choose another name or edit the "
@@ -361,11 +350,41 @@ msgstr ""
 msgid "Plugins"
 msgstr "Plugins"
 
-#~ msgid "Name"
-#~ msgstr "Nom"
+#~ msgid "Identifier"
+#~ msgstr "Identifiant"
 
-#~ msgid "Form name"
-#~ msgstr "Nom du formulaire"
+#~ msgid "Description"
+#~ msgstr "Description"
+
+#~ msgid ""
+#~ "Create a new form by entering its name and choosing its fields. You will "
+#~ "then be able to add your brand new form wherever you want in your blog."
+#~ msgstr ""
+#~ "Créez un nouveau formulaire en saisissant son nom et en lui ajoutant des "
+#~ "champs. Vous pourrez ensuite l'ajouter à l'emplacement que vous souhaitez "
+#~ "de votre blog."
+
+#~ msgid "Form identifier"
+#~ msgstr "Identifiant du formulaire"
+
+#~ msgid ""
+#~ "This field will allow you to identify your form later. Only use "
+#~ "alphanumeric characters (a-zA-Z0-9) or dashes."
+#~ msgstr ""
+#~ "Ce champ vous permettra d'identifier votre formulaire par la suite. Seuls "
+#~ "les caractères alphanumériques (a-zA-Z0-9) et les tirets sont acceptés."
+
+#~ msgid "Please enter a form identifier."
+#~ msgstr "Veuillez saisir un identifiant de formulaire"
+
+#~ msgid "The form identifier is too long."
+#~ msgstr "L'identifiant du formulaire est trop long."
+
+#~ msgid ""
+#~ "The form identifier must contain only alphanumeric or dashes characters."
+#~ msgstr ""
+#~ "L'identifiant du formulaire ne doit contenir que des caractères "
+#~ "alphanumériques ou des tirets."
 
 #~ msgid ""
 #~ "The name of the form will allow you to identify later. Only use "
@@ -374,12 +393,6 @@ msgstr "Plugins"
 #~ "Le nom du formulaire vous permettra de l'identifier par la suite. Il ne "
 #~ "peut comporter que des caractères alphanumériques (a-zA-Z0-9) et des "
 #~ "tirets (-_)"
-
-#~ msgid "Please enter a form name."
-#~ msgstr "Veuillez saisir un nom de formulaire."
-
-#~ msgid "The form name is too long."
-#~ msgstr "Le nom du formulaire est trop long."
 
 #~ msgid "The form "
 #~ msgstr "Le formulaire"

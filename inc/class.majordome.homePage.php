@@ -64,8 +64,7 @@ class homePage extends page
 					// Display each existing form
 	            	echo '<table>',
 							'<thead>',
-								'<th>', __('Identifier'), '</th>',
-								'<th>', __('Description'), '</th>',
+								'<th>', __('Name'), '</th>',
 								'<th class="nowrap">', __('Handler'), '</th>',
 								'<th class="nowrap">', __('Action'), '</th>',
 							'</thead>',
@@ -74,12 +73,12 @@ class homePage extends page
 					foreach($form_list as $key => $form)
 					{
 						echo '<tr>',
-								'<td class="nowrap">', $form->name, '</td>',
-								'<td class="maximal">', $form->desc, '</td>',
-								'<td class="nowrap">', $form->handler, '</td>',
+								'<td class="maximal">', html::escapeHTML($form->form_name), '</td>',
+								'<td class="nowrap">', html::escapeHTML($form->form_handler), '</td>',
 								'<td class="module-actions nowrap">',
-									'<input class="button" type="submit" name="edit[', $form->name, ']" value="', __('Edit'), '"> ',
-									'<input class="delete" type="submit" name="delete[', $form->name, ']" value="', __('Delete'), '">',
+									'<a class="button" href="', $core->blog->url, $core->url->getBase('majordome_view'), '/', $form->form_url, '" title="', __('Show this form on the blog'), '">',  __('Show'), '</a> ',
+									'<input class="button" type="submit" name="edit[', $form->form_id, ']" value="', __('Edit'), '"> ',
+									'<input class="delete" type="submit" name="delete[', $form->form_id, ']" value="', __('Delete'), '">',
 								'</td>',
 							'</tr>';
 					}
@@ -99,9 +98,8 @@ class homePage extends page
     	$success = null;
     	
     	try {
-	    	foreach($_POST['delete'] as $form_id => $v) {
-	    		$success = $success || majordomeDBHandler::delete($form_id);
-	    	}
+			$to_delete = array_keys($_POST['delete']);
+			$success = majordomeDBHandler::delete($to_delete[0]);
     	} catch (InvalidArgumentException $e) {
     		dcPage::addErrorNotice(__('Unable to delete the form: unknown form identifier'));
     		return;

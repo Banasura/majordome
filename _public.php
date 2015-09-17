@@ -29,15 +29,7 @@ if (!defined('DC_RC_PATH')) { return; }
 
 global $core;
 
-$core->url->register('helloworld','helloworld','^helloworld$',array('HelloURL','HelloWorld'));
-
-class HelloURL extends dcUrlHandlers
-{
-        public static function HelloWorld($args)
-        {
-                header('Content-Type: text/plain');
-                echo 'Hello World!';
-                exit;
-        }
-}
-
+// Register new specific Majordome's template tags
+$core->tpl->addValue('FormName', array('formView','formName'));
+$core->tpl->addValue('FormDescription', array('formView','formDescription'));
+$core->tpl->addBlock('FormItems',array('formView','formItems'));
