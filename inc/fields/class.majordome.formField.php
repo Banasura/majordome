@@ -1,4 +1,5 @@
 <?php
+
 /*******************************************************************************
  *
  * The MIT License (MIT)
@@ -23,13 +24,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
+ * ***
+ *
+ * Main class to get the HTML code corresponding to a form field
+ *
  ******************************************************************************/
 
-if (!defined('DC_RC_PATH')) { return; }
+abstract class formField
+{
+    /**
+     * Render the HTML of the field
+     * @param $field_content    The parameters of the field
+     * @return string           The generated HTML
+     */
+    abstract public static function render($field_content);
 
-global $core;
+    /**
+     * Returns the class corresponding to the given field's type
+     * @param formField The corresponding class
+     */
+    public static function getField($type)
+    {
+        switch($type) {
+            case 'text': $handler = formTextField;
+                break;
+            default: $handler = null;
+        }
 
-// Register new specific Majordome's template tags
-$core->tpl->addValue('FormName', array('formView','formName'));
-$core->tpl->addValue('FormDescription', array('formView','formDescription'));
-$core->tpl->addBlock('Form',array('formView','form'));
+        return $handler;
+    }
+}

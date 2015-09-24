@@ -27,7 +27,7 @@
 // Init the form builder page
 ;(function () {
 	Formbuilder.options.AUTOSAVE = false;
-	
+
 	var formbuilder = new Formbuilder({
 		selector: '#newform-builder',
 	}),

@@ -1,4 +1,5 @@
 <?php
+
 /*******************************************************************************
  *
  * The MIT License (MIT)
@@ -24,12 +25,7 @@
  * SOFTWARE.
  *
  ******************************************************************************/
+class formField
+{
 
-if (!defined('DC_RC_PATH')) { return; }
-
-global $core;
-
-// Register new specific Majordome's template tags
-$core->tpl->addValue('FormName', array('formView','formName'));
-$core->tpl->addValue('FormDescription', array('formView','formDescription'));
-$core->tpl->addBlock('Form',array('formView','form'));
+}

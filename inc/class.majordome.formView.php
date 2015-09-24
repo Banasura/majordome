@@ -60,19 +60,51 @@ class formView extends dcUrlHandlers
     }
 
     /**
-     * Display the form using PFBC
+     * Display the form
      * @param $attr     The attributes of the tag
      * @param $content  The existing content inside the tag
      * @return string   The form code
      */
-    public static function formItems($attr, $content)
+    public static function form($attr, $content)
     {
-        // TODO Implement!
-        // Start a session if none is active
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();
+        $_ctx =& $GLOBALS['_ctx'];
+        $_ctx->formData->content = json_decode($_ctx->formData->form_fields)->fields;
+
+        /* We duplicate the content of this tag for each form field */
+        $field_count = count($_ctx->formData->content);
+
+        return str_repeat($content, $field_count);
+    }
+
+    /**
+     * Display the content of a field. It should be called inside a <FormItems>
+     * field to iterate over all fields.
+     * @return string   The field's HTML
+     */
+    public static function formItem()
+    {
+        $_ctx =& $GLOBALS['_ctx'];
+
+        if (!empty($_ctx->formData->content)) {
+            // Get the right class to render the field
+            $current_field = current($_ctx->formData->content);
+
+            if (empty($current_field)) {
+                throw new Exception('There are no more fields to show!');
+            }
+
+            $renderer = formField::getField($current_field->field_type);
+
+            if (empty($renderer)) {
+                throw new Exception('Unknown field "' . $current_field->field_type . '"');
+            }
+
+            // Render the field
+            return $renderer::render($current_field);
         }
 
-        return '';
+        /* The form content is not parsed yet. The tag must have been placed
+           outside a <Form> tag. */
+        return;
     }
 }

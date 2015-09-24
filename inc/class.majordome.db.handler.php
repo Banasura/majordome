@@ -44,7 +44,7 @@ class majordomeDBHandler {
 	 * @param string 	$fields
 	 * @return boolean	true if the insertion succeed, false if the form name already exists
 	 */
-	static public function insert($name, $desc, $handler, $fields)
+	public static function insert($name, $desc, $handler, $fields)
 	{
 		global $core;
 		$id = 0;
@@ -84,7 +84,7 @@ class majordomeDBHandler {
 	 * Delete a form given its name
 	 * @param int $form_id	the identifier of the form
 	 */
-	static public function delete($form_id)
+	public static function delete($form_id)
 	{
 		global $core;
 		
@@ -102,7 +102,7 @@ class majordomeDBHandler {
 	/**
 	 * Returns the list of the registered forms
 	 */
-	static public function getFormList()
+	public static function getFormList()
 	{
 		global $core;
 		$db =& $core->con;
@@ -115,7 +115,7 @@ class majordomeDBHandler {
 	 * @param int $url The form URL
 	 * @return DBResult|boolean the form or false if no form found
 	 */
-	static public function getFormData($url)
+	public static function getFormData($url)
 	{
 		global $core;
 		$db =& $core->con;

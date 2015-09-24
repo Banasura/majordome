@@ -84,8 +84,7 @@ class newFormPage extends page
     			'DUPLICATE_FIELD: "' . __('Duplicate field') . '",' .
     			'REMOVE_FIELD: "' . __('Remove field') . '",' .
     			'REMOVE_OPTION: "' . __('Remove option') . '"' .
-    		'};' .
-    		'Formbuilder.options.mappings.LABEL = "' . __('Untitled') . '";',
+    		'};',
     	true);
 
     	// Run Formbuilder
@@ -93,13 +92,21 @@ class newFormPage extends page
 
     	// Handle the results if any
     	if (isset($_POST['mj_save_new_form'])) {
-    		$this->saveForm();
+    		$this->saveResult = $this->saveForm();
     	}
 	}
 
     public function content()
     {
     	global $core, $p_url;
+		$title = '';
+		$desc = '';
+
+		// We retrieve the informations already entered if the save failed
+		if ($this->saveResult === false) {
+			$title = empty($_POST['mj_form_name']) ? '' : html::escapeHTML($_POST['mj_form_name']);
+			$desc = empty($_POST['mj_form_desc']) ? '' : html::escapeHTML($_POST['mj_form_desc']);
+		}
 
         echo '<h3>', $this->title, '</h3>',
         	'<p>', __('Create a new form by entering its title and choosing its fields. You will then be able to add your brand new form wherever you want in your blog.'), '</p>',
@@ -112,7 +119,7 @@ class newFormPage extends page
         					'<abbr title="', __('Required field'), '">*</abbr>',
         					__('Form name'),
         				'</label>',
-        				form::field('mj_form_name', 50, 50, ''),
+        				form::field('mj_form_name', 50, 50, $title),
         			'</p>',
         			'<p class="form-note">',
         				__('The form name must not exceed 50 characters.'),
@@ -122,7 +129,7 @@ class newFormPage extends page
         				'<label for="mj_form_desc">',
         					__('Form description'),
         				'</label>',
-        				form::field('mj_form_desc', 50, 255, ''),
+        				form::field('mj_form_desc', 50, 255, $desc),
         			'</p>',
 					'<p class="form-note">',
 					__('The form description must not exceed 250 characters.'),
@@ -186,6 +193,10 @@ class newFormPage extends page
     		} else {
     			$core->error->add(sprintf(__('The form “%s” already exists. Please choose another name or edit the existing form.'), html::escapeHTML($_POST['mj_form_name'])));
     		}
+
+			return false;
     	}
+
+		return true;
     }
 }

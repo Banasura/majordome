@@ -1,4 +1,5 @@
 <?php
+
 /*******************************************************************************
  *
  * The MIT License (MIT)
@@ -25,11 +26,17 @@
  *
  ******************************************************************************/
 
-if (!defined('DC_RC_PATH')) { return; }
+class formTextField extends formField
+{
 
-global $core;
-
-// Register new specific Majordome's template tags
-$core->tpl->addValue('FormName', array('formView','formName'));
-$core->tpl->addValue('FormDescription', array('formView','formDescription'));
-$core->tpl->addBlock('Form',array('formView','form'));
+    /**
+     * Render the HTML of the field
+     * @param $field_content    The parameters of the field
+     * @return string           The generated HTML
+     */
+    public static function render($field_content)
+    {
+        // TODO: Implement render() method.
+        var_dump($field_content);die;
+    }
+}
