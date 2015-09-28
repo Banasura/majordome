@@ -32,4 +32,7 @@ global $core;
 // Register new specific Majordome's template tags
 $core->tpl->addValue('FormName', array('formView','formName'));
 $core->tpl->addValue('FormDescription', array('formView','formDescription'));
-$core->tpl->addBlock('Form',array('formView','form'));
+$core->tpl->addBlock('Form', array('formView','form'));
+$core->tpl->addValue('FormItemLabel', array('formView','formItemLabel'));
+$core->tpl->addValue('FormItemField', array('formView','formItemField'));
+$core->tpl->addValue('FormItemDescription', array('formView','formItemDescription'));

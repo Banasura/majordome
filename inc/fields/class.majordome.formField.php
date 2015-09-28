@@ -33,24 +33,71 @@
 abstract class formField
 {
     /**
+     * formField constructor.
+     */
+    public function __construct($field_content)
+    {
+        $this->field = $field_content;
+    }
+
+    /**
+     * @override
      * Render the HTML of the field
+     * @return string           The generated HTML
+     */
+    public function renderField()
+    {
+        $id = $this->getFieldId();
+        return '<input type="text" id="' . $id . '" name="' . $id . '">';
+    }
+
+    /**
+     * Render the HTML of the field's label
      * @param $field_content    The parameters of the field
      * @return string           The generated HTML
      */
-    abstract public static function render($field_content);
+    public function renderLabel()
+    {
+        return html::escapeHTML($this->field->label);
+    }
+
+    /**
+     * Render the HTML of the field's description
+     * @return string           The generated HTML
+     */
+    public function renderDescription()
+    {
+        return html::escapeHTML($this->field->field_options->description);
+    }
+
+    /**
+     * Returns the unique identifier of a field
+     * @return string The identifier
+     */
+    public function getFieldId()
+    {
+        return 'fid-' . $this->field->cid;
+    }
+
+    /********************* Class methods & properties *************************/
+
+    /**
+     * Give the associated class for each field type
+     * @var array
+     */
+    private static $fields = array(
+        'text'  => 'formTextField'
+    );
 
     /**
      * Returns the class corresponding to the given field's type
-     * @param formField The corresponding class
+     * @param  object       $field_content  The field data
+     * @return formField                    The corresponding class
      */
-    public static function getField($type)
+    public static function getField($field_content)
     {
-        switch($type) {
-            case 'text': $handler = formTextField;
-                break;
-            default: $handler = null;
-        }
-
-        return $handler;
+        return is_object($field_content) && isset(self::$fields[$field_content->field_type])
+            ? new self::$fields[$field_content->field_type]($field_content)
+            : null;
     }
 }

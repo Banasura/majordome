@@ -23,11 +23,13 @@
                 </div>
 
                 <div class="content-inner">
-                    <form class="majordome-form">
-                        <tpl:Form>
-                            {{tpl:FormItem}}
-                        </tpl:Form>
-                    </form>
+                    <tpl:Form>
+                        <div>
+                            {{tpl:FormItemLabel}}
+                            {{tpl:FormItemField}}
+                            <p>{{tpl:FormItemDescription}}</p>
+                        </div>
+                    </tpl:Form>
                 </div>
 
             </div>

@@ -28,15 +28,13 @@
 
 class formTextField extends formField
 {
-
     /**
      * Render the HTML of the field
-     * @param $field_content    The parameters of the field
      * @return string           The generated HTML
      */
-    public static function render($field_content)
+    public function renderField()
     {
-        // TODO: Implement render() method.
-        var_dump($field_content);die;
+        // We just call the parent method which displays a text field
+        return parent::renderField();
     }
 }

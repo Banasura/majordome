@@ -35,8 +35,9 @@ class formView extends dcUrlHandlers
         // Get the context of the page, which allow to perform operations on it
         $_ctx =& $GLOBALS['_ctx'];
 
-        // Get the form corresponding t
+        // Get the form corresponding to the URL
         $_ctx->formData = majordomeDBHandler::getFormData($args);
+        $_ctx->formData->content = json_decode($_ctx->formData->form_fields)->fields;
 
         if ($_ctx->formData === false) {
             // The form does not exists: fire a 404 error
@@ -67,44 +68,45 @@ class formView extends dcUrlHandlers
      */
     public static function form($attr, $content)
     {
-        $_ctx =& $GLOBALS['_ctx'];
-        $_ctx->formData->content = json_decode($_ctx->formData->form_fields)->fields;
-
-        /* We duplicate the content of this tag for each form field */
-        $field_count = count($_ctx->formData->content);
-
-        return str_repeat($content, $field_count);
+        return '<?php
+        $_ctx =& $GLOBALS[\'_ctx\'];
+        foreach ($_ctx->formData->content as $f):
+            $renderer = formField::getField($f);
+            if (empty($renderer)) {
+                throw new Exception(\'Unknown field "\' . $f->field_type . \'"\');
+            }
+        ?>'
+            .$content.
+        '<?php endforeach; ?>';
     }
 
     /**
-     * Display the content of a field. It should be called inside a <FormItems>
-     * field to iterate over all fields.
+     * Display the label of a field
      * @return string   The field's HTML
      */
-    public static function formItem()
+    public static function FormItemLabel()
     {
-        $_ctx =& $GLOBALS['_ctx'];
+        /* We should have the $f variable defined in this function, if the tag
+         * has been correctly added inside a <tpl:Form> tag. The variable
+         * represents the current field to display
+         */
+        return '<?php if (!empty($f)) echo $renderer->renderLabel(); ?>';
+    }
 
-        if (!empty($_ctx->formData->content)) {
-            // Get the right class to render the field
-            $current_field = current($_ctx->formData->content);
-
-            if (empty($current_field)) {
-                throw new Exception('There are no more fields to show!');
-            }
-
-            $renderer = formField::getField($current_field->field_type);
-
-            if (empty($renderer)) {
-                throw new Exception('Unknown field "' . $current_field->field_type . '"');
-            }
-
-            // Render the field
-            return $renderer::render($current_field);
-        }
-
-        /* The form content is not parsed yet. The tag must have been placed
-           outside a <Form> tag. */
-        return;
+    /**
+     * Display the label of a field
+     * @return string   The field's HTML
+     */
+    public static function FormItemField()
+    {
+        return '<?php if (!empty($f)) echo $renderer->renderField(); ?>';
+    }
+    /**
+     * Display the label of a field
+     * @return string   The field's HTML
+     */
+    public static function FormItemDescription()
+    {
+        return '<?php if (!empty($f)) echo $renderer->renderDescription(); ?>';
     }
 }

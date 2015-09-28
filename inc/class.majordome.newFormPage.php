@@ -190,13 +190,12 @@ class newFormPage extends page
 
     		if ($success) {
     			dcPage::addSuccessNotice(__('The form has been successfully created.'));
+				return true;
     		} else {
     			$core->error->add(sprintf(__('The form “%s” already exists. Please choose another name or edit the existing form.'), html::escapeHTML($_POST['mj_form_name'])));
     		}
-
-			return false;
     	}
 
-		return true;
-    }
+		return false;
+	}
 }
