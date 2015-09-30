@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Majordome 0.1.0\n"
-"POT-Creation-Date: 2015-09-30 18:25+0100\n"
-"PO-Revision-Date: 2015-09-30 18:26+0100\n"
+"POT-Creation-Date: 2015-09-30 22:19+0100\n"
+"PO-Revision-Date: 2015-09-30 22:19+0100\n"
 "Last-Translator: William Hiver <william DOT hiver AT ovh DOT fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -30,11 +30,6 @@ msgstr "Un plugin permettant de créer et gérer facilement des formulaires."
 #, php-format
 msgid "Edit form “%s”"
 msgstr "Éditer le formulaire « %s »"
-
-#: inc/class.majordome.formView.php:30
-#, php-format
-msgid "Unknown field \"%s\""
-msgstr "Champ « %s » inconnu"
 
 #: inc/class.majordome.homePage.php:28
 msgid "My forms"
@@ -255,7 +250,15 @@ msgstr "Supprimer le champ"
 msgid "Remove option"
 msgstr "Supprimer l'option"
 
-#: inc/class.majordome.newFormPage.php:111
+#: inc/class.majordome.newFormPage.php:86
+msgid "Reset"
+msgstr "Réinitialiser"
+
+#: inc/class.majordome.newFormPage.php:87
+msgid "Submit"
+msgstr "Valider"
+
+#: inc/class.majordome.newFormPage.php:113
 msgid ""
 "Create a new form by entering its title and choosing its fields. You will "
 "then be able to add your brand new form wherever you want in your blog."
@@ -264,73 +267,73 @@ msgstr ""
 "champs. Vous pourrez ensuite l'ajouter à l'emplacement que vous souhaitez de "
 "votre blog."
 
-#: inc/class.majordome.newFormPage.php:115
+#: inc/class.majordome.newFormPage.php:117
 msgid "Form options"
 msgstr "Options du formulaire"
 
-#: inc/class.majordome.newFormPage.php:118
-#: inc/class.majordome.newFormPage.php:139
+#: inc/class.majordome.newFormPage.php:120
+#: inc/class.majordome.newFormPage.php:141
 msgid "Required field"
 msgstr "Champ requis"
 
-#: inc/class.majordome.newFormPage.php:119
+#: inc/class.majordome.newFormPage.php:121
 msgid "Form name"
 msgstr "Nom du formulaire"
 
-#: inc/class.majordome.newFormPage.php:124
+#: inc/class.majordome.newFormPage.php:126
 msgid "The form name must not exceed 50 characters."
 msgstr "Le nom du formulaire ne doit pas dépasser 50 caractères."
 
-#: inc/class.majordome.newFormPage.php:129
+#: inc/class.majordome.newFormPage.php:131
 msgid "Form description"
 msgstr "Description du formulaire"
 
-#: inc/class.majordome.newFormPage.php:134
+#: inc/class.majordome.newFormPage.php:136
 msgid "The form description must not exceed 250 characters."
 msgstr "La description du formulaire ne doit pas dépasser 250 caractères."
 
-#: inc/class.majordome.newFormPage.php:140
+#: inc/class.majordome.newFormPage.php:142
 msgid "Data handling"
 msgstr "Traitement des réponses"
 
-#: inc/class.majordome.newFormPage.php:146
+#: inc/class.majordome.newFormPage.php:148
 msgid "Form fields"
 msgstr "Champs du formulaire"
 
-#: inc/class.majordome.newFormPage.php:150
+#: inc/class.majordome.newFormPage.php:152
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: inc/class.majordome.newFormPage.php:163
+#: inc/class.majordome.newFormPage.php:165
 msgid "Please enter a form name."
 msgstr "Veuillez saisir un nom de formulaire."
 
-#: inc/class.majordome.newFormPage.php:165
+#: inc/class.majordome.newFormPage.php:167
 msgid "The form name is too long."
 msgstr "Le nom du formulaire est trop long."
 
-#: inc/class.majordome.newFormPage.php:170
+#: inc/class.majordome.newFormPage.php:172
 msgid "The form description is too long."
 msgstr "La description du formulaire est trop longue."
 
-#: inc/class.majordome.newFormPage.php:175
+#: inc/class.majordome.newFormPage.php:177
 msgid "Please choose a handler for the form results."
 msgstr ""
 "Veuillez choisir une méthode de traitement des résultats du formulaire."
 
-#: inc/class.majordome.newFormPage.php:177
+#: inc/class.majordome.newFormPage.php:179
 msgid "The chosen data handler does not exists."
 msgstr "La méthode de traitement des résultats choisie n'existe pas."
 
-#: inc/class.majordome.newFormPage.php:182
+#: inc/class.majordome.newFormPage.php:184
 msgid "The form has no field."
 msgstr "Le formulaire ne comporte aucun champ."
 
-#: inc/class.majordome.newFormPage.php:191
+#: inc/class.majordome.newFormPage.php:193
 msgid "The form has been successfully created."
 msgstr "Le formulaire a été créé avec succès."
 
-#: inc/class.majordome.newFormPage.php:194
+#: inc/class.majordome.newFormPage.php:196
 #, php-format
 msgid ""
 "The form “%s” already exists. Please choose another name or edit the "
@@ -342,6 +345,14 @@ msgstr ""
 #: inc/class.majordome.view.php:86
 msgid "Plugins"
 msgstr "Plugins"
+
+#: inc/fields/class.majordome.formCheckboxField.php:53
+#: inc/fields/class.majordome.formRadioField.php:55
+msgid "Other"
+msgstr "Autre"
+
+#~ msgid "Unknown field \"%s\""
+#~ msgstr "Champ « %s » inconnu"
 
 #~ msgid "Size"
 #~ msgstr "Taille"

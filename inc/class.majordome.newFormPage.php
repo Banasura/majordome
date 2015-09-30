@@ -82,7 +82,9 @@ class newFormPage extends page
     			'UNITS: "' . __('Units') . '",' .
     			'DUPLICATE_FIELD: "' . __('Duplicate field') . '",' .
     			'REMOVE_FIELD: "' . __('Remove field') . '",' .
-    			'REMOVE_OPTION: "' . __('Remove option') . '"' .
+    			'REMOVE_OPTION: "' . __('Remove option') . '",' .
+    			'RESET: "' . __('Reset') . '",' .
+    			'SUBMIT: "' . __('Submit') . '"' .
     		'};',
     	true);
 

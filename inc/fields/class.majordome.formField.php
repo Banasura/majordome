@@ -55,7 +55,7 @@ abstract class formField
      */
     public function renderLabel()
     {
-        if (empty($this->field->field_options->label)) {
+        if (empty($this->field->label)) {
             return '';
         } else {
             return html::escapeHTML($this->field->label);
@@ -100,7 +100,9 @@ abstract class formField
         'radio'         => 'formRadioField',
         'dropdown'      => 'formDropdownField',
         'number'        => 'formNumberField',
-        'email'         => 'formMailField'
+        'email'         => 'formMailField',
+        'submit'        => 'formSubmitField',
+        'reset'         => 'formResetField'
     );
 
     /**
