@@ -45,6 +45,8 @@ $__autoload['formWebsiteField'] = dirname(__FILE__).'/inc/fields/class.majordome
 $__autoload['formTextareaField'] = dirname(__FILE__).'/inc/fields/class.majordome.formTextareaField.php';
 $__autoload['formRadioField'] = dirname(__FILE__).'/inc/fields/class.majordome.formRadioField.php';
 $__autoload['formDropdownField'] = dirname(__FILE__).'/inc/fields/class.majordome.formDropdownField.php';
+$__autoload['formNumberField'] = dirname(__FILE__).'/inc/fields/class.majordome.formNumberField.php';
+$__autoload['formMailField'] = dirname(__FILE__).'/inc/fields/class.majordome.formMailField.php';
 
 // Register Majordome's public URLs
 $core->url->register('majordome_view','form','^form/(.+)$',array('formView','handleURL'));

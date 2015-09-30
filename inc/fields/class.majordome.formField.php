@@ -90,7 +90,9 @@ abstract class formField
         'website'       => 'formWebsiteField',
         'paragraph'     => 'formTextareaField',
         'radio'         => 'formRadioField',
-        'dropdown'      => 'formDropdownField'
+        'dropdown'      => 'formDropdownField',
+        'number'        => 'formNumberField',
+        'email'         => 'formMailField'
     );
 
     /**
