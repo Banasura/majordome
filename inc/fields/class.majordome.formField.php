@@ -84,7 +84,10 @@ abstract class formField
      */
     private static $fields = array(
         'text'          => 'formTextField',
-        'checkboxes'    => 'formCheckboxField'
+        'checkboxes'    => 'formCheckboxField',
+        'date'          => 'formDateField',
+        'time'          => 'formTimeField',
+        'website'       => 'formWebsiteField'
     );
 
     /**
