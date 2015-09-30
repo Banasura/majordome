@@ -33,6 +33,9 @@ class newFormPage extends page
     	parent::__construct($view, 'newForm', 'Create a new form');
     	global $core;
 
+		// Do we have to trigger form registration?
+		$this->saveResult = false;
+
     	// Add Formbuilder dependencies
     	$this->view->addJs(dcPage::getPF('/majordome/js/vendor.js'));
     	$this->view->addJs(dcPage::getPF('/majordome/js/formbuilder/dist/formbuilder.js'));
@@ -76,10 +79,6 @@ class newFormPage extends page
     			'INCLUDE_BLANK: "' . __('Include blank') . '",' .
     			'INCLUDE_OTHER: "' . __('Include \"other\"') . '",' .
     			'ADD_OPTION: "' . __('Add option') . '",' .
-    			'SIZE: "' . __('Size') . '",' .
-    			'SMALL: "' . __('Small') . '",' .
-    			'MEDIUM: "' . __('Medium') . '",' .
-    			'LARGE: "' . __('Large') . '",' .
     			'UNITS: "' . __('Units') . '",' .
     			'DUPLICATE_FIELD: "' . __('Duplicate field') . '",' .
     			'REMOVE_FIELD: "' . __('Remove field') . '",' .
@@ -129,7 +128,7 @@ class newFormPage extends page
         				'<label for="mj_form_desc">',
         					__('Form description'),
         				'</label>',
-        				form::field('mj_form_desc', 50, 255, $desc),
+						form::textarea('mj_form_desc', 50, 5, $desc, NULL, NULL, false, 'maxlength="250"'),
         			'</p>',
 					'<p class="form-note">',
 					__('The form description must not exceed 250 characters.'),

@@ -26,11 +26,11 @@
  *
  * *
  *
- * Handling of text fields
+ * Handling of checkboxes
  *
  ******************************************************************************/
 
-class formTextField extends formField
+class formCheckboxField extends formField
 {
     /**
      * Render the HTML of the field
@@ -39,29 +39,21 @@ class formTextField extends formField
     public function renderField()
     {
         $id = $this->getFieldId();
-        $pattern = '';
+        $html = '';
 
-        // Minimum/Maximum characters limit
-        if (!empty($this->field->field_options->minlength)) {
-            $pattern = ' pattern=".{' . $this->field->field_options->minlength . ',';
+        foreach ($this->field->field_options->options as $num_opt => $option) {
+            $html .= '<input type="checkbox" name="' . $id . '[]" id="' . $id . '-' . $num_opt . '" value="' . $num_opt .'"' .
+                ($option->checked ? ' checked' : '') .
+                '><label for="' . $id . '-' . $num_opt . '">' . html::escapeHTML($option->label) . '</label>';
         }
 
-        if (!empty($this->field->field_options->maxlength)) {
-            if (empty($pattern)) {
-                // There is no minimum limit
-                $pattern = ' pattern=".{,' . $this->field->field_options->maxlength . '}"';
-            } else {
-                // We complete the existing pattern
-                $pattern .= $this->field->field_options->maxlength . '}"';
-            }
-        } elseif (!empty($pattern)) {
-            // There is only a minimum limit
-            $pattern .= '}"';
+        // Include 'other' field if necessary
+        if ($this->field->field_options->include_other_option) {
+            $html .= '<input type="checkbox" name="' . $id . '[]" id="' . $id . '-other">' .
+                '<label for="' . $id . '-other">' . __('Other') . '</label>' .
+                '<input type="text" name="' . $id . '-other" id="' . $id . '-other-value">';
         }
 
-        return '<input type="text" id="' . $id . '" name="' . $id . '"' .
-            ($this->field->required ? ' required' : '') .
-            $pattern .
-        '>';
+        return $html;
     }
 }

@@ -37,6 +37,7 @@ abstract class formField
      */
     public function __construct($field_content)
     {
+        //TODO add some verification
         $this->field = $field_content;
     }
 
@@ -45,11 +46,7 @@ abstract class formField
      * Render the HTML of the field
      * @return string           The generated HTML
      */
-    public function renderField()
-    {
-        $id = $this->getFieldId();
-        return '<input type="text" id="' . $id . '" name="' . $id . '">';
-    }
+    abstract public function renderField();
 
     /**
      * Render the HTML of the field's label
@@ -86,7 +83,8 @@ abstract class formField
      * @var array
      */
     private static $fields = array(
-        'text'  => 'formTextField'
+        'text'          => 'formTextField',
+        'checkboxes'    => 'formCheckboxField'
     );
 
     /**

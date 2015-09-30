@@ -36,3 +36,4 @@ $core->tpl->addBlock('Form', array('formView','form'));
 $core->tpl->addValue('FormItemLabel', array('formView','formItemLabel'));
 $core->tpl->addValue('FormItemField', array('formView','formItemField'));
 $core->tpl->addValue('FormItemDescription', array('formView','formItemDescription'));
+$core->tpl->addValue('FormItemId', array('formView','formItemId'));

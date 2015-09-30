@@ -73,7 +73,7 @@ class formView extends dcUrlHandlers
         foreach ($_ctx->formData->content as $f):
             $renderer = formField::getField($f);
             if (empty($renderer)) {
-                throw new Exception(\'Unknown field "\' . $f->field_type . \'"\');
+                throw new Exception(sprintf(\'Unknown field "%s"\', $f->field_type));
             }
         ?>'
             .$content.
@@ -101,6 +101,7 @@ class formView extends dcUrlHandlers
     {
         return '<?php if (!empty($f)) echo $renderer->renderField(); ?>';
     }
+
     /**
      * Display the label of a field
      * @return string   The field's HTML
@@ -108,5 +109,14 @@ class formView extends dcUrlHandlers
     public static function FormItemDescription()
     {
         return '<?php if (!empty($f)) echo $renderer->renderDescription(); ?>';
+    }
+
+    /**
+     * Display the ID of a field, used for example in the inputs
+     * @return string   The field's HTML
+     */
+    public static function FormItemId()
+    {
+        return '<?php if (!empty($f)) echo $renderer->getFieldId(); ?>';
     }
 }

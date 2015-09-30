@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Majordome 0.1.0\n"
-"POT-Creation-Date: 2015-09-17 18:13+0100\n"
-"PO-Revision-Date: 2015-09-17 18:14+0100\n"
+"POT-Creation-Date: 2015-09-30 18:25+0100\n"
+"PO-Revision-Date: 2015-09-30 18:26+0100\n"
 "Last-Translator: William Hiver <william DOT hiver AT ovh DOT fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -30,6 +30,11 @@ msgstr "Un plugin permettant de créer et gérer facilement des formulaires."
 #, php-format
 msgid "Edit form “%s”"
 msgstr "Éditer le formulaire « %s »"
+
+#: inc/class.majordome.formView.php:30
+#, php-format
+msgid "Unknown field \"%s\""
+msgstr "Champ « %s » inconnu"
 
 #: inc/class.majordome.homePage.php:28
 msgid "My forms"
@@ -90,11 +95,11 @@ msgstr "Impossible de supprimer le formulaire"
 msgid "Create a new form"
 msgstr "Ajouter un nouveau formulaire"
 
-#: inc/class.majordome.newFormPage.php:44
+#: inc/class.majordome.newFormPage.php:47
 msgid "Save form"
 msgstr "Sauvegarder le formulaire"
 
-#: inc/class.majordome.newFormPage.php:45
+#: inc/class.majordome.newFormPage.php:48
 msgid ""
 "You have unsaved changes. If you leave this page, you will lose those "
 "changes!"
@@ -102,175 +107,155 @@ msgstr ""
 "Des modifications n'ont pas été sauvegardée. Si vous quittez cette page, les "
 "modifications seront perdues."
 
-#: inc/class.majordome.newFormPage.php:46
+#: inc/class.majordome.newFormPage.php:49
 msgid "No response fields"
 msgstr "Aucun champ existant"
 
-#: inc/class.majordome.newFormPage.php:47
+#: inc/class.majordome.newFormPage.php:50
 msgid "Add new field"
 msgstr "Ajouter"
 
-#: inc/class.majordome.newFormPage.php:48
+#: inc/class.majordome.newFormPage.php:51
 msgid "Edit field"
 msgstr "Éditer"
 
-#: inc/class.majordome.newFormPage.php:49
+#: inc/class.majordome.newFormPage.php:52
 msgid "Dropdown"
 msgstr "Liste"
 
-#: inc/class.majordome.newFormPage.php:50
+#: inc/class.majordome.newFormPage.php:53
 msgid "Email"
 msgstr "Courriel"
 
-#: inc/class.majordome.newFormPage.php:51
+#: inc/class.majordome.newFormPage.php:54
 msgid "Number"
 msgstr "Nombre"
 
-#: inc/class.majordome.newFormPage.php:52
+#: inc/class.majordome.newFormPage.php:55
 msgid "Paragraph"
-msgstr "Paragraphe"
+msgstr "Zone de texte"
 
-#: inc/class.majordome.newFormPage.php:53
+#: inc/class.majordome.newFormPage.php:56
 msgid "Price"
 msgstr "Prix"
 
-#: inc/class.majordome.newFormPage.php:54
+#: inc/class.majordome.newFormPage.php:57
 msgid "Multiple choice"
 msgstr "Choix multiples"
 
-#: inc/class.majordome.newFormPage.php:55
+#: inc/class.majordome.newFormPage.php:58
 msgid "Section break"
 msgstr "Section"
 
-#: inc/class.majordome.newFormPage.php:56
+#: inc/class.majordome.newFormPage.php:59
 msgid "Text"
 msgstr "Texte"
 
-#: inc/class.majordome.newFormPage.php:57
+#: inc/class.majordome.newFormPage.php:60
 msgid "Time"
 msgstr "Temps"
 
-#: inc/class.majordome.newFormPage.php:58
+#: inc/class.majordome.newFormPage.php:61
 msgid "Website"
 msgstr "Site Web"
 
-#: inc/class.majordome.newFormPage.php:59
+#: inc/class.majordome.newFormPage.php:62
 msgid "Checkboxes"
 msgstr "Case à cocher"
 
-#: inc/class.majordome.newFormPage.php:60
+#: inc/class.majordome.newFormPage.php:63
 msgid "Date"
 msgstr "Date"
 
-#: inc/class.majordome.newFormPage.php:61
+#: inc/class.majordome.newFormPage.php:64
 msgid "Address"
 msgstr "Adresse"
 
-#: inc/class.majordome.newFormPage.php:62
+#: inc/class.majordome.newFormPage.php:65
 msgid "Add a longer description to this field"
 msgstr "Ajouter une description détaillée de ce champ"
 
-#: inc/class.majordome.newFormPage.php:63
+#: inc/class.majordome.newFormPage.php:66
 msgid "Label"
 msgstr "Label"
 
-#: inc/class.majordome.newFormPage.php:64
+#: inc/class.majordome.newFormPage.php:67
 msgid "Integer only"
 msgstr "Nombre entier uniquement"
 
-#: inc/class.majordome.newFormPage.php:65
+#: inc/class.majordome.newFormPage.php:68
 msgid "Only accept integers"
 msgstr "N'accepte que des nombres entiers"
 
-#: inc/class.majordome.newFormPage.php:66
+#: inc/class.majordome.newFormPage.php:69
 msgid "Required"
 msgstr "Requis"
 
-#: inc/class.majordome.newFormPage.php:67
+#: inc/class.majordome.newFormPage.php:70
 msgid "Minimum / Maximum"
 msgstr "Minimum/Maximum"
 
-#: inc/class.majordome.newFormPage.php:68
+#: inc/class.majordome.newFormPage.php:71
 msgid "Above"
 msgstr "Maximum"
 
-#: inc/class.majordome.newFormPage.php:69
+#: inc/class.majordome.newFormPage.php:72
 msgid "Below"
 msgstr "Minimum"
 
-#: inc/class.majordome.newFormPage.php:70
+#: inc/class.majordome.newFormPage.php:73
 msgid "Length limit"
-msgstr "Nombre maximal de caractères"
+msgstr "Taille limite"
 
-#: inc/class.majordome.newFormPage.php:71
+#: inc/class.majordome.newFormPage.php:74
 msgid "Min"
 msgstr "Min"
 
-#: inc/class.majordome.newFormPage.php:72
+#: inc/class.majordome.newFormPage.php:75
 msgid "Max"
 msgstr "Max"
 
-#: inc/class.majordome.newFormPage.php:73
+#: inc/class.majordome.newFormPage.php:76
 msgid "characters"
 msgstr "caractères"
 
-#: inc/class.majordome.newFormPage.php:74
+#: inc/class.majordome.newFormPage.php:77
 msgid "words"
 msgstr "mots"
 
-#: inc/class.majordome.newFormPage.php:75
+#: inc/class.majordome.newFormPage.php:78
 msgid "Options"
 msgstr "Options"
 
-#: inc/class.majordome.newFormPage.php:76
+#: inc/class.majordome.newFormPage.php:79
 msgid "Include blank"
 msgstr "Inclure un champ vide"
 
-#: inc/class.majordome.newFormPage.php:77
+#: inc/class.majordome.newFormPage.php:80
 msgid "Include \\\"other\\\""
 msgstr "Inclure un champ « autre »"
 
-#: inc/class.majordome.newFormPage.php:78
+#: inc/class.majordome.newFormPage.php:81
 msgid "Add option"
 msgstr "Ajouter une option"
 
-#: inc/class.majordome.newFormPage.php:79
-msgid "Size"
-msgstr "Taille"
-
-#: inc/class.majordome.newFormPage.php:80
-msgid "Small"
-msgstr "Petit"
-
-#: inc/class.majordome.newFormPage.php:81
-msgid "Medium"
-msgstr "Moyen"
-
 #: inc/class.majordome.newFormPage.php:82
-msgid "Large"
-msgstr "Grand"
-
-#: inc/class.majordome.newFormPage.php:83
 msgid "Units"
 msgstr "Unités"
 
-#: inc/class.majordome.newFormPage.php:84
+#: inc/class.majordome.newFormPage.php:83
 msgid "Duplicate field"
 msgstr "Dupliquer le champ"
 
-#: inc/class.majordome.newFormPage.php:85
+#: inc/class.majordome.newFormPage.php:84
 msgid "Remove field"
 msgstr "Supprimer le champ"
 
-#: inc/class.majordome.newFormPage.php:86
+#: inc/class.majordome.newFormPage.php:85
 msgid "Remove option"
 msgstr "Supprimer l'option"
 
-#: inc/class.majordome.newFormPage.php:88
-msgid "Untitled"
-msgstr "Sans titre"
-
-#: inc/class.majordome.newFormPage.php:105
+#: inc/class.majordome.newFormPage.php:111
 msgid ""
 "Create a new form by entering its title and choosing its fields. You will "
 "then be able to add your brand new form wherever you want in your blog."
@@ -279,73 +264,73 @@ msgstr ""
 "champs. Vous pourrez ensuite l'ajouter à l'emplacement que vous souhaitez de "
 "votre blog."
 
-#: inc/class.majordome.newFormPage.php:109
+#: inc/class.majordome.newFormPage.php:115
 msgid "Form options"
 msgstr "Options du formulaire"
 
-#: inc/class.majordome.newFormPage.php:112
-#: inc/class.majordome.newFormPage.php:133
+#: inc/class.majordome.newFormPage.php:118
+#: inc/class.majordome.newFormPage.php:139
 msgid "Required field"
 msgstr "Champ requis"
 
-#: inc/class.majordome.newFormPage.php:113
+#: inc/class.majordome.newFormPage.php:119
 msgid "Form name"
 msgstr "Nom du formulaire"
 
-#: inc/class.majordome.newFormPage.php:118
+#: inc/class.majordome.newFormPage.php:124
 msgid "The form name must not exceed 50 characters."
 msgstr "Le nom du formulaire ne doit pas dépasser 50 caractères."
 
-#: inc/class.majordome.newFormPage.php:123
+#: inc/class.majordome.newFormPage.php:129
 msgid "Form description"
 msgstr "Description du formulaire"
 
-#: inc/class.majordome.newFormPage.php:128
+#: inc/class.majordome.newFormPage.php:134
 msgid "The form description must not exceed 250 characters."
 msgstr "La description du formulaire ne doit pas dépasser 250 caractères."
 
-#: inc/class.majordome.newFormPage.php:134
+#: inc/class.majordome.newFormPage.php:140
 msgid "Data handling"
 msgstr "Traitement des réponses"
 
-#: inc/class.majordome.newFormPage.php:140
+#: inc/class.majordome.newFormPage.php:146
 msgid "Form fields"
 msgstr "Champs du formulaire"
 
-#: inc/class.majordome.newFormPage.php:144
+#: inc/class.majordome.newFormPage.php:150
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: inc/class.majordome.newFormPage.php:157
+#: inc/class.majordome.newFormPage.php:163
 msgid "Please enter a form name."
 msgstr "Veuillez saisir un nom de formulaire."
 
-#: inc/class.majordome.newFormPage.php:159
+#: inc/class.majordome.newFormPage.php:165
 msgid "The form name is too long."
 msgstr "Le nom du formulaire est trop long."
 
-#: inc/class.majordome.newFormPage.php:164
+#: inc/class.majordome.newFormPage.php:170
 msgid "The form description is too long."
 msgstr "La description du formulaire est trop longue."
 
-#: inc/class.majordome.newFormPage.php:169
+#: inc/class.majordome.newFormPage.php:175
 msgid "Please choose a handler for the form results."
 msgstr ""
 "Veuillez choisir une méthode de traitement des résultats du formulaire."
 
-#: inc/class.majordome.newFormPage.php:171
+#: inc/class.majordome.newFormPage.php:177
 msgid "The chosen data handler does not exists."
 msgstr "La méthode de traitement des résultats choisie n'existe pas."
 
-#: inc/class.majordome.newFormPage.php:176
+#: inc/class.majordome.newFormPage.php:182
 msgid "The form has no field."
 msgstr "Le formulaire ne comporte aucun champ."
 
-#: inc/class.majordome.newFormPage.php:185
+#: inc/class.majordome.newFormPage.php:191
 msgid "The form has been successfully created."
 msgstr "Le formulaire a été créé avec succès."
 
-#: inc/class.majordome.newFormPage.php:187
+#: inc/class.majordome.newFormPage.php:194
 #, php-format
 msgid ""
 "The form “%s” already exists. Please choose another name or edit the "
@@ -357,6 +342,21 @@ msgstr ""
 #: inc/class.majordome.view.php:86
 msgid "Plugins"
 msgstr "Plugins"
+
+#~ msgid "Size"
+#~ msgstr "Taille"
+
+#~ msgid "Small"
+#~ msgstr "Petit"
+
+#~ msgid "Medium"
+#~ msgstr "Moyen"
+
+#~ msgid "Large"
+#~ msgstr "Grand"
+
+#~ msgid "Untitled"
+#~ msgstr "Sans titre"
 
 #~ msgid "Identifier"
 #~ msgstr "Identifiant"
