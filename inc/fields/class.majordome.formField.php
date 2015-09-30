@@ -87,7 +87,10 @@ abstract class formField
         'checkboxes'    => 'formCheckboxField',
         'date'          => 'formDateField',
         'time'          => 'formTimeField',
-        'website'       => 'formWebsiteField'
+        'website'       => 'formWebsiteField',
+        'paragraph'     => 'formTextareaField',
+        'radio'         => 'formRadioField',
+        'dropdown'      => 'formDropdownField'
     );
 
     /**

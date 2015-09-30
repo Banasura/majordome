@@ -42,6 +42,9 @@ $__autoload['formCheckboxField'] = dirname(__FILE__).'/inc/fields/class.majordom
 $__autoload['formDateField'] = dirname(__FILE__).'/inc/fields/class.majordome.formDateField.php';
 $__autoload['formTimeField'] = dirname(__FILE__).'/inc/fields/class.majordome.formTimeField.php';
 $__autoload['formWebsiteField'] = dirname(__FILE__).'/inc/fields/class.majordome.formWebsiteField.php';
+$__autoload['formTextareaField'] = dirname(__FILE__).'/inc/fields/class.majordome.formTextareaField.php';
+$__autoload['formRadioField'] = dirname(__FILE__).'/inc/fields/class.majordome.formRadioField.php';
+$__autoload['formDropdownField'] = dirname(__FILE__).'/inc/fields/class.majordome.formDropdownField.php';
 
 // Register Majordome's public URLs
 $core->url->register('majordome_view','form','^form/(.+)$',array('formView','handleURL'));
