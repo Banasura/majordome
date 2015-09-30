@@ -35,6 +35,8 @@ class formView extends dcUrlHandlers
         // Get the context of the page, which allow to perform operations on it
         $_ctx =& $GLOBALS['_ctx'];
 
+        $_ctx->pageArgs = $args;
+
         // Get the form corresponding to the URL
         $_ctx->formData = majordomeDBHandler::getFormData($args);
         $_ctx->formData->content = json_decode($_ctx->formData->form_fields)->fields;
@@ -60,13 +62,22 @@ class formView extends dcUrlHandlers
         return '<?php echo html::escapeHTML($_ctx->formData->form_desc); ?>';
     }
 
+    public static function formURL()
+    {
+        return '<?php
+            global $core;
+            $_ctx =& $GLOBALS[\'_ctx\'];
+            echo $core->blog->url, $core->url->getBase(\'majordome_view\'), \'/\', $_ctx->pageArgs;
+            ?>';
+    }
+
     /**
      * Display the form
      * @param $attr     The attributes of the tag
      * @param $content  The existing content inside the tag
      * @return string   The form code
      */
-    public static function form($attr, $content)
+    public static function formItems($attr, $content)
     {
         return '<?php
         $_ctx =& $GLOBALS[\'_ctx\'];

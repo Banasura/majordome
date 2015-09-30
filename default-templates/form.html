@@ -23,13 +23,15 @@
                 </div>
 
                 <div class="content-inner">
-                    <tpl:Form>
-                        <div>
-                            <label for="{{tpl:FormItemId}}">{{tpl:FormItemLabel}}</label>
-                            {{tpl:FormItemField}}
-                            <p>{{tpl:FormItemDescription}}</p>
-                        </div>
-                    </tpl:Form>
+                    <form action="{{tpl:FormURL}}" method="POST" id="majordome-form">
+                        <tpl:FormItems>
+                            <div>
+                                <label for="{{tpl:FormItemId}}">{{tpl:FormItemLabel}}</label>
+                                {{tpl:FormItemField}}
+                                <p>{{tpl:FormItemDescription}}</p>
+                            </div>
+                        </tpl:FormItems>
+                    </form>
                 </div>
 
             </div>
