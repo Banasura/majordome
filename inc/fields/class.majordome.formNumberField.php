@@ -39,7 +39,7 @@ class formNumberField extends formField
     public function renderField()
     {
         $id = $this->getFieldId();
-        // TODO Gérer entier/réel
+
         return '<input type="number" id="' . $id . '" name="' . $id . '"' .
             ($this->field->required ? ' required' : '') .
             (empty($this->field->field_options->min)
@@ -48,6 +48,12 @@ class formNumberField extends formField
             (empty($this->field->field_options->max)
                 ? ''
                 : ' max="' . $this->field->field_options->max . '"') .
-        '>' . html::escapeHTML($this->field->field_options->units);
+            (empty($this->field->field_options->integer_only) || $this->field->field_options->integer_only === false
+                ? ' step="0.1"'
+                : ' step="1"') .
+        '>' .
+        (empty($this->field->field_options->units)
+            ? ''
+            : html::escapeHTML($this->field->field_options->units));
     }
 }

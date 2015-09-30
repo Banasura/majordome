@@ -73,7 +73,7 @@ class formView extends dcUrlHandlers
         foreach ($_ctx->formData->content as $f):
             $renderer = formField::getField($f);
             if (empty($renderer)) {
-                throw new Exception(sprintf(\'Unknown field "%s"\', $f->field_type));
+                throw new Exception(\'Unknown field "\' . $f->field_type . \'"\');
             }
         ?>'
             .$content.

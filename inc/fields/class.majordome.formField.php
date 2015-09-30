@@ -55,7 +55,11 @@ abstract class formField
      */
     public function renderLabel()
     {
-        return html::escapeHTML($this->field->label);
+        if (empty($this->field->field_options->label)) {
+            return '';
+        } else {
+            return html::escapeHTML($this->field->label);
+        }
     }
 
     /**
@@ -64,7 +68,11 @@ abstract class formField
      */
     public function renderDescription()
     {
-        return html::escapeHTML($this->field->field_options->description);
+        if (empty($this->field->field_options->description)) {
+            return '';
+        } else {
+            return html::escapeHTML($this->field->field_options->description);
+        }
     }
 
     /**
