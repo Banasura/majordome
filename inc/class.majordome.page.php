@@ -43,6 +43,12 @@ abstract class page {
 	 * @var view
 	 */
 	public $view;
+
+	/**
+	 * Is the page displayed?
+	 * @var
+	 */
+	public $hidden;
 	
 	/**
 	 * page class constructor
@@ -55,6 +61,7 @@ abstract class page {
 		$this->id = $id;
 		$this->title = $title;
 		$this->view = $view;
+		$this->hidden = false;
 	}
 	
 	/**

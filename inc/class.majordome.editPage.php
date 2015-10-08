@@ -33,20 +33,20 @@ class editPage extends page
 	 */
 	private $form_data;
 
-	function __construct($view, $id = 'newForm')
+	function __construct($view)
 	{
 		global $core;
 
-    	parent::__construct($view, $id, __('Create a new form'));
+    	parent::__construct($view, 'edit', __('Create a new form'));
 
 		// Check if we have an existing form to edit
-		if (!empty($_POST['edit'])) {
-			$form_ids = array_keys($_POST['edit']);
-			$form_data = majordomeDBHandler::getFormData($form_ids[0]);
+		if (!empty($_GET['formid'])) {
+			$form_data = majordomeDBHandler::getFormData($_GET['formid']);
 			if ($form_data === false) {
 				$core->error->add(__('Unable to edit the form.'));
 			} else {
 				$this->form_data = $form_data;
+				$this->title = __(sprintf(__('Edit form “%s”'), $form_data->form_name));
 			}
 		}
 
@@ -107,7 +107,7 @@ class editPage extends page
 
 		// Load the form fields if any
 		if (!empty($this->form_data)) {
-			$this->view->addJs("dotclear.majordomeFormData = '{$this->form_data->form_fields}';", true);
+			$this->view->addJs("dotclear.majordomeFormData = {$this->form_data->form_fields};", true);
 		}
 
     	// Run Formbuilder
@@ -139,6 +139,8 @@ class editPage extends page
 		echo '<h3>', $this->title, '</h3>',
         	'<form method="POST" id="mj_new_form" action="', $p_url, '&amp;page=', $this->id, '">',
         		$core->formNonce(),
+				// Save the ID of the form to update
+				(empty($this->form_data) ? '' : form::hidden('mj_form_id', $this->form_data->form_id)),
         		'<div class="fieldset">',
         			'<h4>', __('Form options'), '</h4>',
         			'<p>',
@@ -160,16 +162,19 @@ class editPage extends page
         			'</p>',
 					'<p class="form-note">',
 					__('The form description must not exceed 250 characters.'),
-					'</p>',
+					'</p>';
 
-        			'<p>',
-        				'<label class="required" for="mj_form_action">',
-        					'<abbr title="', __('Required field'), '">*</abbr>',
-        					__('Data handling'),
-        				'</label>',
-        				form::combo('mj_form_action',majordome::getDataHandlerList()),
-        			'</p>',
-        		'</div>',
+					// If we are updating a form, we cannot change the handler (too complicated)
+					if (empty($this->form_data)) {
+						echo '<p>',
+						'<label class="required" for="mj_form_action">',
+						'<abbr title="', __('Required field'), '">*</abbr>',
+						__('Data handling'),
+						'</label>',
+						form::combo('mj_form_action', majordome::getDataHandlerList()),
+						'</p>';
+					}
+			echo '</div>',
         		'<div class="fieldset">',
         			'<h4>', __('Form fields'), '</h4>',
 					'<div id="newform-builder"></div>',
@@ -186,6 +191,12 @@ class editPage extends page
     {
     	global $core;
 
+		// Form ID check
+		if (!empty($_POST['mj_form_id']) &&
+			filter_var($_POST['mj_form_id'], FILTER_VALIDATE_INT) === false) {
+			$core->error->add(sprintf(__('Unknown form of ID “%s”.'), $_POST['mj_form_id']));
+		}
+
     	// Form name check
     	if (empty($_POST['mj_form_name'])) {
     		$core->error->add(__('Please enter a form name.'));
@@ -198,12 +209,14 @@ class editPage extends page
     		$core->error->add(__('The form description is too long.'));
     	}
 
-    	// Form data handler check
-    	if (empty($_POST['mj_form_action'])) {
-    		$core->error->add(__('Please choose a handler for the form results.'));
-    	} else if (!in_array($_POST['mj_form_action'], majordome::getDataHandlerList())) {
-    		$core->error->add(__('The chosen data handler does not exists.'));
-    	}
+    	// Form data handler check, only if we are creating a new form
+		if (empty($_POST['mj_form_id'])) {
+			if (empty($_POST['mj_form_action'])) {
+				$core->error->add(__('Please choose a handler for the form results.'));
+			} else if (!in_array($_POST['mj_form_action'], majordome::getDataHandlerList())) {
+				$core->error->add(__('The chosen data handler does not exists.'));
+			}
+		}
 
     	// Form fields check
     	if (empty($_POST['mj_form_content'])) {
@@ -212,15 +225,38 @@ class editPage extends page
 
     	if ($core->error->flag() === false) {
     		// The form is valid, we store the result in the DB
-    		$success = majordomeDBHandler::insert($_POST['mj_form_name'], $_POST['mj_form_desc'], $_POST['mj_form_action'], $_POST['mj_form_content']);
 
-    		if ($success) {
-    			dcPage::addSuccessNotice(__('The form has been successfully created.'));
+			if (empty($_POST['mj_form_id'])) {
+				// We create a new form
+				$success = majordomeDBHandler::insert($_POST['mj_form_name'], $_POST['mj_form_desc'], $_POST['mj_form_action'], $_POST['mj_form_content']);
+
+				if ($success) {
+					// The form has been successfully created, so we hide this page from the view
+					dcPage::addSuccessNotice(__('The form has been successfully created.'));
+					$this->hidden = true;
+					return true;
+				} else {
+					$core->error->add(sprintf(__('An unknown error occurred. The form could not be created.'), html::escapeHTML($_POST['mj_form_name'])));
+				}
+			} else {
+				// We update the existing form
+				try {
+					majordomeDBHandler::update($_POST['mj_form_id'], $_POST['mj_form_name'], $_POST['mj_form_desc'], $_POST['mj_form_content']);
+				} catch (Exception $e) {
+					$core->error->add(sprintf(__('An unknown error occurred: %s.'), $e->getMessage()));
+				}
+
+				// The form has been successfully created, so we hide this page from the view
+				dcPage::addSuccessNotice(__('The form has been successfully updated.'));
+				$this->hidden = true;
 				return true;
-    		} else {
-    			$core->error->add(sprintf(__('The form “%s” already exists. Please choose another name or edit the existing form.'), html::escapeHTML($_POST['mj_form_name'])));
-    		}
+			}
     	}
+
+		if (!empty($_POST['mj_form_id'])) {
+			// If there is an error during form update, we must pass the form ID again to the page
+			$_GET['formid'] = $_POST['mj_form_id'];
+		}
 
 		return false;
 	}

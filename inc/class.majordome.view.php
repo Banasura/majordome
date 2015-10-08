@@ -88,9 +88,11 @@ class view
 
 			        // Display the tabs
 			        foreach ($this->pages as $id_page => $page) {
-			           	echo '<div class="multi-part" id="', $id_page, '" title="', $page->title, '">';
-			           			$page->content();
-			           		echo '</div>';
+                        if (!$page->hidden) {
+                            echo '<div class="multi-part" id="', $id_page, '" title="', $page->title, '">';
+                                $page->content();
+                            echo '</div>';
+                        }
 			        }
 			        
 			        // Add the JS files

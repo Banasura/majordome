@@ -29,12 +29,13 @@
 	Formbuilder.options.AUTOSAVE = false;
 
 	var options = {
-		selector: '#newform-builder',
+		selector: '#newform-builder'
 	}
 
 	// Load existing data if any
 	if (dotclear.majordomeFormData !== undefined) {
-		options.bootstrapData = JSON.parse(dotclear.majordomeFormData);
+		var formData = JSON.parse(dotclear.majordomeFormData);
+		if (typeof formData === "object") options.bootstrapData = formData.fields;
 	}
 
 	// Init the wizard

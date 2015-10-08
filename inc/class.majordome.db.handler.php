@@ -79,6 +79,30 @@ class majordomeDBHandler {
 		$dataSet->form_fields = $fields;
 		return $dataSet->insert();				
 	}
+	/**
+	 * Update an existing form in the database
+	 * @param int 		$id
+	 * @param string 	$name
+	 * @param string 	$desc
+	 * @param string 	$fields
+	 * @return boolean	true if the insertion succeed, false if the form name already exists
+	 */
+	public static function update($id, $name, $desc, $fields)
+	{
+		global $core;
+		$id = (int) $id;
+		if (empty($id)) {
+			throw new InvalidArgumentException('Empty or non-numeric form identifier.');
+		}
+
+		$db =& $core->con;
+		$dataSet = $db->openCursor(self::getFullTableName());
+
+		$dataSet->form_name = $name;
+		$dataSet->form_desc = $desc;
+		$dataSet->form_fields = $fields;
+		return $dataSet->update('WHERE form_id = ' . $id);
+	}
 	
 	/**
 	 * Delete a form given its name
@@ -120,7 +144,7 @@ class majordomeDBHandler {
 		global $core;
 		$db =& $core->con;
 
-		if (is_int($id)) {
+		if (filter_var($id, FILTER_VALIDATE_INT) !== false) {
 			// Get the form using its ID
 			$data = $db->select('SELECT * FROM ' . self::getFullTableName()
 				. ' WHERE form_id = ' . $id . ';');

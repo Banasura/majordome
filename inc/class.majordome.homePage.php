@@ -38,8 +38,6 @@ class homePage extends page
     	// Handle form operations
     	if (!empty($_POST['delete'])) {
 			$this->deleteForm();
-    	} elseif (!empty($_POST['edit'])) {
-			$this->view->showPage('edit');
     	}
 	}
 
@@ -75,7 +73,7 @@ class homePage extends page
 								'<td class="nowrap">', html::escapeHTML($form->form_handler), '</td>',
 								'<td class="module-actions nowrap">',
 									'<a class="button" href="', $core->blog->url, $core->url->getBase('majordome_view'), '/', $form->form_url, '" title="', __('Show this form on the blog'), '">',  __('Show'), '</a> ',
-									'<input class="button" type="submit" name="edit[', $form->form_id, ']" value="', __('Edit'), '"> ',
+									'<a class="button" href="', $p_url, '&amp;page=edit&amp;formid=', $form->form_id, '" title="', __('Edit this form'), '">', __('Edit'), '</a> ',
 									'<input class="delete" type="submit" name="delete[', $form->form_id, ']" value="', __('Delete'), '">',
 								'</td>',
 							'</tr>';
