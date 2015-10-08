@@ -28,8 +28,10 @@ if (!defined('DC_CONTEXT_ADMIN')) {return;}
 
 $view = new view();
 
-// Register the available pages
+// Register the global pages
 $view->register('homePage');
-$view->register('newFormPage');
+
+// Get the current page to show
+$view->showPage(empty($_GET['page']) ? null : $_GET['page']);
 
 $view->display();

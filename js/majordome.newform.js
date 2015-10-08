@@ -28,21 +28,28 @@
 ;(function () {
 	Formbuilder.options.AUTOSAVE = false;
 
-	var formbuilder = new Formbuilder({
+	var options = {
 		selector: '#newform-builder',
-	}),
+	}
+
+	// Load existing data if any
+	if (dotclear.majordomeFormData !== undefined) {
+		options.bootstrapData = JSON.parse(dotclear.majordomeFormData);
+	}
+
+	// Init the wizard
+	var formbuilder = new Formbuilder(options),
 		lastSaved	= null;
 
 	// Log JSON save
 	formbuilder.on("save", function (payload) {
 		lastSaved = payload;
-		console.log(payload);
 	});
-	
+
 	// Save the form content on submit
 	$("#mj_new_form").on("submit", function (ev) {
 		// Get the json
 		formbuilder.mainView.saveForm();
-		$("#mj_form_content").val(lastSaved);
+		$("#mj_form_content").val(JSON.stringify(lastSaved));
 	});
 })();

@@ -112,16 +112,23 @@ class majordomeDBHandler {
 
 	/**
 	 * Returns the content of a form
-	 * @param int $url The form URL
-	 * @return DBResult|boolean the form or false if no form found
+	 * @param string|int $id The form URL or ID
+	 * @return record|boolean the form or false if no form found
 	 */
-	public static function getFormData($url)
+	public static function getFormData($id)
 	{
 		global $core;
 		$db =& $core->con;
 
-		$data = $db->select('SELECT * FROM ' . self::getFullTableName()
-							. ' WHERE form_url = \'' . $db->escape($url) . '\';');
+		if (is_int($id)) {
+			// Get the form using its ID
+			$data = $db->select('SELECT * FROM ' . self::getFullTableName()
+				. ' WHERE form_id = ' . $id . ';');
+		} else {
+			// Get the form using its URL
+			$data = $db->select('SELECT * FROM ' . self::getFullTableName()
+				. ' WHERE form_url = \'' . $db->escape($id) . '\';');
+		}
 
 		return $data->isEmpty() ? false : $data;
 	}

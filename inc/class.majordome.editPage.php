@@ -24,17 +24,34 @@
  * SOFTWARE.
  *
  ******************************************************************************/
-__('Create a new form');
 
-class newFormPage extends page
+class editPage extends page
 {
-	function __construct($view)
+	/**
+	 * Contains the already existing data of the form
+	 * @var	object
+	 */
+	private $form_data;
+
+	function __construct($view, $id = 'newForm')
 	{
-    	parent::__construct($view, 'newForm', 'Create a new form');
-    	global $core;
+		global $core;
+
+    	parent::__construct($view, $id, __('Create a new form'));
+
+		// Check if we have an existing form to edit
+		if (!empty($_POST['edit'])) {
+			$form_ids = array_keys($_POST['edit']);
+			$form_data = majordomeDBHandler::getFormData($form_ids[0]);
+			if ($form_data === false) {
+				$core->error->add(__('Unable to edit the form.'));
+			} else {
+				$this->form_data = $form_data;
+			}
+		}
 
 		// Do we have to trigger form registration?
-		$this->saveResult = false;
+		$this->resultSaved = true;
 
     	// Add Formbuilder dependencies
     	$this->view->addJs(dcPage::getPF('/majordome/js/vendor.js'));
@@ -88,12 +105,17 @@ class newFormPage extends page
     		'};',
     	true);
 
+		// Load the form fields if any
+		if (!empty($this->form_data)) {
+			$this->view->addJs("dotclear.majordomeFormData = '{$this->form_data->form_fields}';", true);
+		}
+
     	// Run Formbuilder
     	$this->view->addJs(dcPage::getPF('/majordome/js/majordome.newform.js'));
 
     	// Handle the results if any
     	if (isset($_POST['mj_save_new_form'])) {
-    		$this->saveResult = $this->saveForm();
+    		$this->resultSaved = $this->saveForm();
     	}
 	}
 
@@ -103,14 +125,18 @@ class newFormPage extends page
 		$title = '';
 		$desc = '';
 
+
 		// We retrieve the informations already entered if the save failed
-		if ($this->saveResult === false) {
+		if ($this->resultSaved === false) {
 			$title = empty($_POST['mj_form_name']) ? '' : html::escapeHTML($_POST['mj_form_name']);
 			$desc = empty($_POST['mj_form_desc']) ? '' : html::escapeHTML($_POST['mj_form_desc']);
+		} elseif (!empty($this->form_data)) {
+			// We fill in the existing data if any
+			$title = html::escapeHTML($this->form_data->form_name);
+			$desc = html::escapeHTML($this->form_data->form_desc);
 		}
 
-        echo '<h3>', $this->title, '</h3>',
-        	'<p>', __('Create a new form by entering its title and choosing its fields. You will then be able to add your brand new form wherever you want in your blog.'), '</p>',
+		echo '<h3>', $this->title, '</h3>',
         	'<form method="POST" id="mj_new_form" action="', $p_url, '&amp;page=', $this->id, '">',
         		$core->formNonce(),
         		'<div class="fieldset">',
@@ -186,7 +212,6 @@ class newFormPage extends page
 
     	if ($core->error->flag() === false) {
     		// The form is valid, we store the result in the DB
-    		$db =& $core->con;
     		$success = majordomeDBHandler::insert($_POST['mj_form_name'], $_POST['mj_form_desc'], $_POST['mj_form_action'], $_POST['mj_form_content']);
 
     		if ($success) {

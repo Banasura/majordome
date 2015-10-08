@@ -129,17 +129,37 @@ class view
     public function setCurrent($id) {
     	$this->current = $id;
     }
+
+    /**
+     * Display the given page if available
+     * @param $page_name    The page name, found in the URL
+     */
+    public function showPage($page_name = null)
+    {
+        if (empty($page_name)) return;
+
+        if (empty($this->pages[$page_name])) {
+            // The page is not already added to the view: we add it
+            try {
+                $page = $this->register($page_name . 'Page');
+            } catch (Exception $e) {
+                // The page does not exist: we display the default page
+                return;
+            }
+            $this->current = $page->id;
+        }
+    }
     
 
     /**
      * Register a new page to be displayed. The page must be a subclass of
      * "view".
      * @method register
-     * @param  view     $page_class     The class to be added
-     * @param  mixed	$params			An additional parameter to pass to the constructor
-     * @return page						The instance newly created
+     * @param  view     $page_class, ...    The class to be added,
+     *                                      followed by the params to pass to the constructor
+     * @return page						    The instance newly created
      */
-    public function register($page_class, $params = null)
+    public function register($page_class)
     {
     	$page = null;
     	
@@ -147,10 +167,14 @@ class view
             throw new InvalidArgumentException('Argument does not extend page.');
         }
 		
-        if (empty($params)) {
-	        $page = new $page_class($this);
+        if (func_num_args() > 1) {
+            // Call the constructor with the additional parameters
+            $reflect  = new ReflectionClass($page_class);
+            $args = func_get_args();
+            $args[0] = $this; // replace the first arg by the right one
+            $page = $reflect->newInstanceArgs($args);
         } else {
-	        $page = new $page_class($this, $params);
+	        $page = new $page_class($this);
         }
 
         if (empty($page->id)) {

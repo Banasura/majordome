@@ -53,7 +53,7 @@ abstract class page {
 	function __construct($view, $id, $title)
 	{
 		$this->id = $id;
-		$this->title = __($title);
+		$this->title = $title;
 		$this->view = $view;
 	}
 	

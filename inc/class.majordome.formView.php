@@ -47,6 +47,12 @@ class formView extends dcUrlHandlers
             return;
         }
 
+        /* Form answers: we look for the nonce sent with the form, if found, we
+        trigger the form validation & save */
+        if (!empty($_POST['mj_fid'])) {
+            self::validateForm();
+        }
+
         $core->tpl->setPath($core->tpl->getPath(), realpath(dirname(__FILE__) . '/../default-templates/'));
 
         self::serveDocument('form.html','text/html');
@@ -80,7 +86,9 @@ class formView extends dcUrlHandlers
     public static function formItems($attr, $content)
     {
         return '<?php
+        global $core;
         $_ctx =& $GLOBALS[\'_ctx\'];
+        echo \'<input type="hidden" name="mj_fid" value="\', $_ctx->formData->form_id, \'">\';
         foreach ($_ctx->formData->content as $f):
             $renderer = formField::getField($f);
             if (empty($renderer)) {
@@ -129,5 +137,18 @@ class formView extends dcUrlHandlers
     public static function FormItemId()
     {
         return '<?php if (!empty($f)) echo $renderer->getFieldId(); ?>';
+    }
+
+    /**
+     * Validate form answers in POST data against the specification given in
+     * parameter
+     * @return bool the result of the validation
+     */
+    public static function validateForm()
+    {
+        $_ctx =& $GLOBALS['_ctx'];
+        foreach ($_ctx->formData->content as $f) {
+            // TODO Implement validation for each field
+        }
     }
 }

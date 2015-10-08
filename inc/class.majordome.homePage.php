@@ -31,17 +31,15 @@ class homePage extends page
 {
 	function __construct($view)
 	{
-    	parent::__construct($view, 'home', 'My forms');
+		global $core;
+    	parent::__construct($view, 'home', __('My forms'));
     	$this->view->addCss(dcPage::getPF('majordome/css/admin.css'));
     	
     	// Handle form operations
     	if (!empty($_POST['delete'])) {
-    		$this->deleteForm();
+			$this->deleteForm();
     	} elseif (!empty($_POST['edit'])) {
-    		// Add a new specific page to the view, and pass the form ID as parameter
-    		$form_ids = array_keys($_POST['edit']);
-    		$page = $this->view->register('editFormPage', $form_ids[0]);
-    		$this->view->setCurrent($page->id);
+			$this->view->showPage('edit');
     	}
 	}
 
@@ -51,10 +49,10 @@ class homePage extends page
         $form_list = majordomeDBHandler::getFormList();
 
         echo '<h3 class="no-margin">', $this->title, '</h3>',
-            '<p class="right"><a class="button add" href="#newForm">', __('Create a form'), '</a></p>',
+		'<p class="right"><a class="button add" href="', $p_url, '&amp;page=edit">', __('Create a form'), '</a></p>',
 
             // Display the current form list
-            '<form method="POST" action="', $p_url, '&amp;page=', $this->id, '">',
+			'<form method="POST" action="', $p_url, '&amp;page=', $this->id, '">',
             	$core->formNonce();
 
 				if ($form_list->isEmpty()) {

@@ -26,11 +26,11 @@
 ******************************************************************************/
 
 class majordome {
-	
+
 	/**
 	 * Returns the list of the data handlers registered in Majordome
-	 * @return multitype:string
-	 */
+	 * @return array
+     */
 	static public function getDataHandlerList ()
 	{
 		// FIXME add an API to register a data handler
