@@ -45,4 +45,23 @@ class formDateField extends formField
             ($this->field->required ? ' required' : '') .
         '>';
     }
+
+    /**
+     * Validate the answer to a field against the specifications of the form
+     * @param mixed $answer The user's answer to the field
+     * @return array   The error messages explaining the problem, if any
+     */
+    public function validate($answer)
+    {
+        $error = parent::validate($answer);
+
+        // Date format verification
+        if (empty($error)) {
+            // FIXME The only supported pattern is currently the French date format (DD/MM/YYYY)
+            if (preg_match ('/^(([0-2]\d|[3][0-1])\/([0]\d|[1][0-2])\/[2][0]\d{2})$|^(([0-2]\d|[3][0-1])\/([0]\d|[1][0-2])\/[2][0]\d{2}\s([0-1]\d|[2][0-3])\:[0-5]\d\:[0-5]\d)$/', $answer) !== 1) {
+                $error = array(sprintf(__('Please enter a valid date format (DD/MM/YYYY) in “%s”'), $this->renderLabel()));
+            }
+        }
+        return $error;
+    }
 }

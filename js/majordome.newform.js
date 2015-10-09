@@ -34,8 +34,7 @@
 
 	// Load existing data if any
 	if (dotclear.majordomeFormData !== undefined) {
-		var formData = JSON.parse(dotclear.majordomeFormData);
-		if (typeof formData === "object") options.bootstrapData = formData.fields;
+		if (typeof dotclear.majordomeFormData === "object") options.bootstrapData = dotclear.majordomeFormData.fields;
 	}
 
 	// Init the wizard
@@ -51,6 +50,6 @@
 	$("#mj_new_form").on("submit", function (ev) {
 		// Get the json
 		formbuilder.mainView.saveForm();
-		$("#mj_form_content").val(JSON.stringify(lastSaved));
+		$("#mj_form_content").val(lastSaved);
 	});
 })();

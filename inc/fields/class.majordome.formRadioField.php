@@ -58,4 +58,22 @@ class formRadioField extends formField
 
         return $html;
     }
+
+    /**
+     * Validate the answer to a field against the specifications of the form
+     * @param mixed $answer The user's answer to the field
+     * @return string   An error message explaining the problem, if any
+     */
+    public function validate($answer)
+    {
+        $error = parent::validate($answer);
+
+        // Check if the text field is filled if the box 'other' is checked
+        if (!empty($answer) && !empty($answer[$this->getFieldId() . '-other']) && empty($answer[$this->getFieldId() . '-other-value'])) {
+            if (!isset($error)) $error = array();
+            $error[] = sprintf(__('Please fill in the “other” option in the field “%s”'), $this->renderLabel());
+        }
+
+        return $error;
+    }
 }

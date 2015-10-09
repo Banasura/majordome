@@ -41,7 +41,7 @@ class formSubmitField extends formField
         $id = $this->getFieldId();
 
         return '<input type="submit" id="' . $id . '" name="' . $id . '"' .
-        'value="' . parent::renderLabel() . '">';
+        ' value="' . parent::renderLabel() . '">';
     }
 
     /**

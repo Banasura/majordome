@@ -84,6 +84,18 @@ abstract class formField
         return 'fid-' . $this->field->cid;
     }
 
+    /**
+     * Validate the answer to a field against the specifications of the form
+     * @param mixed $answer The user's answer to the field
+     * @return string   An error message explaining the problem, if any
+     */
+    public function validate($answer) {
+        // This generic class implements only the 'required' constraint
+        if ($this->field->required && empty($answer)) {
+            return array(sprintf(__('Please fill in the field “%s”'), $this->renderLabel));
+        } else return array();
+    }
+
     /********************* Class methods & properties *************************/
 
     /**

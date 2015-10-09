@@ -44,4 +44,21 @@ class formWebsiteField extends formField
             ($this->field->required ? ' required' : '') .
         ' placeholder="http://">';
     }
+
+    /**
+     * Validate the answer to a field against the specifications of the form
+     * @param mixed $answer The user's answer to the field
+     * @return string   An error message explaining the problem, if any
+     */
+    public function validate($answer)
+    {
+        $error = parent::validate($answer);
+
+        // Check the mail pattern
+        if (empty($error) && filter_var($answer, FILTER_VALIDATE_URL) === false) {
+            $error = array(sprintf(__('Please enter a valid email address in field “%s”'), $this->renderLabel()));
+        }
+
+        return $error;
+    }
 }

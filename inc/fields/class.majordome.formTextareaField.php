@@ -50,4 +50,30 @@ class formTextareaField extends formField
                 : ' maxlength="' . $this->field->field_options->maxlength . '"') .
         '></textarea>';
     }
+
+    /**
+     * Validate the answer to a field against the specifications of the form
+     * @param mixed $answer The user's answer to the field
+     * @return string   An error message explaining the problem, if any
+     */
+    public function validate($answer)
+    {
+        $error = parent::validate($answer);
+
+        // Check the text area limits
+        if (empty($error)) {
+            $error = array();
+
+            // Minimum/Maximum
+            if (!empty($this->field->field_options->minlength) && (strlen($answer) < $this->field->field_options->minlength)) {
+                $error[] = sprintf(__('Please enter at least %s characters in the field “%s”'), $this->field->field_options->minlength, $this->renderLabel());
+            }
+
+            if (!empty($this->field->field_options->maxlength) && (strlen($answer) > $this->field->field_options->maxlength)) {
+                $error[] = sprintf(__('Please enter less than %s characters in the field “%s”'), $this->field->field_options->maxlength, $this->renderLabel());
+            }
+        }
+
+        return $error;
+    }
 }

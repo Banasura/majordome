@@ -56,4 +56,37 @@ class formNumberField extends formField
             ? ''
             : html::escapeHTML($this->field->field_options->units));
     }
+
+    /**
+     * Validate the answer to a field against the specifications of the form
+     * @param mixed $answer The user's answer to the field
+     * @return string   An error message explaining the problem, if any
+     */
+    public function validate($answer)
+    {
+        $error = parent::validate($answer);
+
+        // Check the number format
+        if (empty($error)) {
+            $error = array();
+
+            // If the number must be an integer
+            if ($this->field->field_options->integer_only && filter_var($answer, FILTER_VALIDATE_INT) === false) {
+                $error[] = sprintf(__('Please enter an integer number in the field “%s”'), $this->renderLabel());
+            } elseif (filter_var($answer, FILTER_VALIDATE_FLOAT) === false) {
+                $error[] = sprintf(__('Please enter a decimal number in the field “%s”'), $this->renderLabel());
+            }
+
+            // Minimum/Maximum
+            if (!empty($this->field->field_options->min) && ($answer < $this->field->field_options->min)) {
+                $error[] = sprintf(__('Please enter a number above %s in the field “%s”'), $this->field->field_options->min, $this->renderLabel());
+            }
+
+            if (!empty($this->field->field_options->max) && ($answer > $this->field->field_options->max)) {
+                $error[] = sprintf(__('Please enter a number under %s in the field “%s”'), $this->field->field_options->max, $this->renderLabel());
+            }
+        }
+
+        return $error;
+    }
 }

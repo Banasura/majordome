@@ -103,7 +103,7 @@ class formView extends dcUrlHandlers
      * Display the label of a field
      * @return string   The field's HTML
      */
-    public static function FormItemLabel()
+    public static function formItemLabel()
     {
         /* We should have the $f variable defined in this function, if the tag
          * has been correctly added inside a <tpl:Form> tag. The variable
@@ -116,7 +116,7 @@ class formView extends dcUrlHandlers
      * Display the label of a field
      * @return string   The field's HTML
      */
-    public static function FormItemField()
+    public static function formItemField()
     {
         return '<?php if (!empty($f)) echo $renderer->renderField(); ?>';
     }
@@ -125,7 +125,7 @@ class formView extends dcUrlHandlers
      * Display the label of a field
      * @return string   The field's HTML
      */
-    public static function FormItemDescription()
+    public static function formItemDescription()
     {
         return '<?php if (!empty($f)) echo $renderer->renderDescription(); ?>';
     }
@@ -134,9 +134,22 @@ class formView extends dcUrlHandlers
      * Display the ID of a field, used for example in the inputs
      * @return string   The field's HTML
      */
-    public static function FormItemId()
+    public static function formItemId()
     {
         return '<?php if (!empty($f)) echo $renderer->getFieldId(); ?>';
+    }
+    /**
+     * Display the ID of a field, used for example in the inputs
+     * @return string   The field's HTML
+     */
+    public static function formErrorMsg()
+    {
+        return '<?php
+            $_ctx =& $GLOBALS[\'_ctx\'];
+            if (!empty($_ctx->formData->errorMsg)) {
+                echo \'<ul><li>\', implode(\'</li><li>\', $_ctx->formData->errorMsg), \'</li></ul>\';
+            }
+        ?>';
     }
 
     /**
@@ -147,8 +160,22 @@ class formView extends dcUrlHandlers
     public static function validateForm()
     {
         $_ctx =& $GLOBALS['_ctx'];
+        $error_msg = null;
         foreach ($_ctx->formData->content as $f) {
-            // TODO Implement validation for each field
+            $renderer = formField::getField($f);
+            if (empty($renderer)) {
+                throw new Exception('Unknown field "' . $f->field_type . '"');
+            }
+            $error_msg = $renderer->validate($_POST[$renderer->getFieldId()]);
         }
+
+        if (!empty($error_msg)) {
+            // The validation failed, we display the form again
+            $_ctx->formData->errorMsg = $error_msg;
+            return false;
+        }
+
+        // TODO The validation succeed: send the answers to the data handler
+        return true;
     }
 }

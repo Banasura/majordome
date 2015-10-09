@@ -49,11 +49,30 @@ class formCheckboxField extends formField
 
         // Include 'other' field if necessary
         if ($this->field->field_options->include_other_option) {
-            $html .= '<input type="checkbox" name="' . $id . '[]" id="' . $id . '-other">' .
+            $html .= '<input type="checkbox" name="' . $id . '-other" id="' . $id . '-other">' .
                 '<label for="' . $id . '-other">' . __('Other') . '</label>' .
-                '<input type="text" name="' . $id . '-other" id="' . $id . '-other-value">';
+                '<input type="text" name="' . $id . '-other-value" id="' . $id . '-other-value">';
         }
 
         return $html;
     }
+
+    /**
+     * Validate the answer to a field against the specifications of the form
+     * @param mixed $answer The user's answer to the field
+     * @return string   An error message explaining the problem, if any
+     */
+    public function validate($answer)
+    {
+        $error = array();
+
+        // Check if the text field is filled if the box 'other' is checked
+        if (!empty($answer) && !empty($answer[$this->getFieldId() . '-other']) && empty($answer[$this->getFieldId() . '-other-value'])) {
+            $error[] = sprintf(__('Please fill in the “other” option in the field “%s”'), $this->renderLabel());
+        }
+
+        return $error;
+    }
+
+
 }
