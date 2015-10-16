@@ -31,24 +31,13 @@ class formMailFieldTest extends PHPUnit_Framework_TestCase
     public function testIsPatternRestricted()
     {
         $form_spec = json_decode('{
-          "label": "Aimez-vous les pizzas ?",
-          "field_type": "checkboxes",
-          "required": true,
-          "field_options": {
-            "options": [
-              {
-                "label": "Oui",
-                "checked": true
-              },
-              {
-                "label": "Non",
-                "checked": false
-              }
-            ],
-            "description": "Répondez à cette question requise",
-            "include_other_option": true
-          },
-          "cid": "c6"
+            "label": "Courriel",
+            "field_type": "email",
+            "required": true,
+            "field_options": {
+                "description": "Veuillez saisir votre adresse électronique"
+            },
+            "cid": "c38"
         }');
 
         $field = new formMailField($form_spec);
@@ -63,24 +52,13 @@ class formMailFieldTest extends PHPUnit_Framework_TestCase
     public function testIsFieldRequired()
     {
         $form_spec = json_decode('{
-          "label": "Aimez-vous les pizzas ?",
-          "field_type": "checkboxes",
-          "required": false,
-          "field_options": {
-            "options": [
-              {
-                "label": "Oui",
-                "checked": true
-              },
-              {
-                "label": "Non",
-                "checked": false
-              }
-            ],
-            "description": "Répondez à cette question requise",
-            "include_other_option": true
-          },
-          "cid": "c6"
+            "label": "Courriel",
+            "field_type": "email",
+            "required": true,
+            "field_options": {
+                "description": "Veuillez saisir votre adresse électronique"
+            },
+            "cid": "c38"
         }');
 
         $field = new formMailField($form_spec);

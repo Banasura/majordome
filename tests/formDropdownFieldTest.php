@@ -31,24 +31,24 @@ class formDropdownFieldTest extends PHPUnit_Framework_TestCase
     public function testIsAnswerInOptionList()
     {
         $form_spec = json_decode('{
-          "label": "Aimez-vous les pizzas ?",
-          "field_type": "checkboxes",
-          "required": true,
-          "field_options": {
-            "options": [
-              {
-                "label": "Oui",
-                "checked": true
-              },
-              {
-                "label": "Non",
-                "checked": false
-              }
-            ],
-            "description": "Répondez à cette question requise",
-            "include_other_option": true
-          },
-          "cid": "c6"
+            "label": "Êtes-vous",
+            "field_type": "dropdown",
+            "required": true,
+            "field_options": {
+                "options": [
+                    {
+                        "label": "Un homme",
+                        "checked": false
+                    },
+                    {
+                        "label": "Une femme",
+                        "checked": false
+                    }
+                ],
+                "include_blank_option": true,
+                "description": "Entrez votre sexe."
+            },
+            "cid": "c30"
         }');
 
         $field = new formDropdownField($form_spec);
@@ -56,33 +56,33 @@ class formDropdownFieldTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($field->validate(array(
             'fid-c6' => 'Foo')));
         $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => 'Oui'))); // FIXME Change to a real option name
+            'fid-c6' => 'Un homme')));
             
         $this->assertEmpty($field->validate(array(
-            'fid-c6' => '1'))); // FIXME Change to a real option name
+            'fid-c6' => '1')));
     }
 
     public function testIsFieldRequired()
     {
         $form_spec = json_decode('{
-          "label": "Aimez-vous les pizzas ?",
-          "field_type": "checkboxes",
-          "required": false,
-          "field_options": {
-            "options": [
-              {
-                "label": "Oui",
-                "checked": true
-              },
-              {
-                "label": "Non",
-                "checked": false
-              }
-            ],
-            "description": "Répondez à cette question requise",
-            "include_other_option": true
-          },
-          "cid": "c6"
+            "label": "Êtes-vous",
+            "field_type": "dropdown",
+            "required": true,
+            "field_options": {
+                "options": [
+                    {
+                        "label": "Un homme",
+                        "checked": false
+                    },
+                    {
+                        "label": "Une femme",
+                        "checked": false
+                    }
+                ],
+                "include_blank_option": true,
+                "description": "Entrez votre sexe."
+            },
+            "cid": "c30"
         }');
 
         $field = new formDropdownField($form_spec);
@@ -94,24 +94,24 @@ class formDropdownFieldTest extends PHPUnit_Framework_TestCase
     public function testIsFieldNotRequired()
     {
         $form_spec = json_decode('{
-          "label": "Aimez-vous les pizzas ?",
-          "field_type": "checkboxes",
-          "required": false,
-          "field_options": {
-            "options": [
-              {
-                "label": "Oui",
-                "checked": true
-              },
-              {
-                "label": "Non",
-                "checked": false
-              }
-            ],
-            "description": "Répondez à cette question requise",
-            "include_other_option": true
-          },
-          "cid": "c6"
+            "label": "Êtes-vous",
+            "field_type": "dropdown",
+            "required": false,
+            "field_options": {
+                "options": [
+                    {
+                        "label": "Un homme",
+                        "checked": false
+                    },
+                    {
+                        "label": "Une femme",
+                        "checked": false
+                    }
+                ],
+                "include_blank_option": true,
+                "description": "Entrez votre sexe."
+            },
+            "cid": "c30"
         }');
 
         $field = new formDropdownField($form_spec);

@@ -31,24 +31,13 @@ class formDateFieldTest extends PHPUnit_Framework_TestCase
     public function testIsPatternRestricted()
     {
         $form_spec = json_decode('{
-          "label": "Aimez-vous les pizzas ?",
-          "field_type": "checkboxes",
-          "required": true,
-          "field_options": {
-            "options": [
-              {
-                "label": "Oui",
-                "checked": true
-              },
-              {
-                "label": "Non",
-                "checked": false
-              }
-            ],
-            "description": "Répondez à cette question requise",
-            "include_other_option": true
-          },
-          "cid": "c6"
+            "label": "Date de naissance",
+            "field_type": "date",
+            "required": true,
+            "field_options": {
+                "description": "Merci de renseigner votre date de naissance"
+            },
+            "cid": "c10"
         }');
 
         $field = new formDateField($form_spec);
@@ -71,24 +60,13 @@ class formDateFieldTest extends PHPUnit_Framework_TestCase
     public function testIsFieldRequired()
     {
         $form_spec = json_decode('{
-          "label": "Aimez-vous les pizzas ?",
-          "field_type": "checkboxes",
-          "required": false,
-          "field_options": {
-            "options": [
-              {
-                "label": "Oui",
-                "checked": true
-              },
-              {
-                "label": "Non",
-                "checked": false
-              }
-            ],
-            "description": "Répondez à cette question requise",
-            "include_other_option": true
-          },
-          "cid": "c6"
+            "label": "Date de naissance",
+            "field_type": "date",
+            "required": true,
+            "field_options": {
+                "description": "Merci de renseigner votre date de naissance"
+            },
+            "cid": "c10"
         }');
 
         $field = new formDateField($form_spec);

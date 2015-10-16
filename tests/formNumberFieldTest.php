@@ -31,24 +31,17 @@ class formNumberFieldTest extends PHPUnit_Framework_TestCase
     public function testIsPatternRestrictedToInteger()
     {
         $form_spec = json_decode('{
-          "label": "Aimez-vous les pizzas ?",
-          "field_type": "checkboxes",
-          "required": true,
-          "field_options": {
-            "options": [
-              {
-                "label": "Oui",
-                "checked": true
-              },
-              {
-                "label": "Non",
-                "checked": false
-              }
-            ],
-            "description": "Répondez à cette question requise",
-            "include_other_option": true
-          },
-          "cid": "c6"
+            "label": "Combien avez-vous sur votre compte bancaire ?",
+            "field_type": "number",
+            "required": true,
+            "field_options": {
+                "description": "Entrez le solde de votre compte",
+                "max": "0",
+                "min": "9999999999",
+                "units": "€",
+                "integer_only": true
+            },
+            "cid": "c34"
         }');
 
         $field = new formNumberField($form_spec);
@@ -62,27 +55,20 @@ class formNumberFieldTest extends PHPUnit_Framework_TestCase
             'fid-c6' => '42')));
     }
     
-    public function testAreFloatAllowed()
+    public function testFloatAreAllowed()
     {
         $form_spec = json_decode('{
-          "label": "Aimez-vous les pizzas ?",
-          "field_type": "checkboxes",
-          "required": true,
-          "field_options": {
-            "options": [
-              {
-                "label": "Oui",
-                "checked": true
-              },
-              {
-                "label": "Non",
-                "checked": false
-              }
-            ],
-            "description": "Répondez à cette question requise",
-            "include_other_option": true
-          },
-          "cid": "c6"
+            "label": "Combien avez-vous sur votre compte bancaire ?",
+            "field_type": "number",
+            "required": true,
+            "field_options": {
+                "description": "Entrez le solde de votre compte",
+                "max": "0",
+                "min": "9999999999",
+                "units": "€",
+                "integer_only": false
+            },
+            "cid": "c34"
         }');
 
         $field = new formNumberField($form_spec);
@@ -96,27 +82,45 @@ class formNumberFieldTest extends PHPUnit_Framework_TestCase
             'fid-c6' => '42')));
     }
 
+    public function testIntegerRequired()
+    {
+        $form_spec = json_decode('{
+            "label": "Combien avez-vous sur votre compte bancaire ?",
+            "field_type": "number",
+            "required": true,
+            "field_options": {
+                "description": "Entrez le solde de votre compte",
+                "max": "0",
+                "min": "9999999999",
+                "units": "€",
+                "integer_only": true
+            },
+            "cid": "c34"
+        }');
+
+        $field = new formNumberField($form_spec);
+        $this->assertNotEmpty($field->validate(array(
+            'fid-c6' => '4.2')));
+        $this->assertNotEmpty($field->validate(array(
+            'fid-c6' => '4,2')));
+        $this->assertEmpty($field->validate(array(
+            'fid-c6' => '42')));
+    }
+
     public function testIsFieldRequired()
     {
         $form_spec = json_decode('{
-          "label": "Aimez-vous les pizzas ?",
-          "field_type": "checkboxes",
-          "required": false,
-          "field_options": {
-            "options": [
-              {
-                "label": "Oui",
-                "checked": true
-              },
-              {
-                "label": "Non",
-                "checked": false
-              }
-            ],
-            "description": "Répondez à cette question requise",
-            "include_other_option": true
-          },
-          "cid": "c6"
+            "label": "Combien avez-vous sur votre compte bancaire ?",
+            "field_type": "number",
+            "required": true,
+            "field_options": {
+                "description": "Entrez le solde de votre compte",
+                "max": "0",
+                "min": "9999999999",
+                "units": "€",
+                "integer_only": false
+            },
+            "cid": "c34"
         }');
 
         $field = new formNumberField($form_spec);

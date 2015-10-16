@@ -31,24 +31,24 @@ class formRadioFieldTest extends PHPUnit_Framework_TestCase
     public function testIsAnswerInOptionList()
     {
         $form_spec = json_decode('{
-          "label": "Aimez-vous les pizzas ?",
-          "field_type": "checkboxes",
-          "required": true,
-          "field_options": {
-            "options": [
-              {
-                "label": "Oui",
-                "checked": true
-              },
-              {
-                "label": "Non",
-                "checked": false
-              }
-            ],
-            "description": "Répondez à cette question requise",
-            "include_other_option": true
-          },
-          "cid": "c6"
+            "label": "Qu\'aimez-vous dans la vie ?",
+            "field_type": "radio",
+            "required": true,
+            "field_options": {
+                "options": [
+                    {
+                        "label": "Lire",
+                        "checked": false
+                    },
+                    {
+                        "label": "Chanter",
+                        "checked": false
+                    }
+                ],
+                "description": "Renseignez vos loisirs ici.",
+                "include_other_option": true
+            },
+            "cid": "c26"
         }');
 
         $field = new formRadioField($form_spec);
@@ -56,33 +56,33 @@ class formRadioFieldTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($field->validate(array(
             'fid-c6' => 'Foo')));
         $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => 'Oui'))); // FIXME Change to a real option name
+            'fid-c6' => 'Lire')));
             
         $this->assertEmpty($field->validate(array(
-            'fid-c6' => '1'))); // FIXME Change to a real option name
+            'fid-c6' => '1')));
     }
 
     public function testIsFieldRequired()
     {
         $form_spec = json_decode('{
-          "label": "Aimez-vous les pizzas ?",
-          "field_type": "checkboxes",
-          "required": false,
-          "field_options": {
-            "options": [
-              {
-                "label": "Oui",
-                "checked": true
-              },
-              {
-                "label": "Non",
-                "checked": false
-              }
-            ],
-            "description": "Répondez à cette question requise",
-            "include_other_option": true
-          },
-          "cid": "c6"
+            "label": "Qu\'aimez-vous dans la vie ?",
+            "field_type": "radio",
+            "required": true,
+            "field_options": {
+                "options": [
+                    {
+                        "label": "Lire",
+                        "checked": false
+                    },
+                    {
+                        "label": "Chanter",
+                        "checked": false
+                    }
+                ],
+                "description": "Renseignez vos loisirs ici.",
+                "include_other_option": true
+            },
+            "cid": "c26"
         }');
 
         $field = new formRadioField($form_spec);
@@ -94,24 +94,24 @@ class formRadioFieldTest extends PHPUnit_Framework_TestCase
     public function testIsFieldNotRequired()
     {
         $form_spec = json_decode('{
-          "label": "Aimez-vous les pizzas ?",
-          "field_type": "checkboxes",
-          "required": false,
-          "field_options": {
-            "options": [
-              {
-                "label": "Oui",
-                "checked": true
-              },
-              {
-                "label": "Non",
-                "checked": false
-              }
-            ],
-            "description": "Répondez à cette question requise",
-            "include_other_option": true
-          },
-          "cid": "c6"
+            "label": "Qu\'aimez-vous dans la vie ?",
+            "field_type": "radio",
+            "required": false,
+            "field_options": {
+                "options": [
+                    {
+                        "label": "Lire",
+                        "checked": false
+                    },
+                    {
+                        "label": "Dormir",
+                        "checked": false
+                    }
+                ],
+                "description": "Renseignez vos loisirs ici.",
+                "include_other_option": true
+            },
+            "cid": "c26"
         }');
 
         $field = new formRadioField($form_spec);

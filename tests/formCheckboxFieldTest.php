@@ -28,6 +28,72 @@
 
 class formCheckboxFieldTest extends PHPUnit_Framework_TestCase
 {
+    public function testAnswerIsInOptions()
+    {
+        $form_spec = json_decode('{
+          "label": "Aimez-vous les pizzas ?",
+          "field_type": "checkboxes",
+          "required": true,
+          "field_options": {
+            "options": [
+              {
+                "label": "Oui",
+                "checked": true
+              },
+              {
+                "label": "Non",
+                "checked": false
+              }
+            ],
+            "description": "Répondez à cette question requise",
+            "include_other_option": true
+          },
+          "cid": "c6"
+        }');
+
+        $field = new formCheckboxField($form_spec);
+        $this->assertEmpty($field->validate(array(
+            'fid-c6' => array('0', '1')
+        )));
+
+        $this->assertNotEmpty($field->validate(array(
+            'fid-c6' => array('0ui')
+        )));
+
+        $this->assertNotEmpty($field->validate(array(
+            'fid-c6' => array('5')
+        )));
+    }
+
+    public function testIsFieldRequired()
+    {
+        $form_spec = json_decode('{
+          "label": "Aimez-vous les pizzas ?",
+          "field_type": "checkboxes",
+          "required": true,
+          "field_options": {
+            "options": [
+              {
+                "label": "Oui",
+                "checked": true
+              },
+              {
+                "label": "Non",
+                "checked": false
+              }
+            ],
+            "description": "Répondez à cette question requise",
+            "include_other_option": true
+          },
+          "cid": "c6"
+        }');
+
+        $field = new formRadioField($form_spec);
+        $this->assertNotEmpty($field->validate(array(
+            'fid-c6' => ''
+        )));
+    }
+
     public function testOtherFieldIsNotEmpty()
     {
         $form_spec = json_decode('{

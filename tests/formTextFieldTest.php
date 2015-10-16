@@ -31,24 +31,17 @@ class formTextFieldTest extends PHPUnit_Framework_TestCase
     public function testIsFieldRequired()
     {
         $form_spec = json_decode('{
-          "label": "Aimez-vous les pizzas ?",
-          "field_type": "checkboxes",
-          "required": false,
-          "field_options": {
-            "options": [
-              {
-                "label": "Oui",
-                "checked": true
-              },
-              {
-                "label": "Non",
-                "checked": false
-              }
-            ],
-            "description": "Répondez à cette question requise",
-            "include_other_option": true
-          },
-          "cid": "c6"
+            "label": "Champ texte",
+            "field_type": "text",
+            "required": true,
+            "field_options": {
+                "size": "small",
+                "description": "Ceci est un champ texte requis entre 0 et 10 caractères.",
+                "minlength": "0",
+                "maxlength": "10",
+                "min_max_length_units": "characters"
+            },
+            "cid": "c2"
         }');
 
         $field = new formTextField($form_spec);

@@ -25,35 +25,79 @@
  * SOFTWARE.
  *
  ******************************************************************************/
-
 class formTextareaFieldTest extends PHPUnit_Framework_TestCase
 {
     public function testIsFieldRequired()
     {
         $form_spec = json_decode('{
-          "label": "Aimez-vous les pizzas ?",
-          "field_type": "checkboxes",
-          "required": false,
-          "field_options": {
-            "options": [
-              {
-                "label": "Oui",
-                "checked": true
-              },
-              {
-                "label": "Non",
-                "checked": false
-              }
-            ],
-            "description": "Répondez à cette question requise",
-            "include_other_option": true
-          },
-          "cid": "c6"
+            "label": "Blabla",
+            "field_type": "paragraph",
+            "required": true,
+            "field_options": {
+                "size": "small",
+                "description": "Veuillez entrer votre biographie ici.",
+                "minlength": "0",
+                "maxlength": "250",
+                "min_max_length_units": "characters"
+            },
+            "cid": "c22"
         }');
 
         $field = new formTextareaField($form_spec);
         $this->assertNotEmpty($field->validate(array(
             'fid-c6' => ''
+        )));
+    }
+
+    public function testMaximumLength()
+    {
+        $form_spec = json_decode('{
+            "label": "Blabla",
+            "field_type": "paragraph",
+            "required": true,
+            "field_options": {
+                "size": "small",
+                "description": "Veuillez entrer votre biographie ici.",
+                "minlength": "0",
+                "maxlength": "250",
+                "min_max_length_units": "characters"
+            },
+            "cid": "c22"
+        }');
+
+        $field = new formTextareaField($form_spec);
+        $this->assertNotEmpty($field->validate(array(
+            'fid-c6' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent consectetur nisi eros, eu aliquam nulla ullamcorper a. Mauris eu pulvinar purus. Etiam tellus orci, hendrerit in mi eget, dignissim porta risus. Aenean maximus, velit a mattis volutpat. '
+        )));
+
+        $this->assertEmpty($field->validate(array(
+            'fid-c6' => ''
+        )));
+    }
+
+    public function testMinimumLength()
+    {
+        $form_spec = json_decode('{
+            "label": "Blabla",
+            "field_type": "paragraph",
+            "required": true,
+            "field_options": {
+                "size": "small",
+                "description": "Veuillez entrer votre biographie ici.",
+                "minlength": "10",
+                "maxlength": "250",
+                "min_max_length_units": "characters"
+            },
+            "cid": "c22"
+        }');
+
+        $field = new formTextareaField($form_spec);
+        $this->assertNotEmpty($field->validate(array(
+            'fid-c6' => ''
+        )));
+
+        $this->assertEmpty($field->validate(array(
+            'fid-c6' => 'Lorem ipsum dolor sit amet!'
         )));
     }
 }
