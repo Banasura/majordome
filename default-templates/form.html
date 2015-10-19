@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <meta charset=UTF-8">
+    <meta charset="UTF-8">
     <meta name="MSSmartTagsPreventParsing" content="TRUE" />
 
     <title>{{tpl:FormName}} - {{tpl:BlogName encode_html="1"}}</title>
@@ -20,7 +20,10 @@
                 <div id="content-info">
                     <h2>{{tpl:FormName}}</h2>
                     <p class="form-desc">{{tpl:FormDescription}}</p>
-                    <p class="form-notification">{{tpl:FormErrorMsg}}</p>
+                    <p class="form-notification">
+                        {{tpl:FormErrorMsg}}
+                        {{tpl:FormSuccessMsg}}
+                    </p>
                 </div>
 
                 <div class="content-inner">

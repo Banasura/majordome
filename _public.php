@@ -39,3 +39,4 @@ $core->tpl->addValue('FormItemField', array('formView','formItemField'));
 $core->tpl->addValue('FormItemDescription', array('formView','formItemDescription'));
 $core->tpl->addValue('FormItemId', array('formView','formItemId'));
 $core->tpl->addValue('FormErrorMsg', array('formView','formErrorMsg'));
+$core->tpl->addValue('FormSuccessMsg', array('formView','formSuccessMsg'));

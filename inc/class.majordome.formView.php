@@ -26,6 +26,8 @@
  *
  ******************************************************************************/
 
+__('The form has been successfully sent. Thank you for your participation.');
+
 class formView extends dcUrlHandlers
 {
     public static function handleURL($args)
@@ -138,8 +140,9 @@ class formView extends dcUrlHandlers
     {
         return '<?php if (!empty($f)) echo $renderer->getFieldId(); ?>';
     }
+
     /**
-     * Display the ID of a field, used for example in the inputs
+     * Display a message explaining the errors in the form
      * @return string   The field's HTML
      */
     public static function formErrorMsg()
@@ -153,6 +156,20 @@ class formView extends dcUrlHandlers
     }
 
     /**
+     * Display a message notifying the success of the operation
+     * @return string   The field's HTML
+     */
+    public static function formSuccessMsg()
+    {
+        return '<?php
+            $_ctx =& $GLOBALS[\'_ctx\'];
+            if (empty($_ctx->formData->errorMsg) && !empty($_POST[\'mj_fid\'])) {
+                echo __(\'The form has been successfully sent. Thank you for your participation.\');
+            }
+        ?>';
+    }
+
+    /**
      * Validate form answers in POST data against the specification given in
      * parameter
      * @return bool the result of the validation
@@ -160,13 +177,13 @@ class formView extends dcUrlHandlers
     public static function validateForm()
     {
         $_ctx =& $GLOBALS['_ctx'];
-        $error_msg = null;
+        $error_msg = array();
         foreach ($_ctx->formData->content as $f) {
             $renderer = formField::getField($f);
             if (empty($renderer)) {
                 throw new Exception('Unknown field "' . $f->field_type . '"');
             }
-            $error_msg = $renderer->validate($_POST[$renderer->getFieldId()]);
+            $error_msg = array_merge($error_msg, $renderer->validate($_POST[$renderer->getFieldId()]));
         }
 
         if (!empty($error_msg)) {
