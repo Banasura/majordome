@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Majordome 0.1.0\n"
-"POT-Creation-Date: 2015-09-30 22:19+0100\n"
-"PO-Revision-Date: 2015-09-30 22:19+0100\n"
+"POT-Creation-Date: 2015-10-19 20:27+0100\n"
+"PO-Revision-Date: 2015-10-19 20:35+0100\n"
 "Last-Translator: William Hiver <william DOT hiver AT ovh DOT fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -26,75 +26,24 @@ msgid ""
 "A Dotclear plugin which allow user to easily create and manage user forms."
 msgstr "Un plugin permettant de créer et gérer facilement des formulaires."
 
-#: inc/class.majordome.editFormPage.php:48
+#: inc/class.majordome.editPage.php:40
+msgid "Create a new form"
+msgstr "Ajouter un nouveau formulaire"
+
+#: inc/class.majordome.editPage.php:46
+msgid "Unable to edit the form."
+msgstr "Impossible d'éditer le formulaire."
+
+#: inc/class.majordome.editPage.php:49
 #, php-format
 msgid "Edit form “%s”"
 msgstr "Éditer le formulaire « %s »"
 
-#: inc/class.majordome.homePage.php:28
-msgid "My forms"
-msgstr "Mes formulaires"
-
-#: inc/class.majordome.homePage.php:54
-msgid "Create a form"
-msgstr "Ajouter un formulaire"
-
-#: inc/class.majordome.homePage.php:62
-msgid "You currently do not have any form. Create one by clicking the button!"
-msgstr ""
-"Vous n'avez encore créé aucun formulaire. Commencez dès maintenant en "
-"cliquant sur le bouton !"
-
-#: inc/class.majordome.homePage.php:67
-msgid "Name"
-msgstr "Nom"
-
-#: inc/class.majordome.homePage.php:68
-msgid "Handler"
-msgstr "Mode de traitement"
-
-#: inc/class.majordome.homePage.php:69
-msgid "Action"
-msgstr "Action"
-
-#: inc/class.majordome.homePage.php:79
-msgid "Show this form on the blog"
-msgstr "Voir ce formulaire sur le blog"
-
-#: inc/class.majordome.homePage.php:79
-msgid "Show"
-msgstr "Voir"
-
-#: inc/class.majordome.homePage.php:80
-msgid "Edit"
-msgstr "Éditer"
-
-#: inc/class.majordome.homePage.php:81
-msgid "Delete"
-msgstr "Supprimer"
-
-#: inc/class.majordome.homePage.php:104
-msgid "Unable to delete the form: unknown form identifier"
-msgstr ""
-"Impossible de supprimer le formulaire : identifiant du formulaire invalide"
-
-#: inc/class.majordome.homePage.php:109
-msgid "The form has been successfully deleted"
-msgstr "Le formulaire a été supprimé avec succès"
-
-#: inc/class.majordome.homePage.php:111
-msgid "Unable to delete the form"
-msgstr "Impossible de supprimer le formulaire"
-
-#: inc/class.majordome.newFormPage.php:27
-msgid "Create a new form"
-msgstr "Ajouter un nouveau formulaire"
-
-#: inc/class.majordome.newFormPage.php:47
+#: inc/class.majordome.editPage.php:64
 msgid "Save form"
 msgstr "Sauvegarder le formulaire"
 
-#: inc/class.majordome.newFormPage.php:48
+#: inc/class.majordome.editPage.php:65
 msgid ""
 "You have unsaved changes. If you leave this page, you will lose those "
 "changes!"
@@ -102,245 +51,308 @@ msgstr ""
 "Des modifications n'ont pas été sauvegardée. Si vous quittez cette page, les "
 "modifications seront perdues."
 
-#: inc/class.majordome.newFormPage.php:49
+#: inc/class.majordome.editPage.php:66
 msgid "No response fields"
 msgstr "Aucun champ existant"
 
-#: inc/class.majordome.newFormPage.php:50
+#: inc/class.majordome.editPage.php:67
 msgid "Add new field"
 msgstr "Ajouter"
 
-#: inc/class.majordome.newFormPage.php:51
+#: inc/class.majordome.editPage.php:68
 msgid "Edit field"
 msgstr "Éditer"
 
-#: inc/class.majordome.newFormPage.php:52
+#: inc/class.majordome.editPage.php:69
 msgid "Dropdown"
 msgstr "Liste"
 
-#: inc/class.majordome.newFormPage.php:53
+#: inc/class.majordome.editPage.php:70
 msgid "Email"
 msgstr "Courriel"
 
-#: inc/class.majordome.newFormPage.php:54
+#: inc/class.majordome.editPage.php:71
 msgid "Number"
 msgstr "Nombre"
 
-#: inc/class.majordome.newFormPage.php:55
+#: inc/class.majordome.editPage.php:72
 msgid "Paragraph"
 msgstr "Zone de texte"
 
-#: inc/class.majordome.newFormPage.php:56
+#: inc/class.majordome.editPage.php:73
 msgid "Price"
 msgstr "Prix"
 
-#: inc/class.majordome.newFormPage.php:57
+#: inc/class.majordome.editPage.php:74
 msgid "Multiple choice"
 msgstr "Choix multiples"
 
-#: inc/class.majordome.newFormPage.php:58
+#: inc/class.majordome.editPage.php:75
 msgid "Section break"
 msgstr "Section"
 
-#: inc/class.majordome.newFormPage.php:59
+#: inc/class.majordome.editPage.php:76
 msgid "Text"
 msgstr "Texte"
 
-#: inc/class.majordome.newFormPage.php:60
+#: inc/class.majordome.editPage.php:77
 msgid "Time"
 msgstr "Temps"
 
-#: inc/class.majordome.newFormPage.php:61
+#: inc/class.majordome.editPage.php:78
 msgid "Website"
 msgstr "Site Web"
 
-#: inc/class.majordome.newFormPage.php:62
+#: inc/class.majordome.editPage.php:79
 msgid "Checkboxes"
 msgstr "Case à cocher"
 
-#: inc/class.majordome.newFormPage.php:63
+#: inc/class.majordome.editPage.php:80
 msgid "Date"
 msgstr "Date"
 
-#: inc/class.majordome.newFormPage.php:64
+#: inc/class.majordome.editPage.php:81
 msgid "Address"
 msgstr "Adresse"
 
-#: inc/class.majordome.newFormPage.php:65
+#: inc/class.majordome.editPage.php:82
 msgid "Add a longer description to this field"
 msgstr "Ajouter une description détaillée de ce champ"
 
-#: inc/class.majordome.newFormPage.php:66
+#: inc/class.majordome.editPage.php:83
 msgid "Label"
 msgstr "Label"
 
-#: inc/class.majordome.newFormPage.php:67
+#: inc/class.majordome.editPage.php:84
 msgid "Integer only"
 msgstr "Nombre entier uniquement"
 
-#: inc/class.majordome.newFormPage.php:68
+#: inc/class.majordome.editPage.php:85
 msgid "Only accept integers"
 msgstr "N'accepte que des nombres entiers"
 
-#: inc/class.majordome.newFormPage.php:69
+#: inc/class.majordome.editPage.php:86
 msgid "Required"
 msgstr "Requis"
 
-#: inc/class.majordome.newFormPage.php:70
+#: inc/class.majordome.editPage.php:87
 msgid "Minimum / Maximum"
 msgstr "Minimum/Maximum"
 
-#: inc/class.majordome.newFormPage.php:71
+#: inc/class.majordome.editPage.php:88
 msgid "Above"
 msgstr "Maximum"
 
-#: inc/class.majordome.newFormPage.php:72
+#: inc/class.majordome.editPage.php:89
 msgid "Below"
 msgstr "Minimum"
 
-#: inc/class.majordome.newFormPage.php:73
+#: inc/class.majordome.editPage.php:90
 msgid "Length limit"
 msgstr "Taille limite"
 
-#: inc/class.majordome.newFormPage.php:74
+#: inc/class.majordome.editPage.php:91
 msgid "Min"
 msgstr "Min"
 
-#: inc/class.majordome.newFormPage.php:75
+#: inc/class.majordome.editPage.php:92
 msgid "Max"
 msgstr "Max"
 
-#: inc/class.majordome.newFormPage.php:76
+#: inc/class.majordome.editPage.php:93
 msgid "characters"
 msgstr "caractères"
 
-#: inc/class.majordome.newFormPage.php:77
+#: inc/class.majordome.editPage.php:94
 msgid "words"
 msgstr "mots"
 
-#: inc/class.majordome.newFormPage.php:78
+#: inc/class.majordome.editPage.php:95
 msgid "Options"
 msgstr "Options"
 
-#: inc/class.majordome.newFormPage.php:79
+#: inc/class.majordome.editPage.php:96
 msgid "Include blank"
 msgstr "Inclure un champ vide"
 
-#: inc/class.majordome.newFormPage.php:80
+#: inc/class.majordome.editPage.php:97
 msgid "Include \\\"other\\\""
 msgstr "Inclure un champ « autre »"
 
-#: inc/class.majordome.newFormPage.php:81
+#: inc/class.majordome.editPage.php:98
 msgid "Add option"
 msgstr "Ajouter une option"
 
-#: inc/class.majordome.newFormPage.php:82
+#: inc/class.majordome.editPage.php:99
 msgid "Units"
 msgstr "Unités"
 
-#: inc/class.majordome.newFormPage.php:83
+#: inc/class.majordome.editPage.php:100
 msgid "Duplicate field"
 msgstr "Dupliquer le champ"
 
-#: inc/class.majordome.newFormPage.php:84
+#: inc/class.majordome.editPage.php:101
 msgid "Remove field"
 msgstr "Supprimer le champ"
 
-#: inc/class.majordome.newFormPage.php:85
+#: inc/class.majordome.editPage.php:102
 msgid "Remove option"
 msgstr "Supprimer l'option"
 
-#: inc/class.majordome.newFormPage.php:86
+#: inc/class.majordome.editPage.php:103
 msgid "Reset"
 msgstr "Réinitialiser"
 
-#: inc/class.majordome.newFormPage.php:87
+#: inc/class.majordome.editPage.php:104
 msgid "Submit"
 msgstr "Valider"
 
-#: inc/class.majordome.newFormPage.php:113
-msgid ""
-"Create a new form by entering its title and choosing its fields. You will "
-"then be able to add your brand new form wherever you want in your blog."
-msgstr ""
-"Créez un nouveau formulaire en saisissant son nom et en lui ajoutant des "
-"champs. Vous pourrez ensuite l'ajouter à l'emplacement que vous souhaitez de "
-"votre blog."
-
-#: inc/class.majordome.newFormPage.php:117
+#: inc/class.majordome.editPage.php:145
 msgid "Form options"
 msgstr "Options du formulaire"
 
-#: inc/class.majordome.newFormPage.php:120
-#: inc/class.majordome.newFormPage.php:141
+#: inc/class.majordome.editPage.php:148 inc/class.majordome.editPage.php:171
 msgid "Required field"
 msgstr "Champ requis"
 
-#: inc/class.majordome.newFormPage.php:121
+#: inc/class.majordome.editPage.php:149
 msgid "Form name"
 msgstr "Nom du formulaire"
 
-#: inc/class.majordome.newFormPage.php:126
+#: inc/class.majordome.editPage.php:154
 msgid "The form name must not exceed 50 characters."
 msgstr "Le nom du formulaire ne doit pas dépasser 50 caractères."
 
-#: inc/class.majordome.newFormPage.php:131
+#: inc/class.majordome.editPage.php:159
 msgid "Form description"
 msgstr "Description du formulaire"
 
-#: inc/class.majordome.newFormPage.php:136
+#: inc/class.majordome.editPage.php:164
 msgid "The form description must not exceed 250 characters."
 msgstr "La description du formulaire ne doit pas dépasser 250 caractères."
 
-#: inc/class.majordome.newFormPage.php:142
+#: inc/class.majordome.editPage.php:172
 msgid "Data handling"
 msgstr "Traitement des réponses"
 
-#: inc/class.majordome.newFormPage.php:148
+#: inc/class.majordome.editPage.php:179
 msgid "Form fields"
 msgstr "Champs du formulaire"
 
-#: inc/class.majordome.newFormPage.php:152
+#: inc/class.majordome.editPage.php:183
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: inc/class.majordome.newFormPage.php:165
+#: inc/class.majordome.editPage.php:197
+#, php-format
+msgid "Unknown form of ID “%s”."
+msgstr "Formulaire d'identifiant « %s » inconnu."
+
+#: inc/class.majordome.editPage.php:202
 msgid "Please enter a form name."
 msgstr "Veuillez saisir un nom de formulaire."
 
-#: inc/class.majordome.newFormPage.php:167
+#: inc/class.majordome.editPage.php:204
 msgid "The form name is too long."
 msgstr "Le nom du formulaire est trop long."
 
-#: inc/class.majordome.newFormPage.php:172
+#: inc/class.majordome.editPage.php:209
 msgid "The form description is too long."
 msgstr "La description du formulaire est trop longue."
 
-#: inc/class.majordome.newFormPage.php:177
+#: inc/class.majordome.editPage.php:215
 msgid "Please choose a handler for the form results."
 msgstr ""
 "Veuillez choisir une méthode de traitement des résultats du formulaire."
 
-#: inc/class.majordome.newFormPage.php:179
+#: inc/class.majordome.editPage.php:217
 msgid "The chosen data handler does not exists."
 msgstr "La méthode de traitement des résultats choisie n'existe pas."
 
-#: inc/class.majordome.newFormPage.php:184
+#: inc/class.majordome.editPage.php:223
 msgid "The form has no field."
 msgstr "Le formulaire ne comporte aucun champ."
 
-#: inc/class.majordome.newFormPage.php:193
+#: inc/class.majordome.editPage.php:235
 msgid "The form has been successfully created."
 msgstr "Le formulaire a été créé avec succès."
 
-#: inc/class.majordome.newFormPage.php:196
+#: inc/class.majordome.editPage.php:239
+msgid "An unknown error occurred. The form could not be created."
+msgstr "Une erreur inconnue est survenue. Le formulaire n'a pas pu être créé."
+
+#: inc/class.majordome.editPage.php:246
 #, php-format
-msgid ""
-"The form “%s” already exists. Please choose another name or edit the "
-"existing form."
+msgid "An unknown error occurred: %s."
+msgstr "Une erreur inconnue est survenue : %s."
+
+#: inc/class.majordome.editPage.php:250
+msgid "The form has been successfully updated."
+msgstr "Le formulaire a été mis à jour avec succès."
+
+#: inc/class.majordome.formView.php:29
+msgid "The form has been successfully sent. Thank you for your participation."
 msgstr ""
-"Le formulaire « %s » existe déjà. Veuillez choisir un nom différent ou "
-"éditer le formulaire existant."
+"Le formulaire a été envoyé avec succès. Merci pour votre participation."
+
+#: inc/class.majordome.homePage.php:28 inc/class.majordome.homePage.php:35
+msgid "My forms"
+msgstr "Mes formulaires"
+
+#: inc/class.majordome.homePage.php:50
+msgid "Create a form"
+msgstr "Ajouter un formulaire"
+
+#: inc/class.majordome.homePage.php:58
+msgid "You currently do not have any form. Create one by clicking the button!"
+msgstr ""
+"Vous n'avez encore créé aucun formulaire. Commencez dès maintenant en "
+"cliquant sur le bouton !"
+
+#: inc/class.majordome.homePage.php:63
+msgid "Name"
+msgstr "Nom"
+
+#: inc/class.majordome.homePage.php:64
+msgid "Handler"
+msgstr "Mode de traitement"
+
+#: inc/class.majordome.homePage.php:65
+msgid "Action"
+msgstr "Action"
+
+#: inc/class.majordome.homePage.php:75
+msgid "Show this form on the blog"
+msgstr "Voir ce formulaire sur le blog"
+
+#: inc/class.majordome.homePage.php:75
+msgid "Show"
+msgstr "Voir"
+
+#: inc/class.majordome.homePage.php:76
+msgid "Edit this form"
+msgstr "Éditer ce formulaire"
+
+#: inc/class.majordome.homePage.php:76
+msgid "Edit"
+msgstr "Éditer"
+
+#: inc/class.majordome.homePage.php:77
+msgid "Delete"
+msgstr "Supprimer"
+
+#: inc/class.majordome.homePage.php:100
+msgid "Unable to delete the form: unknown form identifier"
+msgstr ""
+"Impossible de supprimer le formulaire : identifiant du formulaire invalide"
+
+#: inc/class.majordome.homePage.php:105
+msgid "The form has been successfully deleted"
+msgstr "Le formulaire a été supprimé avec succès"
+
+#: inc/class.majordome.homePage.php:107
+msgid "Unable to delete the form"
+msgstr "Impossible de supprimer le formulaire"
 
 #: inc/class.majordome.view.php:86
 msgid "Plugins"
@@ -350,6 +362,103 @@ msgstr "Plugins"
 #: inc/fields/class.majordome.formRadioField.php:55
 msgid "Other"
 msgstr "Autre"
+
+#: inc/fields/class.majordome.formCheckboxField.php:72
+#: inc/fields/class.majordome.formRadioField.php:80
+#, php-format
+msgid "Please fill in the “other” option in the field “%s”"
+msgstr "Veuillez compléter l'option « autre » du champ « %s »"
+
+#: inc/fields/class.majordome.formCheckboxField.php:78
+#, php-format
+msgid "Please choose only possible answers in “%s”"
+msgstr ""
+"Veuillez choisir uniquement une des réponses proposées dans le champ « %s »"
+
+#: inc/fields/class.majordome.formDateField.php:64
+#, php-format
+msgid "Please enter a valid date format (DD/MM/YYYY) in “%s”"
+msgstr ""
+"Veuillez entrer une date au format valide (JJ/MM/AAAA) dans le champ « %s »"
+
+#: inc/fields/class.majordome.formDateField.php:66
+#, php-format
+msgid "Please enter a valid date in “%s”"
+msgstr "Veuillez saisir une date valide dans le champ « %s »"
+
+#: inc/fields/class.majordome.formDropdownField.php:71
+#, php-format
+msgid "Please choose a valid option in “%s”"
+msgstr "Veuillez choisir une option valide dans le champ « %s »"
+
+#: inc/fields/class.majordome.formField.php:95
+#: inc/fields/class.majordome.formRadioField.php:72
+#, php-format
+msgid "Please fill in the field “%s”"
+msgstr "Veuillez compléter le champ « %s »"
+
+#: inc/fields/class.majordome.formMailField.php:59
+#: inc/fields/class.majordome.formWebsiteField.php:59
+#, php-format
+msgid "Please enter a valid email address in field “%s”"
+msgstr "Veuillez entrer une adresse électronique valide dans le champ « %s »"
+
+#: inc/fields/class.majordome.formNumberField.php:75
+#, php-format
+msgid "Please enter an integer number in the field “%s”"
+msgstr "Veuillez entrer un nombre entier dans le champ « %s »"
+
+#: inc/fields/class.majordome.formNumberField.php:77
+#, php-format
+msgid "Please enter a decimal number in the field “%s”"
+msgstr "Veuillez entrer un nombre décimal dans le champ « %s »"
+
+#: inc/fields/class.majordome.formNumberField.php:82
+#, php-format
+msgid "Please enter a number above %s in the field “%s”"
+msgstr "Veuillez entrer un nombre supérieur à %s dans le champ « %s »"
+
+#: inc/fields/class.majordome.formNumberField.php:86
+#, php-format
+msgid "Please enter a number under %s in the field “%s”"
+msgstr "Veuillez entrer un nombre inférieur à %s dans le champ « %s »"
+
+#: inc/fields/class.majordome.formRadioField.php:86
+#, php-format
+msgid "Please choose a valid option in the field “%s”"
+msgstr "Veuillez choisir une option valide dans le champ « %s »"
+
+#: inc/fields/class.majordome.formTextField.php:83
+#: inc/fields/class.majordome.formTextareaField.php:69
+#, php-format
+msgid "Please enter at least %s characters in the field “%s”"
+msgstr "Veuillez saisir au moins %s caractère(s) dans le champ « %s »"
+
+#: inc/fields/class.majordome.formTextField.php:87
+#: inc/fields/class.majordome.formTextareaField.php:73
+#, php-format
+msgid "Please enter less than %s characters in the field “%s”"
+msgstr "Veuillez saisir moins de %s caractère(s) dans le champ « %s »"
+
+#: inc/fields/class.majordome.formTimeField.php:62
+#, php-format
+msgid "Please enter a time date format (HH:MM) in “%s”"
+msgstr "Veuillez entrer une heure au format HH:MM dans le champ « %s »"
+
+#~ msgid ""
+#~ "Create a new form by entering its title and choosing its fields. You will "
+#~ "then be able to add your brand new form wherever you want in your blog."
+#~ msgstr ""
+#~ "Créez un nouveau formulaire en saisissant son nom et en lui ajoutant des "
+#~ "champs. Vous pourrez ensuite l'ajouter à l'emplacement que vous souhaitez "
+#~ "de votre blog."
+
+#~ msgid ""
+#~ "The form “%s” already exists. Please choose another name or edit the "
+#~ "existing form."
+#~ msgstr ""
+#~ "Le formulaire « %s » existe déjà. Veuillez choisir un nom différent ou "
+#~ "éditer le formulaire existant."
 
 #~ msgid "Unknown field \"%s\""
 #~ msgstr "Champ « %s » inconnu"
