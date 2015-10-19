@@ -26,44 +26,54 @@
  *
  ******************************************************************************/
 
-class formWebsiteFieldTest extends PHPUnit_Framework_TestCase
+class formMailFieldTest extends PHPUnit_Framework_TestCase
 {
     public function testIsPatternRestricted()
     {
         $form_spec = json_decode('{
-            "label": "Votre site personnel",
-            "field_type": "website",
+            "label": "Courriel",
+            "field_type": "email",
             "required": true,
             "field_options": {
-                "description": "Entrez l\'adresse de votre site Web"
+                "description": "Veuillez saisir votre adresse électronique"
             },
-            "cid": "c18"
+            "cid": "c38"
         }');
 
-        $field = new formWebsiteField($form_spec);
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => 'thisisnotanurl.com')));
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => 'http://example.com')));
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => 'http://www.example.com')));
+        $field = new formMailField($form_spec);
+        $this->assertNotEmpty($field->validate('thisisnotanemail.com'));
+        $this->assertNotEmpty($field->validate('@thisisnotanemail.com'));
+        $this->assertEmpty($field->validate('hello@me.foo'));
     }
 
     public function testIsFieldRequired()
     {
         $form_spec = json_decode('{
-            "label": "Votre site personnel",
-            "field_type": "website",
+            "label": "Courriel",
+            "field_type": "email",
             "required": true,
             "field_options": {
-                "description": "Entrez l\'adresse de votre site Web"
+                "description": "Veuillez saisir votre adresse électronique"
             },
-            "cid": "c18"
+            "cid": "c38"
         }');
 
-        $field = new formWebsiteField($form_spec);
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => ''
-        )));
+        $field = new formMailField($form_spec);
+        $this->assertNotEmpty($field->validate(''));
+    }
+    public function testIsFieldNotRequired()
+    {
+        $form_spec = json_decode('{
+            "label": "Courriel",
+            "field_type": "email",
+            "required": false,
+            "field_options": {
+                "description": "Veuillez saisir votre adresse électronique"
+            },
+            "cid": "c38"
+        }');
+
+        $field = new formMailField($form_spec);
+        $this->assertEmpty($field->validate(''));
     }
 }

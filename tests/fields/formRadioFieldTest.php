@@ -53,13 +53,9 @@ class formRadioFieldTest extends PHPUnit_Framework_TestCase
 
         $field = new formRadioField($form_spec);
         
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => 'Foo')));
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => 'Lire')));
-            
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => '1')));
+        $this->assertNotEmpty($field->validate(array('opt' => 'Foo')));
+        $this->assertNotEmpty($field->validate(array('opt' => 'Lire')));
+        $this->assertEmpty($field->validate(array('opt' => '1')));
     }
 
     public function testIsFieldRequired()
@@ -86,9 +82,7 @@ class formRadioFieldTest extends PHPUnit_Framework_TestCase
         }');
 
         $field = new formRadioField($form_spec);
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => ''
-        )));
+        $this->assertNotEmpty($field->validate(array('other' => 'foobar')));
     }
     
     public function testIsFieldNotRequired()
@@ -115,8 +109,6 @@ class formRadioFieldTest extends PHPUnit_Framework_TestCase
         }');
 
         $field = new formRadioField($form_spec);
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => ''
-        )));
+        $this->assertEmpty($field->validate(''));
     }
 }

@@ -49,9 +49,9 @@ class formCheckboxField extends formField
 
         // Include 'other' field if necessary
         if ($this->field->field_options->include_other_option) {
-            $html .= '<input type="checkbox" name="' . $id . '-other" id="' . $id . '-other">' .
+            $html .= '<input type="checkbox" name="' . $id . '[other]" id="' . $id . '-other">' .
                 '<label for="' . $id . '-other">' . __('Other') . '</label>' .
-                '<input type="text" name="' . $id . '-other-value" id="' . $id . '-other-value">';
+                '<input type="text" name="' . $id . '[other-value]" id="' . $id . '-other-value">';
         }
 
         return $html;
@@ -64,11 +64,20 @@ class formCheckboxField extends formField
      */
     public function validate($answer)
     {
-        $error = array();
+        $error = parent::validate($answer);
 
-        // Check if the text field is filled if the box 'other' is checked
-        if (!empty($answer) && !empty($answer[$this->getFieldId() . '-other']) && empty($answer[$this->getFieldId() . '-other-value'])) {
-            $error[] = sprintf(__('Please fill in the “other” option in the field “%s”'), $this->renderLabel());
+        if (!empty($answer)) {
+            // Check if the text field is filled if the box 'other' is checked
+            if (!empty($answer['other']) && empty($answer['other-value'])) {
+                $error[] = sprintf(__('Please fill in the “other” option in the field “%s”'), $this->renderLabel());
+            }
+
+            // Check if the answers are in the option values
+            foreach($answer as $optId => $value) {
+                if (empty($this->field->field_options->options[$value]) && $optId !== 'other-value' && $optId !== 'other') {
+                    $error[] = sprintf(__('Please choose only possible answers in “%s”'), $this->renderLabel());
+                }
+            }
         }
 
         return $error;

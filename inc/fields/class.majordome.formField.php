@@ -92,7 +92,7 @@ abstract class formField
     public function validate($answer) {
         // This generic class implements only the 'required' constraint
         if ($this->field->required && empty($answer)) {
-            return array(sprintf(__('Please fill in the field “%s”'), $this->renderLabel));
+            return array(sprintf(__('Please fill in the field “%s”'), $this->renderLabel()));
         } else return array();
     }
 

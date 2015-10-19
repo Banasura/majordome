@@ -55,8 +55,8 @@ class formWebsiteField extends formField
         $error = parent::validate($answer);
 
         // Check the mail pattern
-        if (empty($error) && filter_var($answer, FILTER_VALIDATE_URL) === false) {
-            $error = array(sprintf(__('Please enter a valid email address in field “%s”'), $this->renderLabel()));
+        if (!empty($answer) && filter_var($answer, FILTER_VALIDATE_URL) === false) {
+            $error[] = sprintf(__('Please enter a valid email address in field “%s”'), $this->renderLabel());
         }
 
         return $error;

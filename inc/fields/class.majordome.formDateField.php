@@ -56,10 +56,14 @@ class formDateField extends formField
         $error = parent::validate($answer);
 
         // Date format verification
-        if (empty($error)) {
+        if (!empty($answer)) {
             // FIXME The only supported pattern is currently the French date format (DD/MM/YYYY)
-            if (preg_match ('/^(([0-2]\d|[3][0-1])\/([0]\d|[1][0-2])\/[2][0]\d{2})$|^(([0-2]\d|[3][0-1])\/([0]\d|[1][0-2])\/[2][0]\d{2}\s([0-1]\d|[2][0-3])\:[0-5]\d\:[0-5]\d)$/', $answer) !== 1) {
-                $error = array(sprintf(__('Please enter a valid date format (DD/MM/YYYY) in “%s”'), $this->renderLabel()));
+            $date_items = array();
+            // Check if preg_match equals 0 or false: do NOT replace == with === !
+            if (preg_match('/^(0?[1-9]|[12]\d|3[01])\/(0?[1-9]|1[12])\/(\d{4})$/', $answer, $date_items) == 0) {
+                $error[] = sprintf(__('Please enter a valid date format (DD/MM/YYYY) in “%s”'), $this->renderLabel());
+            } elseif (checkdate($date_items[2], $date_items[1], $date_items[3]) === false) {
+                $error[] = sprintf(__('Please enter a valid date in “%s”'), $this->renderLabel());
             }
         }
         return $error;

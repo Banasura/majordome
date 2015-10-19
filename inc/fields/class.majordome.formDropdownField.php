@@ -56,4 +56,20 @@ class formDropdownField extends formField
 
         return $html . '</select>';
     }
+
+    /**
+     * Validate the answer to a field against the specifications of the form
+     * @param mixed $answer The user's answer to the field
+     * @return array   The error messages explaining the problem, if any
+     */
+    public function validate($answer)
+    {
+        $error = parent::validate($answer);
+
+        // Check if answer is in options list
+        if (!empty($answer) && empty($this->field->field_options->options[$answer])) {
+            $error[] = sprintf(__('Please choose a valid option in “%s”'), $this->renderLabel());
+        }
+        return $error;
+    }
 }

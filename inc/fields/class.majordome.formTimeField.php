@@ -56,10 +56,10 @@ class formTimeField extends formField
         $error = parent::validate($answer);
 
         // Time format verification
-        if (empty($error)) {
+        if (!empty($answer)) {
             // The time must match HH:MM
             if (preg_match ('/^(?:[0-1]?[0-9]|2[0-3]):[0-5]?[0-9]$/', $answer) !== 1) {
-                $error = array(sprintf(__('Please enter a time date format (HH:MM) in “%s”'), $this->renderLabel()));
+                $error[] = sprintf(__('Please enter a time date format (HH:MM) in “%s”'), $this->renderLabel());
             }
         }
         return $error;

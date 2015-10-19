@@ -26,44 +26,61 @@
  *
  ******************************************************************************/
 
-class formMailFieldTest extends PHPUnit_Framework_TestCase
+class formTimeFieldTest extends PHPUnit_Framework_TestCase
 {
     public function testIsPatternRestricted()
     {
         $form_spec = json_decode('{
-            "label": "Courriel",
-            "field_type": "email",
+            "label": "À quelle heure êtes-vous né(e) ?",
+            "field_type": "time",
             "required": true,
             "field_options": {
-                "description": "Veuillez saisir votre adresse électronique"
+                "description": "Veuillez répondre !"
             },
-            "cid": "c38"
+            "cid": "c14"
         }');
 
-        $field = new formMailField($form_spec);
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => 'thisisnotanemail.com')));
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => '@thisisnotanemail.com')));
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => 'hello@me.foo')));
+        $field = new formTimeField($form_spec);
+        
+        $this->assertNotEmpty($field->validate('1h20'));
+        $this->assertNotEmpty($field->validate('1'));
+        $this->assertNotEmpty($field->validate('24:30'));
+        $this->assertNotEmpty($field->validate('23:60'));
+            
+        $this->assertEmpty($field->validate('0:0'));
+        $this->assertEmpty($field->validate('1:1'));
+        $this->assertEmpty($field->validate('01:01'));
     }
 
     public function testIsFieldRequired()
     {
         $form_spec = json_decode('{
-            "label": "Courriel",
-            "field_type": "email",
+            "label": "À quelle heure êtes-vous né(e) ?",
+            "field_type": "time",
             "required": true,
             "field_options": {
-                "description": "Veuillez saisir votre adresse électronique"
+                "description": "Veuillez répondre !"
             },
-            "cid": "c38"
+            "cid": "c14"
         }');
 
-        $field = new formMailField($form_spec);
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => ''
-        )));
+        $field = new formDateField($form_spec);
+        $this->assertNotEmpty($field->validate(''));
+    }
+
+    public function testIsFieldNotRequired()
+    {
+        $form_spec = json_decode('{
+            "label": "À quelle heure êtes-vous né(e) ?",
+            "field_type": "time",
+            "required": false,
+            "field_options": {
+                "description": "Veuillez répondre !"
+            },
+            "cid": "c14"
+        }');
+
+        $field = new formDateField($form_spec);
+        $this->assertEmpty($field->validate(''));
     }
 }

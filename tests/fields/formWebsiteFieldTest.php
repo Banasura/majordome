@@ -26,52 +26,54 @@
  *
  ******************************************************************************/
 
-class formDateFieldTest extends PHPUnit_Framework_TestCase
+class formWebsiteFieldTest extends PHPUnit_Framework_TestCase
 {
     public function testIsPatternRestricted()
     {
         $form_spec = json_decode('{
-            "label": "Date de naissance",
-            "field_type": "date",
+            "label": "Votre site personnel",
+            "field_type": "website",
             "required": true,
             "field_options": {
-                "description": "Merci de renseigner votre date de naissance"
+                "description": "Entrez l\'adresse de votre site Web"
             },
-            "cid": "c10"
+            "cid": "c18"
         }');
 
-        $field = new formDateField($form_spec);
-        
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => '1/20/1971')));
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => '01201971')));
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => '01-02-1971')));
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => '32/01/1971')));
-            
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => '1/1/1971')));
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => '01/01/1971')));
+        $field = new formWebsiteField($form_spec);
+        $this->assertNotEmpty($field->validate('thisisnotanurl.com'));
+        $this->assertEmpty($field->validate('http://example.com'));
+        $this->assertEmpty($field->validate('http://www.example.com'));
     }
 
     public function testIsFieldRequired()
     {
         $form_spec = json_decode('{
-            "label": "Date de naissance",
-            "field_type": "date",
+            "label": "Votre site personnel",
+            "field_type": "website",
             "required": true,
             "field_options": {
-                "description": "Merci de renseigner votre date de naissance"
+                "description": "Entrez l\'adresse de votre site Web"
             },
-            "cid": "c10"
+            "cid": "c18"
         }');
 
-        $field = new formDateField($form_spec);
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => ''
-        )));
+        $field = new formWebsiteField($form_spec);
+        $this->assertNotEmpty($field->validate(''));
+    }
+    public function testIsFieldNotRequired()
+    {
+        $form_spec = json_decode('{
+            "label": "Votre site personnel",
+            "field_type": "website",
+            "required": false,
+            "field_options": {
+                "description": "Entrez l\'adresse de votre site Web"
+            },
+            "cid": "c18"
+        }');
+
+        $field = new formWebsiteField($form_spec);
+        $this->assertEmpty($field->validate(''));
     }
 }

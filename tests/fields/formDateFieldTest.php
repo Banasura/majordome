@@ -26,54 +26,60 @@
  *
  ******************************************************************************/
 
-class formTimeFieldTest extends PHPUnit_Framework_TestCase
+class formDateFieldTest extends PHPUnit_Framework_TestCase
 {
     public function testIsPatternRestricted()
     {
         $form_spec = json_decode('{
-            "label": "À quelle heure êtes-vous né(e) ?",
-            "field_type": "time",
+            "label": "Date de naissance",
+            "field_type": "date",
             "required": true,
             "field_options": {
-                "description": "Veuillez répondre !"
+                "description": "Merci de renseigner votre date de naissance"
             },
-            "cid": "c14"
+            "cid": "c10"
         }');
 
-        $field = new formTimeField($form_spec);
+        $field = new formDateField($form_spec);
         
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => '1h20')));
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => '1')));
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => '24:30')));
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => '23:60')));
+        $this->assertNotEmpty($field->validate('1/20/1971'));
+        $this->assertNotEmpty($field->validate('01201971'));
+        $this->assertNotEmpty($field->validate('01-02-1971'));
+        $this->assertNotEmpty($field->validate('32/01/1971'));
             
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => '0:0')));
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => '1:1')));
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => '01:01')));
+        $this->assertEmpty($field->validate('1/1/1971'));
+        $this->assertEmpty($field->validate('01/01/1971'));
     }
 
     public function testIsFieldRequired()
     {
         $form_spec = json_decode('{
-            "label": "À quelle heure êtes-vous né(e) ?",
-            "field_type": "time",
+            "label": "Date de naissance",
+            "field_type": "date",
             "required": true,
             "field_options": {
-                "description": "Veuillez répondre !"
+                "description": "Merci de renseigner votre date de naissance"
             },
-            "cid": "c14"
+            "cid": "c10"
         }');
 
         $field = new formDateField($form_spec);
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => ''
-        )));
+        $this->assertNotEmpty($field->validate(''));
+    }
+
+    public function testIsFieldNotRequired()
+    {
+        $form_spec = json_decode('{
+            "label": "Date de naissance",
+            "field_type": "date",
+            "required": false,
+            "field_options": {
+                "description": "Merci de renseigner votre date de naissance"
+            },
+            "cid": "c10"
+        }');
+
+        $field = new formDateField($form_spec);
+        $this->assertEmpty($field->validate(''));
     }
 }

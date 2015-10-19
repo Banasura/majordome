@@ -53,13 +53,9 @@ class formDropdownFieldTest extends PHPUnit_Framework_TestCase
 
         $field = new formDropdownField($form_spec);
         
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => 'Foo')));
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => 'Un homme')));
-            
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => '1')));
+        $this->assertNotEmpty($field->validate('Foo'));
+        $this->assertNotEmpty($field->validate('Un homme'));
+        $this->assertEmpty($field->validate('1'));
     }
 
     public function testIsFieldRequired()
@@ -86,9 +82,7 @@ class formDropdownFieldTest extends PHPUnit_Framework_TestCase
         }');
 
         $field = new formDropdownField($form_spec);
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => ''
-        )));
+        $this->assertNotEmpty($field->validate(''));
     }
     
     public function testIsFieldNotRequired()
@@ -115,8 +109,6 @@ class formDropdownFieldTest extends PHPUnit_Framework_TestCase
         }');
 
         $field = new formDropdownField($form_spec);
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => ''
-        )));
+        $this->assertEmpty($field->validate(''));
     }
 }

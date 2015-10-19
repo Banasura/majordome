@@ -36,8 +36,8 @@ class formNumberFieldTest extends PHPUnit_Framework_TestCase
             "required": true,
             "field_options": {
                 "description": "Entrez le solde de votre compte",
-                "max": "0",
-                "min": "9999999999",
+                "max": "50",
+                "min": "0",
                 "units": "€",
                 "integer_only": true
             },
@@ -45,14 +45,10 @@ class formNumberFieldTest extends PHPUnit_Framework_TestCase
         }');
 
         $field = new formNumberField($form_spec);
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => '4 2')));
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => '4,2')));
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => '4.2')));
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => '42')));
+        $this->assertNotEmpty($field->validate('4 2'));
+        $this->assertNotEmpty($field->validate('4,2'));
+        $this->assertNotEmpty($field->validate('4.2'));
+        $this->assertEmpty($field->validate('42'));
     }
     
     public function testFloatAreAllowed()
@@ -63,8 +59,8 @@ class formNumberFieldTest extends PHPUnit_Framework_TestCase
             "required": true,
             "field_options": {
                 "description": "Entrez le solde de votre compte",
-                "max": "0",
-                "min": "9999999999",
+                "max": "50",
+                "min": "0",
                 "units": "€",
                 "integer_only": false
             },
@@ -72,39 +68,10 @@ class formNumberFieldTest extends PHPUnit_Framework_TestCase
         }');
 
         $field = new formNumberField($form_spec);
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => '4 2')));
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => '4,2')));
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => '4.2')));
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => '42')));
-    }
-
-    public function testIntegerRequired()
-    {
-        $form_spec = json_decode('{
-            "label": "Combien avez-vous sur votre compte bancaire ?",
-            "field_type": "number",
-            "required": true,
-            "field_options": {
-                "description": "Entrez le solde de votre compte",
-                "max": "0",
-                "min": "9999999999",
-                "units": "€",
-                "integer_only": true
-            },
-            "cid": "c34"
-        }');
-
-        $field = new formNumberField($form_spec);
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => '4.2')));
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => '4,2')));
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => '42')));
+        $this->assertNotEmpty($field->validate('4 2'));
+        $this->assertNotEmpty($field->validate('4,2'));
+        $this->assertEmpty($field->validate('4.2'));
+        $this->assertEmpty($field->validate('42'));
     }
 
     public function testIsFieldRequired()
@@ -115,8 +82,8 @@ class formNumberFieldTest extends PHPUnit_Framework_TestCase
             "required": true,
             "field_options": {
                 "description": "Entrez le solde de votre compte",
-                "max": "0",
-                "min": "9999999999",
+                "max": "50",
+                "min": "0",
                 "units": "€",
                 "integer_only": false
             },
@@ -124,8 +91,49 @@ class formNumberFieldTest extends PHPUnit_Framework_TestCase
         }');
 
         $field = new formNumberField($form_spec);
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => ''
-        )));
+        $this->assertNotEmpty($field->validate(''));
+    }
+
+    public function testIsFieldNotRequired()
+    {
+        $form_spec = json_decode('{
+            "label": "Combien avez-vous sur votre compte bancaire ?",
+            "field_type": "number",
+            "required": false,
+            "field_options": {
+                "description": "Entrez le solde de votre compte",
+                "max": "0",
+                "min": "0",
+                "units": "€",
+                "integer_only": false
+            },
+            "cid": "c34"
+        }');
+
+        $field = new formNumberField($form_spec);
+        $this->assertEmpty($field->validate(''));
+    }
+
+    public function testMinimumMaximumValue()
+    {
+        $form_spec = json_decode('{
+            "label": "Combien avez-vous sur votre compte bancaire ?",
+            "field_type": "number",
+            "required": false,
+            "field_options": {
+                "description": "Entrez le solde de votre compte",
+                "max": "100",
+                "min": "50",
+                "units": "€",
+                "integer_only": false
+            },
+            "cid": "c34"
+        }');
+
+        $field = new formNumberField($form_spec);
+        $this->assertNotEmpty($field->validate('42'));
+        $this->assertNotEmpty($field->validate('102'));
+        $this->assertEmpty($field->validate('50'));
+        $this->assertEmpty($field->validate('100'));
     }
 }

@@ -45,8 +45,49 @@ class formTextFieldTest extends PHPUnit_Framework_TestCase
         }');
 
         $field = new formTextField($form_spec);
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => ''
-        )));
+        $this->assertNotEmpty($field->validate(''));
+    }
+
+    public function testIsFieldNotRequired()
+    {
+        $form_spec = json_decode('{
+            "label": "Champ texte",
+            "field_type": "text",
+            "required": false,
+            "field_options": {
+                "size": "small",
+                "description": "Ceci est un champ texte requis entre 0 et 10 caractères.",
+                "minlength": "0",
+                "maxlength": "10",
+                "min_max_length_units": "characters"
+            },
+            "cid": "c2"
+        }');
+
+        $field = new formTextField($form_spec);
+        $this->assertEmpty($field->validate(''));
+    }
+
+    public function testMinimumMaximumLength()
+    {
+        $form_spec = json_decode('{
+            "label": "Champ texte",
+            "field_type": "text",
+            "required": true,
+            "field_options": {
+                "size": "small",
+                "description": "Ceci est un champ texte requis entre 0 et 10 caractères.",
+                "minlength": "1",
+                "maxlength": "20",
+                "min_max_length_units": "characters"
+            },
+            "cid": "c2"
+        }');
+
+        $field = new formTextField($form_spec);
+        $this->assertNotEmpty($field->validate('Lorem ipsum dolor sit'));
+        $this->assertNotEmpty($field->validate(''));
+        $this->assertEmpty($field->validate('Lorem ipsum dolor si'));
+        $this->assertEmpty($field->validate('Y'));
     }
 }

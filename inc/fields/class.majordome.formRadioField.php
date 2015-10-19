@@ -42,7 +42,7 @@ class formRadioField extends formField
         $html = '';
 
         foreach ($this->field->field_options->options as $num_opt => $option) {
-            $html .= '<input type="radio" name="' . $id . '" id="' . $id . '-' . $num_opt . '" value="' . $num_opt .'"' .
+            $html .= '<input type="radio" name="' . $id . '[opt]" id="' . $id . '-' . $num_opt . '" value="' . $num_opt .'"' .
                 ($option->checked ? ' checked' : '') .
                 ($this->field->required ? ' required' : '') .
                 '><label for="' . $id . '-' . $num_opt . '">' . html::escapeHTML($option->label) . '</label>';
@@ -50,10 +50,10 @@ class formRadioField extends formField
 
         // Include 'other' field if necessary
         if ($this->field->field_options->include_other_option) {
-            $html .= '<input type="radio" name="' . $id . '" id="' . $id . '-other"' .
+            $html .= '<input type="radio" name="' . $id . '[opt]" id="' . $id . '-other" value="other"' .
                 ($this->field->required ? ' required' : '') . '>' .
                 '<label for="' . $id . '-other">' . __('Other') . '</label>' .
-                '<input type="text" name="' . $id . '-other-value" id="' . $id . '-other-value">';
+                '<input type="text" name="' . $id . '[other]" id="' . $id . '-other-value">';
         }
 
         return $html;
@@ -66,12 +66,26 @@ class formRadioField extends formField
      */
     public function validate($answer)
     {
-        $error = parent::validate($answer);
+        $error = array();
 
-        // Check if the text field is filled if the box 'other' is checked
-        if (!empty($answer) && !empty($answer[$this->getFieldId() . '-other']) && empty($answer[$this->getFieldId() . '-other-value'])) {
-            if (!isset($error)) $error = array();
-            $error[] = sprintf(__('Please fill in the “other” option in the field “%s”'), $this->renderLabel());
+        if ($this->field->required && (empty($answer) || empty($answer['opt']))) {
+            $error[] = sprintf(__('Please fill in the field “%s”'), $this->renderLabel());
+        }
+
+        // Check the answer's validity
+        if (!empty($answer) && !empty($answer['opt'])) {
+            // Check if the text field is filled if the box 'other' is checked
+            if ($answer['opt'] === 'other') {
+                if (empty($answer['other'])) {
+                    $error[] = sprintf(__('Please fill in the “other” option in the field “%s”'), $this->renderLabel());
+                }
+            } else {
+                // Check if the value is a real option index
+                if (filter_var($answer['opt'], FILTER_VALIDATE_INT) === false || empty($this->field->field_options->options[$answer['opt']])) {
+                    // Check if the answer is in the option list
+                    $error[] = sprintf(__('Please choose a valid option in the field “%s”'), $this->renderLabel());
+                }
+            }
         }
 
         return $error;

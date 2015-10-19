@@ -67,7 +67,7 @@ class formNumberField extends formField
         $error = parent::validate($answer);
 
         // Check the number format
-        if (empty($error)) {
+        if (!empty($answer)) {
             $error = array();
 
             // If the number must be an integer

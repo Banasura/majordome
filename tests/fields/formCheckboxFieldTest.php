@@ -52,17 +52,9 @@ class formCheckboxFieldTest extends PHPUnit_Framework_TestCase
         }');
 
         $field = new formCheckboxField($form_spec);
-        $this->assertEmpty($field->validate(array(
-            'fid-c6' => array('0', '1')
-        )));
-
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => array('0ui')
-        )));
-
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => array('5')
-        )));
+        $this->assertEmpty($field->validate(array('0', '1')));
+        $this->assertNotEmpty($field->validate(array('0ui')));
+        $this->assertNotEmpty($field->validate(array('5')));
     }
 
     public function testIsFieldRequired()
@@ -88,10 +80,34 @@ class formCheckboxFieldTest extends PHPUnit_Framework_TestCase
           "cid": "c6"
         }');
 
-        $field = new formRadioField($form_spec);
-        $this->assertNotEmpty($field->validate(array(
-            'fid-c6' => ''
-        )));
+        $field = new formCheckboxField($form_spec);
+        $this->assertNotEmpty($field->validate(''));
+    }
+    public function testIsFieldNotRequired()
+    {
+        $form_spec = json_decode('{
+          "label": "Aimez-vous les pizzas ?",
+          "field_type": "checkboxes",
+          "required": false,
+          "field_options": {
+            "options": [
+              {
+                "label": "Oui",
+                "checked": true
+              },
+              {
+                "label": "Non",
+                "checked": false
+              }
+            ],
+            "description": "Répondez à cette question requise",
+            "include_other_option": true
+          },
+          "cid": "c6"
+        }');
+
+        $field = new formCheckboxField($form_spec);
+        $this->assertEmpty($field->validate(''));
     }
 
     public function testOtherFieldIsNotEmpty()
@@ -119,8 +135,8 @@ class formCheckboxFieldTest extends PHPUnit_Framework_TestCase
 
         $field = new formCheckboxField($form_spec);
         $this->assertEmpty($field->validate(array(
-            'fid-c6-other' => 'checked',
-            'fid-c6-other-value' => 'Details')));
+            'other' => 'checked',
+            'other-value' => 'Details')));
     }
 
     public function testOtherFieldIsEmpty()
@@ -148,7 +164,7 @@ class formCheckboxFieldTest extends PHPUnit_Framework_TestCase
 
         $field = new formCheckboxField($form_spec);
         $this->assertNotEmpty($field->validate(array(
-            'fid-c6-other' => 'checked'
+            'other' => 'checked'
         )));
     }
 }

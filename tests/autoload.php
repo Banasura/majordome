@@ -1,5 +1,6 @@
 <?php
 
+// TODO Improve this preload script
 class html
 {
     public static function escapeHTML($str)
@@ -8,11 +9,11 @@ class html
     }
 }
 
-function testAutoloader($className) {
-    require_once '../inc/fields/class.majordome.' . $className . '.php';
-}
+require_once '../inc/fields/class.majordome.formField.php';
 
-spl_autoload_register('testAutoloader');
+foreach (glob('../inc/fields/*.php') as $module ) {
+    require_once $module;
+}
 
 // Emulate the gettext support
 function __($str)
