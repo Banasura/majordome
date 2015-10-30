@@ -85,6 +85,13 @@ class internalHandler extends majordomeDataHandler {
         
         $form_content = json_decode($form_data->form_fields)->fields;
         
+        if (empty($list->answer)) {
+            echo '<p class="info">',
+                __('There is no answer to this form yet.'),
+            '</p>';
+            return;
+        }
+        
         echo '<table>',
             '<thead>',
                 '<th>', __('Num'), '</th>';
