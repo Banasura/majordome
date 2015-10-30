@@ -178,12 +178,16 @@ class formView extends dcUrlHandlers
     {
         $_ctx =& $GLOBALS['_ctx'];
         $error_msg = array();
+        $answer_list = array();
+        
         foreach ($_ctx->formData->content as $f) {
             $renderer = formField::getField($f);
+            $fid = $renderer->getFieldId();
             if (empty($renderer)) {
                 throw new Exception('Unknown field "' . $f->field_type . '"');
             }
-            $error_msg = array_merge($error_msg, $renderer->validate($_POST[$renderer->getFieldId()]));
+            $error_msg = array_merge($error_msg, $renderer->validate($_POST[$fid]));
+            $answer_list[$f->cid] = $_POST[$fid];
         }
 
         if (!empty($error_msg)) {
@@ -191,8 +195,15 @@ class formView extends dcUrlHandlers
             $_ctx->formData->errorMsg = $error_msg;
             return false;
         }
+        
+        // The answers are valid, we store the results
+        $data_handler = majordome::getHandlerOfId($_ctx->formData->form_handler);
+        try {
+            $data_handler::saveAnswer($_ctx->formData, $answer_list);
+        } catch (Exception $e) {
+            $error_msg[] = __('An error occurred while saving your answers. Sorry for the inconvenience.');
+        }
 
-        // TODO The validation succeed: send the answers to the data handler
         return true;
     }
 }

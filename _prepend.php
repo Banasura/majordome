@@ -34,6 +34,8 @@ $__autoload['view'] = dirname(__FILE__).'/inc/class.majordome.view.php';
 $__autoload['page'] = dirname(__FILE__).'/inc/class.majordome.page.php';
 $__autoload['editPage'] = dirname(__FILE__).'/inc/class.majordome.editPage.php';
 $__autoload['homePage'] = dirname(__FILE__).'/inc/class.majordome.homePage.php';
+$__autoload['answerPage'] = dirname(__FILE__).'/inc/class.majordome.answerPage.php';
+
 $__autoload['formView'] = dirname(__FILE__).'/inc/class.majordome.formView.php';
 $__autoload['formField'] = dirname(__FILE__).'/inc/fields/class.majordome.formField.php';
 $__autoload['formTextField'] = dirname(__FILE__).'/inc/fields/class.majordome.formTextField.php';
@@ -49,5 +51,11 @@ $__autoload['formMailField'] = dirname(__FILE__).'/inc/fields/class.majordome.fo
 $__autoload['formSubmitField'] = dirname(__FILE__).'/inc/fields/class.majordome.formSubmitField.php';
 $__autoload['formResetField'] = dirname(__FILE__).'/inc/fields/class.majordome.formResetField.php';
 
+$__autoload['majordomeDataHandler'] = dirname(__FILE__).'/inc/lib.majordomeDataHandler.php';
+$__autoload['internalHandler'] = dirname(__FILE__).'/inc/handlers/class.majordome.internalHandler.php';
+
 // Register Majordome's public URLs
 $core->url->register('majordome_view','form','^form/(.+)$',array('formView','handleURL'));
+
+// Register Majordome's default data handlers
+majordome::registerDataHandler('internalHandler');

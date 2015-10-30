@@ -167,15 +167,26 @@ class editPage extends page
 					// If we are updating a form, we cannot change the handler (too complicated)
 					if (empty($this->form_data)) {
 						echo '<p>',
-						'<label class="required" for="mj_form_action">',
-						'<abbr title="', __('Required field'), '">*</abbr>',
-						__('Data handling'),
-						'</label>',
-						form::combo('mj_form_action', majordome::getDataHandlerList()),
-						'</p>';
+                            '<label class="required" for="mj_form_action">',
+                                '<abbr title="', __('Required field'), '">*</abbr>',
+                                __('Data handling'),
+                            '</label>',
+                            form::combo('mj_form_action', majordome::getDataHandlerList()),
+						'</p>',
+                        '</div>';
+					} else {
+                        $handler = majordome::getHandlerOfId($this->form_data->form_handler);
+                        $handlerOptions = $handler::getHandlerOptionPage();
+                        echo '</div>';
+                        if (!empty($handlerOptions)) {
+                            // We display the handler's options instead
+                            echo '<div class="fieldset">',
+                                '<h4>', __('Data handling options'), '</h4>',
+                                $handlerOptions,
+                            '</div>';
+                        }
 					}
-			echo '</div>',
-        		'<div class="fieldset">',
+			echo '<div class="fieldset">',
         			'<h4>', __('Form fields'), '</h4>',
 					'<div id="newform-builder"></div>',
 				'</div>',

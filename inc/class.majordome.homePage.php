@@ -68,11 +68,15 @@ class homePage extends page
 
 					foreach($form_list as $key => $form)
 					{
+                        $handler = majordome::getHandlerOfId($form->form_handler);
 						echo '<tr>',
 								'<td class="maximal">', html::escapeHTML($form->form_name), '</td>',
-								'<td class="nowrap">', html::escapeHTML($form->form_handler), '</td>',
+								'<td class="nowrap">', html::escapeHTML($handler::getHandlerName()), '</td>',
 								'<td class="module-actions nowrap">',
 									'<a class="button" href="', $core->blog->url, $core->url->getBase('majordome_view'), '/', $form->form_url, '" title="', __('Show this form on the blog'), '">',  __('Show'), '</a> ',
+									($handler::hasAnAnswerPage()
+                                    ? '<a class="button" href="' . $p_url . '&amp;page=answer&amp;formid=' . $form->form_id . '" title="' . __('See the existing answers to this form') . '">' .  __('Answers') . '</a> '
+                                    : ''),
 									'<a class="button" href="', $p_url, '&amp;page=edit&amp;formid=', $form->form_id, '" title="', __('Edit this form'), '">', __('Edit'), '</a> ',
 									'<input class="delete" type="submit" name="delete[', $form->form_id, ']" value="', __('Delete'), '">',
 								'</td>',

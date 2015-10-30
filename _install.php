@@ -47,7 +47,7 @@ $core->setVersion('majordome', $current_version);
 // Update the DB
 $s = new dbStruct($core->con,$core->prefix);
 $new_table = $s->table('mj_forms');
-$new_table->form_id('int', null, false)
+$new_table->form_id('integer', null, false)
 		->form_name('varchar', 50, false)
 		->form_url('varchar', 100, false)
 		->form_desc('varchar', 250, true)
@@ -57,6 +57,15 @@ $new_table->form_id('int', null, false)
 		->index('idx_mj_forms_url','btree','form_url');
 
 $sync = new dbStruct($core->con, $core->prefix);
+$changes = $sync->synchronize($s);
+
+// Update the DB for the internal storage handler
+$new_table = $s->table('mj_storage');
+$new_table->form_id('integer', null, false)
+		->answer_id('integer', null, false)
+        ->answer('text', 0, false)
+        ->primary('pk_mj_storage', 'form_id', 'answer_id');
+
 $changes = $sync->synchronize($s);
 
 return true;

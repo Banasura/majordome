@@ -26,6 +26,8 @@
 ******************************************************************************/
 
 class majordome {
+    static private $handlers = array();
+
 
 	/**
 	 * Returns the list of the data handlers registered in Majordome
@@ -33,20 +35,37 @@ class majordome {
      */
 	static public function getDataHandlerList ()
 	{
-		// FIXME add an API to register a data handler
-		return array(
-				'E-mail' => 'mail',
-				'External database' => 'db',
-				'Majordome database' => 'internal'
-		);
+		$hlist = array();
+		foreach (self::$handlers as $id => $hclass)  {
+            $hlist[$hclass::getHandlerName()] = $id;
+        }
+        
+        return $hlist;
 	}
+    
+    /**
+     * Returns an instance of a registered handler, given its ID
+     * @param   string  $id The ID of the handler
+     */
+    static public function getHandlerOfId ($id)
+    {
+        return self::$handlers[$id];
+    }
 	
 	/**
 	 * Register a new data handler in Majordome
+     * @param string    $handler_class  The name of the class to register
+     * @return void
 	 */
-	static public function registerDataHandler()
+	static public function registerDataHandler($handler_class)
 	{
-		// TODO Implement!
+        $h =& self::$handlers;
+        
+		if (!is_subclass_of($handler_class, 'majordomeDataHandler')) {
+            throw new InvalidArgumentException('Argument does not extend majordomeDataHandler.');
+        }
+        
+        $h[$handler_class::getHandlerId()] = $handler_class;
 	}
 	
 }
