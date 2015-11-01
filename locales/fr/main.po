@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Majordome 0.1.0\n"
-"POT-Creation-Date: 2015-11-01 22:07+0100\n"
-"PO-Revision-Date: 2015-11-01 22:11+0100\n"
+"POT-Creation-Date: 2015-11-01 22:32+0100\n"
+"PO-Revision-Date: 2015-11-01 22:33+0100\n"
 "Last-Translator: William Hiver <william DOT hiver AT ovh DOT fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -353,44 +353,53 @@ msgstr "Mode de traitement"
 msgid "Action"
 msgstr "Action"
 
-#: inc/class.majordome.homePage.php:76
+#: inc/class.majordome.homePage.php:74
+#, php-format
+msgid "Unknown data handler “%s”."
+msgstr "Méthode de traitement « %s » inconnue."
+
+#: inc/class.majordome.homePage.php:79
+msgid "unknown"
+msgstr "inconnu"
+
+#: inc/class.majordome.homePage.php:81
 msgid "Show this form on the blog"
 msgstr "Voir ce formulaire sur le blog"
 
-#: inc/class.majordome.homePage.php:76
+#: inc/class.majordome.homePage.php:81
 msgid "Show"
 msgstr "Voir"
 
-#: inc/class.majordome.homePage.php:78
+#: inc/class.majordome.homePage.php:83
 msgid "See the existing answers to this form"
 msgstr "Afficher les réponses apportées à ce formulaire"
 
-#: inc/class.majordome.homePage.php:78
+#: inc/class.majordome.homePage.php:83
 msgid "Answers"
 msgstr "Réponses"
 
-#: inc/class.majordome.homePage.php:80
+#: inc/class.majordome.homePage.php:85
 msgid "Edit this form"
 msgstr "Éditer ce formulaire"
 
-#: inc/class.majordome.homePage.php:80
+#: inc/class.majordome.homePage.php:85
 msgid "Edit"
 msgstr "Éditer"
 
-#: inc/class.majordome.homePage.php:81
+#: inc/class.majordome.homePage.php:86
 msgid "Delete"
 msgstr "Supprimer"
 
-#: inc/class.majordome.homePage.php:104
+#: inc/class.majordome.homePage.php:109
 msgid "Unable to delete the form: unknown form identifier"
 msgstr ""
 "Impossible de supprimer le formulaire : identifiant du formulaire invalide"
 
-#: inc/class.majordome.homePage.php:109
+#: inc/class.majordome.homePage.php:114
 msgid "The form has been successfully deleted"
 msgstr "Le formulaire a été supprimé avec succès"
 
-#: inc/class.majordome.homePage.php:111
+#: inc/class.majordome.homePage.php:116
 msgid "Unable to delete the form"
 msgstr "Impossible de supprimer le formulaire"
 

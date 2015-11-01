@@ -29,13 +29,13 @@
 *
 ******************************************************************************/
 
-class internalHandler extends majordomeDataHandler {
-    private static $table_name = DC_DBPREFIX . 'mj_storage';
+class internalHandler implements majordomeDataHandler {
+    private static $table_name = 'mj_storage';
     
     /**
      * Returns a string identifying this handler
      */
-    function getHandlerId ()
+    static function getHandlerId ()
     {
         return 'internal';
     }
@@ -43,7 +43,7 @@ class internalHandler extends majordomeDataHandler {
     /**
      * Returns the name of this handler
      */
-    function getHandlerName ()
+    static function getHandlerName ()
     {
         return __('Internal storage');
     }
@@ -52,7 +52,7 @@ class internalHandler extends majordomeDataHandler {
      * Tell if this handler can display the list of existing answers
      * to a form
      */
-    function hasAnAnswerPage ()
+    static function hasAnAnswerPage ()
     {
         return true;
     }
@@ -61,7 +61,7 @@ class internalHandler extends majordomeDataHandler {
      * Provides the HTML code to display in the configuration page of
      * the handler
      */
-    function getHandlerOptionPage ()
+    static function getHandlerOptionPage ()
     {
         // There is no option yet
         return '';
@@ -71,7 +71,7 @@ class internalHandler extends majordomeDataHandler {
      * Display the page showing the answers to a form
      * @param   int $form_data    The form's schema of which display the answers
      */
-    function displayHandlerAnswerPage ($form_data)
+    static function displayHandlerAnswerPage ($form_data)
     {
         if (empty($form_data->form_id) || filter_var($form_data->form_id, FILTER_VALIDATE_INT) === false) {
             throw new InvalidArgumentException('Cannot display the answers. Invalid or missing form ID.');
@@ -80,7 +80,7 @@ class internalHandler extends majordomeDataHandler {
         global $core;
 		$db =& $core->con;
         
-		$list = $db->select('SELECT `answer_id`, `answer` FROM ' . self::$table_name
+		$list = $db->select('SELECT `answer_id`, `answer` FROM ' . DC_DBPREFIX . self::$table_name
             . ' WHERE `form_id` = ' . $form_data->form_id);
         
         $form_content = json_decode($form_data->form_fields)->fields;
@@ -124,7 +124,7 @@ class internalHandler extends majordomeDataHandler {
      * page.
      * @return boolean  true if the options are valid, false elsewhere
      */
-    function areHandlerOptionsValid ()
+    static function areHandlerOptionsValid ()
     {
         // There is no option yet
         return true;
@@ -133,7 +133,7 @@ class internalHandler extends majordomeDataHandler {
     /**
      * Save the handler's options chosen by the user
      */
-    function saveHandlerOptions ()
+    static function saveHandlerOptions ()
     {
         // There is no option yet
         return;
@@ -145,7 +145,7 @@ class internalHandler extends majordomeDataHandler {
      * @param   array   $answer     The answers to the form, of the form
      *                                  field_id -> field_response
      */
-    function saveAnswer ($form_data, $answer)
+    static function saveAnswer ($form_data, $answer)
     {
         global $core;
         
@@ -160,7 +160,7 @@ class internalHandler extends majordomeDataHandler {
 		$dataSet = $db->openCursor(DC_DBPREFIX . 'mj_storage');
 		
 		// Look for the last form ID
-		$res = $db->select('SELECT MAX(answer_id) as lastid FROM ' . self::$table_name .
+		$res = $db->select('SELECT MAX(answer_id) as lastid FROM ' . DC_DBPREFIX . self::$table_name .
             ' WHERE form_id = ' . ((int) $form_data->form_id) . ';');
 
 		if (!$res->isEmpty()) {

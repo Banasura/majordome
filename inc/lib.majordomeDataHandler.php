@@ -25,53 +25,53 @@
 *
 ******************************************************************************/
 
-abstract class majordomeDataHandler {
+interface majordomeDataHandler {
     
     /**
      * Returns a string identifying this handler
      */
-    abstract function getHandlerId ();
+    static function getHandlerId ();
     
     /**
      * Returns the name of this handler
      */
-    abstract function getHandlerName ();
+    static function getHandlerName ();
     
     /**
      * Tell if this handler can display the list of existing answers
      * to a form
      */
-    abstract function hasAnAnswerPage ();
+    static function hasAnAnswerPage ();
     
     /**
      * Provides the HTML code to display in the configuration page of
      * the handler
      */
-    abstract function getHandlerOptionPage ();
+    static function getHandlerOptionPage ();
     
     /**
      * Display the page showing the answers to a form
      * @param   int $form_data    The form's schema of which display the answers
      */
-    abstract function displayHandlerAnswerPage ($form_data);
+    static function displayHandlerAnswerPage ($form_data);
     
     /**
      * Validate the options chosen by the user in the handler option
      * page.
      * @return boolean  true if the options are valid, false elsewhere
      */
-    abstract function areHandlerOptionsValid ();
+    static function areHandlerOptionsValid ();
     
     /**
      * Save the handler's options chosen by the user
      */
-    abstract function saveHandlerOptions ();
+    static function saveHandlerOptions ();
     
     /**
      * Save an answer to a form
      * @param   array   $form_data  The form's schema
      * @param   array   $answer     The answer to the form to save
      */
-    abstract function saveAnswer ($form_data, $answer);
+    static function saveAnswer ($form_data, $answer);
 	
 }

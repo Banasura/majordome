@@ -49,7 +49,7 @@ class majordome {
      */
     static public function getHandlerOfId ($id)
     {
-        return self::$handlers[$id];
+        return array_key_exists($id, self::$handlers) ? self::$handlers[$id] : null;
     }
 	
 	/**
@@ -64,7 +64,7 @@ class majordome {
 		if (!is_subclass_of($handler_class, 'majordomeDataHandler')) {
             throw new InvalidArgumentException('Argument does not extend majordomeDataHandler.');
         }
-        
+
         $h[$handler_class::getHandlerId()] = $handler_class;
 	}
 	
