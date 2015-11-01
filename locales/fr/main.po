@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Majordome 0.1.0\n"
-"POT-Creation-Date: 2015-10-19 20:27+0100\n"
-"PO-Revision-Date: 2015-10-19 20:35+0100\n"
+"POT-Creation-Date: 2015-11-01 22:07+0100\n"
+"PO-Revision-Date: 2015-11-01 22:11+0100\n"
 "Last-Translator: William Hiver <william DOT hiver AT ovh DOT fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -25,6 +25,27 @@ msgstr ""
 msgid ""
 "A Dotclear plugin which allow user to easily create and manage user forms."
 msgstr "Un plugin permettant de créer et gérer facilement des formulaires."
+
+#: inc/class.majordome.answerPage.php:56
+msgid "Unable to find the form "
+msgstr "Formulaire introuvable"
+
+#: inc/class.majordome.answerPage.php:59
+#, php-format
+msgid "Answers to “%s”"
+msgstr "Réponses à « %s »"
+
+#: inc/class.majordome.answerPage.php:65
+msgid "Unable to show the answers: no form given."
+msgstr "Impossible d'afficher les réponses : aucun formulaire donné."
+
+#: inc/class.majordome.answerPage.php:82
+msgid ""
+"The answer handler of this form does not allow you to see the existing "
+"answers."
+msgstr ""
+"La méthode de traitement des réponses de ce formulaire ne permet pas "
+"d'afficher les réponses apportées."
 
 #: inc/class.majordome.editPage.php:40
 msgid "Create a new form"
@@ -235,58 +256,62 @@ msgstr "La description du formulaire ne doit pas dépasser 250 caractères."
 msgid "Data handling"
 msgstr "Traitement des réponses"
 
-#: inc/class.majordome.editPage.php:179
+#: inc/class.majordome.editPage.php:184
+msgid "Data handling options"
+msgstr "Options de la méthode de traitement"
+
+#: inc/class.majordome.editPage.php:190
 msgid "Form fields"
 msgstr "Champs du formulaire"
 
-#: inc/class.majordome.editPage.php:183
+#: inc/class.majordome.editPage.php:194
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: inc/class.majordome.editPage.php:197
+#: inc/class.majordome.editPage.php:208
 #, php-format
 msgid "Unknown form of ID “%s”."
 msgstr "Formulaire d'identifiant « %s » inconnu."
 
-#: inc/class.majordome.editPage.php:202
+#: inc/class.majordome.editPage.php:213
 msgid "Please enter a form name."
 msgstr "Veuillez saisir un nom de formulaire."
 
-#: inc/class.majordome.editPage.php:204
+#: inc/class.majordome.editPage.php:215
 msgid "The form name is too long."
 msgstr "Le nom du formulaire est trop long."
 
-#: inc/class.majordome.editPage.php:209
+#: inc/class.majordome.editPage.php:220
 msgid "The form description is too long."
 msgstr "La description du formulaire est trop longue."
 
-#: inc/class.majordome.editPage.php:215
+#: inc/class.majordome.editPage.php:226
 msgid "Please choose a handler for the form results."
 msgstr ""
 "Veuillez choisir une méthode de traitement des résultats du formulaire."
 
-#: inc/class.majordome.editPage.php:217
+#: inc/class.majordome.editPage.php:228
 msgid "The chosen data handler does not exists."
 msgstr "La méthode de traitement des résultats choisie n'existe pas."
 
-#: inc/class.majordome.editPage.php:223
+#: inc/class.majordome.editPage.php:234
 msgid "The form has no field."
 msgstr "Le formulaire ne comporte aucun champ."
 
-#: inc/class.majordome.editPage.php:235
+#: inc/class.majordome.editPage.php:246
 msgid "The form has been successfully created."
 msgstr "Le formulaire a été créé avec succès."
 
-#: inc/class.majordome.editPage.php:239
+#: inc/class.majordome.editPage.php:250
 msgid "An unknown error occurred. The form could not be created."
 msgstr "Une erreur inconnue est survenue. Le formulaire n'a pas pu être créé."
 
-#: inc/class.majordome.editPage.php:246
+#: inc/class.majordome.editPage.php:257
 #, php-format
 msgid "An unknown error occurred: %s."
 msgstr "Une erreur inconnue est survenue : %s."
 
-#: inc/class.majordome.editPage.php:250
+#: inc/class.majordome.editPage.php:261
 msgid "The form has been successfully updated."
 msgstr "Le formulaire a été mis à jour avec succès."
 
@@ -294,6 +319,13 @@ msgstr "Le formulaire a été mis à jour avec succès."
 msgid "The form has been successfully sent. Thank you for your participation."
 msgstr ""
 "Le formulaire a été envoyé avec succès. Merci pour votre participation."
+
+#: inc/class.majordome.formView.php:204
+msgid ""
+"An error occurred while saving your answers. Sorry for the inconvenience."
+msgstr ""
+"Une erreur est survenue durant la sauvegarde des données. Veuillez nous "
+"excuser pour le désagrément."
 
 #: inc/class.majordome.homePage.php:28 inc/class.majordome.homePage.php:35
 msgid "My forms"
@@ -321,36 +353,44 @@ msgstr "Mode de traitement"
 msgid "Action"
 msgstr "Action"
 
-#: inc/class.majordome.homePage.php:75
+#: inc/class.majordome.homePage.php:76
 msgid "Show this form on the blog"
 msgstr "Voir ce formulaire sur le blog"
 
-#: inc/class.majordome.homePage.php:75
+#: inc/class.majordome.homePage.php:76
 msgid "Show"
 msgstr "Voir"
 
-#: inc/class.majordome.homePage.php:76
+#: inc/class.majordome.homePage.php:78
+msgid "See the existing answers to this form"
+msgstr "Afficher les réponses apportées à ce formulaire"
+
+#: inc/class.majordome.homePage.php:78
+msgid "Answers"
+msgstr "Réponses"
+
+#: inc/class.majordome.homePage.php:80
 msgid "Edit this form"
 msgstr "Éditer ce formulaire"
 
-#: inc/class.majordome.homePage.php:76
+#: inc/class.majordome.homePage.php:80
 msgid "Edit"
 msgstr "Éditer"
 
-#: inc/class.majordome.homePage.php:77
+#: inc/class.majordome.homePage.php:81
 msgid "Delete"
 msgstr "Supprimer"
 
-#: inc/class.majordome.homePage.php:100
+#: inc/class.majordome.homePage.php:104
 msgid "Unable to delete the form: unknown form identifier"
 msgstr ""
 "Impossible de supprimer le formulaire : identifiant du formulaire invalide"
 
-#: inc/class.majordome.homePage.php:105
+#: inc/class.majordome.homePage.php:109
 msgid "The form has been successfully deleted"
 msgstr "Le formulaire a été supprimé avec succès"
 
-#: inc/class.majordome.homePage.php:107
+#: inc/class.majordome.homePage.php:111
 msgid "Unable to delete the form"
 msgstr "Impossible de supprimer le formulaire"
 
@@ -444,6 +484,22 @@ msgstr "Veuillez saisir moins de %s caractère(s) dans le champ « %s »"
 #, php-format
 msgid "Please enter a time date format (HH:MM) in “%s”"
 msgstr "Veuillez entrer une heure au format HH:MM dans le champ « %s »"
+
+#: inc/handlers/class.majordome.internalHandler.php:48
+msgid "Internal storage"
+msgstr "Stockage interne"
+
+#: inc/handlers/class.majordome.internalHandler.php:90
+msgid "There is no answer to this form yet."
+msgstr "Il n'y a encore aucune réponse à ce formulaire."
+
+#: inc/handlers/class.majordome.internalHandler.php:97
+msgid "Num"
+msgstr "N°"
+
+#: inc/handlers/class.majordome.internalHandler.php:113
+msgid "empty"
+msgstr "vide"
 
 #~ msgid ""
 #~ "Create a new form by entering its title and choosing its fields. You will "

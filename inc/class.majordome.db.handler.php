@@ -34,7 +34,7 @@ class majordomeDBHandler {
 	 * The Majordome's database table name
 	 * @var string
 	 */
-	private static $TABLE_NAME = 'mj_forms';
+	private static $TABLE_NAME = 'mj_form';
 	
 	/**
 	 * Insert a new form in the database
