@@ -175,16 +175,20 @@ class editPage extends page
 						'</p>',
                         '</div>';
 					} else {
+						echo '</div>';
                         $handler = majordome::getHandlerOfId($this->form_data->form_handler);
-                        $handlerOptions = $handler::getHandlerOptionPage();
-                        echo '</div>';
-                        if (!empty($handlerOptions)) {
-                            // We display the handler's options instead
-                            echo '<div class="fieldset">',
-                                '<h4>', __('Data handling options'), '</h4>',
-                                $handlerOptions,
-                            '</div>';
-                        }
+						if (empty($handler)) {
+							echo '<p class="error">', sprintf(__('Unknown data handler “%s”.'), $this->form_data->form_handler), '</p>';
+						} else {
+							$handlerOptions = $handler::getHandlerOptionPage();
+							if (!empty($handlerOptions)) {
+								// We display the handler's options instead
+								echo '<div class="fieldset">',
+								'<h4>', __('Data handling options'), '</h4>',
+								$handlerOptions,
+								'</div>';
+							}
+						}
 					}
 			echo '<div class="fieldset">',
         			'<h4>', __('Form fields'), '</h4>',
