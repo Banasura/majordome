@@ -120,7 +120,10 @@ class formView extends dcUrlHandlers
      */
     public static function formItemField()
     {
-        return '<?php if (!empty($f)) echo $renderer->renderField(); ?>';
+        return '<?php if (!empty($f)) {
+        $id = $renderer->getFieldId();
+        echo $renderer->renderField(array_key_exists($id, $_POST) ? $_POST[$id] : null);
+       } ?>';
     }
 
     /**
@@ -183,11 +186,13 @@ class formView extends dcUrlHandlers
         foreach ($_ctx->formData->content as $f) {
             $renderer = formField::getField($f);
             $fid = $renderer->getFieldId();
+            $answer = array_key_exists($fid, $_POST) ? $_POST[$fid] : null;
+
             if (empty($renderer)) {
                 throw new Exception('Unknown field "' . $f->field_type . '"');
             }
-            $error_msg = array_merge($error_msg, $renderer->validate($_POST[$fid]));
-            $answer_list[$f->cid] = $_POST[$fid];
+            $error_msg = array_merge($error_msg, $renderer->validate($answer));
+            if ($renderer->saveAnswer) $answer_list[$f->cid] = $answer;
         }
 
         if (!empty($error_msg)) {

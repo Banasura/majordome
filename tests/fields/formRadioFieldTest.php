@@ -55,6 +55,7 @@ class formRadioFieldTest extends PHPUnit_Framework_TestCase
         
         $this->assertNotEmpty($field->validate(array('opt' => 'Foo')));
         $this->assertNotEmpty($field->validate(array('opt' => 'Lire')));
+        $this->assertEmpty($field->validate(array('opt' => '0')));
         $this->assertEmpty($field->validate(array('opt' => '1')));
     }
 

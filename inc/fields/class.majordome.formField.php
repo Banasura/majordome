@@ -33,20 +33,34 @@
 abstract class formField
 {
     /**
-     * formField constructor.
+     * The field's schema
+     * @var mixed
+     */
+    protected $field;
+
+    /**
+     * Do we have to save the answer of this field?
+     * @var bool
+     */
+    public $saveAnswer;
+
+    /**
+     * Constructor
+     * @param $field_content    The schema of this field
      */
     public function __construct($field_content)
     {
-        //TODO add some verification
         $this->field = $field_content;
+        $this->saveAnswer = true;
     }
 
     /**
      * @override
      * Render the HTML of the field
+     * @param   mixed   $fill   An optional value to use in the field
      * @return string           The generated HTML
      */
-    abstract public function renderField();
+    abstract public function renderField($fill = null);
 
     /**
      * Render the HTML of the field's label
@@ -55,7 +69,7 @@ abstract class formField
      */
     public function renderLabel()
     {
-        if (empty($this->field->label)) {
+        if (!isset($this->field->label)) {
             return '';
         } else {
             return html::escapeHTML($this->field->label);
@@ -89,9 +103,10 @@ abstract class formField
      * @param mixed $answer The user's answer to the field
      * @return string   An error message explaining the problem, if any
      */
-    public function validate($answer) {
+    public function validate($answer)
+    {
         // This generic class implements only the 'required' constraint
-        if ($this->field->required && empty($answer)) {
+        if ($this->field->required && empty($answer) && $answer !== '0') {
             return array(sprintf(__('Please fill in the field “%s”'), $this->renderLabel()));
         } else return array();
     }

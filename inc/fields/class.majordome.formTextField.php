@@ -33,10 +33,12 @@
 class formTextField extends formField
 {
     /**
+     * @override
      * Render the HTML of the field
+     * @param   mixed   $fill   An optional value to use in the field
      * @return string           The generated HTML
      */
-    public function renderField()
+    public function renderField ($fill = null)
     {
         $id = $this->getFieldId();
         $pattern = '';
@@ -49,7 +51,7 @@ class formTextField extends formField
         if (!empty($this->field->field_options->maxlength)) {
             if (empty($pattern)) {
                 // There is no minimum limit
-                $pattern = ' pattern=".{,' . $this->field->field_options->maxlength . '}"';
+                $pattern = ' pattern=".{0,' . $this->field->field_options->maxlength . '}"';
             } else {
                 // We complete the existing pattern
                 $pattern .= $this->field->field_options->maxlength . '}"';
@@ -62,6 +64,7 @@ class formTextField extends formField
         return '<input type="text" id="' . $id . '" name="' . $id . '"' .
             ($this->field->required ? ' required' : '') .
             $pattern .
+            ($fill !== null ? ' value="' . html::escapeHTML($fill) . '"' : '') .
         '>';
     }
 

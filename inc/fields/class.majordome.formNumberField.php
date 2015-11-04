@@ -33,10 +33,12 @@
 class formNumberField extends formField
 {
     /**
+     * @override
      * Render the HTML of the field
+     * @param   mixed   $fill   An optional value to use in the field
      * @return string           The generated HTML
      */
-    public function renderField()
+    public function renderField ($fill = null)
     {
         $id = $this->getFieldId();
 
@@ -51,6 +53,7 @@ class formNumberField extends formField
             (empty($this->field->field_options->integer_only) || $this->field->field_options->integer_only === false
                 ? ' step="0.1"'
                 : ' step="1"') .
+            ($fill !== null ? ' value="' . html::escapeHTML($fill) . '"' : '') .
         '>' .
         (empty($this->field->field_options->units)
             ? ''
@@ -71,7 +74,9 @@ class formNumberField extends formField
             $error = array();
 
             // If the number must be an integer
-            if ($this->field->field_options->integer_only && filter_var($answer, FILTER_VALIDATE_INT) === false) {
+            if (isset($this->field->field_options->integer_only) &&
+                $this->field->field_options->integer_only === true &&
+                filter_var($answer, FILTER_VALIDATE_INT) === false) {
                 $error[] = sprintf(__('Please enter an integer number in the field “%s”'), $this->renderLabel());
             } elseif (filter_var($answer, FILTER_VALIDATE_FLOAT) === false) {
                 $error[] = sprintf(__('Please enter a decimal number in the field “%s”'), $this->renderLabel());

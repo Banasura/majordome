@@ -55,6 +55,7 @@ class formDropdownFieldTest extends PHPUnit_Framework_TestCase
         
         $this->assertNotEmpty($field->validate('Foo'));
         $this->assertNotEmpty($field->validate('Un homme'));
+        $this->assertEmpty($field->validate('0'));
         $this->assertEmpty($field->validate('1'));
     }
 

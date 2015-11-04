@@ -33,15 +33,18 @@
 class formMailField extends formField
 {
     /**
+     * @override
      * Render the HTML of the field
+     * @param   mixed   $fill   An optional value to use in the field
      * @return string           The generated HTML
      */
-    public function renderField()
+    public function renderField ($fill = null)
     {
         $id = $this->getFieldId();
 
         return '<input type="email" id="' . $id . '" name="' . $id . '"' .
             ($this->field->required ? ' required' : '') .
+            ($fill !== null ? ' value="' . html::escapeHTML($fill) . '"' : '') .
         ' placeholder="contact@example.com">';
     }
 

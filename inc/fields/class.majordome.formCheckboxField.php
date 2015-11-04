@@ -33,25 +33,31 @@
 class formCheckboxField extends formField
 {
     /**
+     * @override
      * Render the HTML of the field
+     * @param   mixed   $fill   An optional value to use in the field
      * @return string           The generated HTML
      */
-    public function renderField()
+    public function renderField($fill = null)
     {
         $id = $this->getFieldId();
         $html = '';
 
         foreach ($this->field->field_options->options as $num_opt => $option) {
             $html .= '<input type="checkbox" name="' . $id . '[]" id="' . $id . '-' . $num_opt . '" value="' . $num_opt .'"' .
-                ($option->checked ? ' checked' : '') .
+                (($option->checked && $fill === null) || ($fill !== null && in_array($num_opt.'', $fill)) ? ' checked' : '') .
                 '><label for="' . $id . '-' . $num_opt . '">' . html::escapeHTML($option->label) . '</label>';
         }
 
         // Include 'other' field if necessary
         if ($this->field->field_options->include_other_option) {
-            $html .= '<input type="checkbox" name="' . $id . '[other]" id="' . $id . '-other">' .
+            $html .= '<input type="checkbox" name="' . $id . '[other]" id="' . $id . '-other" ' .
+                (($fill !== null && !empty($fill['other'])) ? 'checked' : '') .
+                '>' .
                 '<label for="' . $id . '-other">' . __('Other') . '</label>' .
-                '<input type="text" name="' . $id . '[other-value]" id="' . $id . '-other-value">';
+                '<input type="text" name="' . $id . '[other-value]" id="' . $id . '-other-value" ' .
+                (($fill !== null && !empty($fill['other-value'])) ? 'value="' . html::escapeHTML($fill['other-value']) . '"' : '') .
+                '>';
         }
 
         return $html;

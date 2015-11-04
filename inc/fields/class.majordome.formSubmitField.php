@@ -33,10 +33,24 @@
 class formSubmitField extends formField
 {
     /**
+     * Constructor
+     * @param $field_content    The schema of this field
+     */
+    public function __construct($field_content)
+    {
+        parent::__construct($field_content);
+
+        // We don't keep this field in the answer
+        $this->saveAnswer = false;
+    }
+
+    /**
+     * @override
      * Render the HTML of the field
+     * @param   mixed   $fill   An optional value to use in the field
      * @return string           The generated HTML
      */
-    public function renderField()
+    public function renderField($fill = null)
     {
         $id = $this->getFieldId();
 
@@ -53,5 +67,16 @@ class formSubmitField extends formField
     {
         // The label already appears as the value of the button
         return '';
+    }
+
+    /**
+     * Validate the answer to a field against the specifications of the form
+     * @param mixed $answer The user's answer to the field
+     * @return string   An error message explaining the problem, if any
+     */
+    public function validate($answer)
+    {
+        // This field is always valid
+        return array();
     }
 }

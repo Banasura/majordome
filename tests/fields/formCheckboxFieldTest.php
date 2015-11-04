@@ -53,6 +53,7 @@ class formCheckboxFieldTest extends PHPUnit_Framework_TestCase
 
         $field = new formCheckboxField($form_spec);
         $this->assertEmpty($field->validate(array('0', '1')));
+        $this->assertEmpty($field->validate(array('0')));
         $this->assertNotEmpty($field->validate(array('0ui')));
         $this->assertNotEmpty($field->validate(array('5')));
     }

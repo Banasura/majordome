@@ -33,17 +33,20 @@
 class formRadioField extends formField
 {
     /**
+     * @override
      * Render the HTML of the field
+     * @param   mixed   $fill   An optional value to use in the field
      * @return string           The generated HTML
      */
-    public function renderField()
+    public function renderField ($fill = null)
     {
         $id = $this->getFieldId();
         $html = '';
 
         foreach ($this->field->field_options->options as $num_opt => $option) {
             $html .= '<input type="radio" name="' . $id . '[opt]" id="' . $id . '-' . $num_opt . '" value="' . $num_opt .'"' .
-                ($option->checked ? ' checked' : '') .
+                (($option->checked && $fill === null) || ($fill !== null && isset($fill['opt']) && ((int) $fill['opt'] === $num_opt))
+                    ? ' checked' : '') .
                 ($this->field->required ? ' required' : '') .
                 '><label for="' . $id . '-' . $num_opt . '">' . html::escapeHTML($option->label) . '</label>';
         }
@@ -51,9 +54,13 @@ class formRadioField extends formField
         // Include 'other' field if necessary
         if ($this->field->field_options->include_other_option) {
             $html .= '<input type="radio" name="' . $id . '[opt]" id="' . $id . '-other" value="other"' .
-                ($this->field->required ? ' required' : '') . '>' .
+                ($this->field->required ? ' required' : '') .
+                (($fill !== null && isset($fill['opt']) && ((int) $fill['opt'] === $num_opt)) ? ' checked' : '') .
+                '>' .
                 '<label for="' . $id . '-other">' . __('Other') . '</label>' .
-                '<input type="text" name="' . $id . '[other]" id="' . $id . '-other-value">';
+                '<input type="text" name="' . $id . '[other]" id="' . $id . '-other-value"' .
+                (($fill !== null && !empty($fill['other'])) ? ' value="' . html::escapeHTML($fill['other']) . '"' : '') .
+                '>';
         }
 
         return $html;
@@ -67,13 +74,14 @@ class formRadioField extends formField
     public function validate($answer)
     {
         $error = array();
+        $is_empty = !is_array($answer) || !isset($answer['opt']);
 
-        if ($this->field->required && (empty($answer) || empty($answer['opt']))) {
+        if ($this->field->required && $is_empty) {
             $error[] = sprintf(__('Please fill in the field “%s”'), $this->renderLabel());
         }
 
         // Check the answer's validity
-        if (!empty($answer) && !empty($answer['opt'])) {
+        if (!$is_empty) {
             // Check if the text field is filled if the box 'other' is checked
             if ($answer['opt'] === 'other') {
                 if (empty($answer['other'])) {

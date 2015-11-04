@@ -33,10 +33,12 @@
 class formTextareaField extends formField
 {
     /**
+     * @override
      * Render the HTML of the field
+     * @param   mixed   $fill   An optional value to use in the field
      * @return string           The generated HTML
      */
-    public function renderField()
+    public function renderField($fill = null)
     {
         $id = $this->getFieldId();
 
@@ -48,7 +50,9 @@ class formTextareaField extends formField
             (empty($this->field->field_options->maxlength)
                 ? ''
                 : ' maxlength="' . $this->field->field_options->maxlength . '"') .
-        '></textarea>';
+        '>' .
+        ($fill !== null ? html::escapeHTML($fill) : '') .
+        '</textarea>';
     }
 
     /**

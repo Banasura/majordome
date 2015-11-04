@@ -33,28 +33,35 @@
 class formDropdownField extends formField
 {
     /**
+     * @override
      * Render the HTML of the field
+     * @param   mixed   $fill   An optional value to use in the field
      * @return string           The generated HTML
      */
-    public function renderField()
+    public function renderField ($fill = null)
     {
         $id = $this->getFieldId();
-        $html = '<select id="' . $id . '" name="' . $id . '"' .
-            ($this->field->required ? ' required' : '') . '>';
-
-        // Include a first blank option if necessary
-        if ($this->field->field_options->include_blank_option) {
-            $html .= '<option value="blank" disabled selected></option>';
-        }
+        $options = '';
+        $has_a_selected_opt = false;
 
         foreach ($this->field->field_options->options as $num_opt => $option) {
-            $html .= '<option value="' . $num_opt . '"' .
-                ($option->checked ? ' selected' : '') . '>' .
-                html::escapeHTML($option->label) .
-                '</option>';
+            $options .= '<option value="' . $num_opt . '"';
+            if (($option->checked && $fill === null) || ($fill !== null && ((int) $fill === $num_opt))) {
+                $options .= ' selected';
+                $has_a_selected_opt = true;
+            }
+            $options .= '>' . html::escapeHTML($option->label) . '</option>';
         }
 
-        return $html . '</select>';
+        // Include a first blank option at the beginning if asked and if there is no option selected
+        if ($this->field->field_options->include_blank_option && $has_a_selected_opt === false) {
+            $options = '<option value="blank" disabled selected></option>' . $options;
+        }
+
+        return '<select id="' . $id . '" name="' . $id . '"' .
+        ($this->field->required ? ' required' : '') . '>' .
+            $options .
+        '</select>';
     }
 
     /**

@@ -33,16 +33,19 @@
 class formTimeField extends formField
 {
     /**
+     * @override
      * Render the HTML of the field
+     * @param   mixed   $fill   An optional value to use in the field
      * @return string           The generated HTML
      */
-    public function renderField()
+    public function renderField ($fill = null)
     {
         $id = $this->getFieldId();
 
         // TODO Polyfill the field for Firefox with a pattern attribute
         return '<input type="time" id="' . $id . '" name="' . $id . '"' .
             ($this->field->required ? ' required' : '') .
+            ($fill !== null ? ' value="' . html::escapeHTML($fill) . '"' : '') .
         '>';
     }
 
