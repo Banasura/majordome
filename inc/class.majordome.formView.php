@@ -192,7 +192,7 @@ class formView extends dcUrlHandlers
                 throw new Exception('Unknown field "' . $f->field_type . '"');
             }
             $error_msg = array_merge($error_msg, $renderer->validate($answer));
-            if ($renderer->saveAnswer) $answer_list[$f->cid] = $answer;
+            $answer_list[$f->cid] = $answer;
         }
 
         if (!empty($error_msg)) {

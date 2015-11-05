@@ -96,7 +96,10 @@ class internalHandler implements majordomeDataHandler {
             '<thead>',
                 '<th>', __('Num'), '</th>';
                 foreach ($form_content as $field) {
-                    echo '<th>', html::escapeHTML($field->label), '</th>';
+                    // FIXME Find another solution to avoid listing buttons
+                    if ($field->field_type !== 'submit' && $field->field_type !== 'reset') {
+                        echo '<th>', html::escapeHTML($field->label), '</th>';
+                    }
                 }
                 unset($field); // Remove this unused var
         echo '</thead>',
@@ -104,19 +107,82 @@ class internalHandler implements majordomeDataHandler {
                 // Loop over each existing answer
                 foreach ($list as $answer) {
                     $answer_entries = json_decode($answer->answer);
-                    echo '<td>', $answer->answer_id, '</td>';
+                    echo '<tr>',
+                        '<td>', $answer->answer_id, '</td>';
                     // Loop over each field of the answer
                     foreach ($form_content as $field) {
-                        $answer_content = $answer_entries->{$field->cid};
-                        echo '<td>', 
-                            (empty($answer_content)
-                            ? '<em>' . __('empty') . '</em>'
-                            : html::escapeHTML($answer_content)),
-                        '</td>';
+                        if ($field->field_type !== 'submit' && $field->field_type !== 'reset') {
+                            $answer_content = $answer_entries->{$field->cid};
+                            $answer_string = self::serializeAnswer($answer_content, $field);
+                            echo '<td>',
+                            ((!isset($answer_string) || $answer_string === '')
+                                ? '<em>' . __('unknown') . '</em>'
+                                : $answer_string),
+                            '</td>';
+                        }
                     }
+                    echo '</tr>';
                 }
         echo '</tbody>',
         '</table>';
+    }
+
+    /**
+     * Give a literal representation of an answer corresponding to the type of
+     * field
+     * @param mixed     $answer       The answer given to the field
+     * @param string    $field        The field's schema
+     */
+    private static function serializeAnswer ($answer, $field)
+    {
+        switch ($field->field_type) {
+            case 'radio':
+                if (isset($answer)) {
+                    if (isset($answer->opt)) {
+                        if ($answer->opt === 'other' && isset($answer->other)) {
+                            return html::escapeHTML($answer->other);
+                        } elseif (isset($field->field_options->options[$answer->opt])) {
+                            return html::escapeHTML($field->field_options->options[$answer->opt]->label);
+                        }
+                    }
+                }
+                return null;
+                break;
+
+            case 'checkboxes':
+                $res_string = null;
+
+                if (isset($answer)) {
+                    $res_string = array();
+                    // Add each checked option in the array
+                    foreach ($answer as $key => $opt) {
+                        if ($key === 'other') {
+                            $res_string[] = __('other: ') .
+                                (isset($answer['other-value'])
+                                ? html::escapeHTML($answer['other-value'])
+                                : __('empty'));
+                        } elseif ($key !== 'other-value') {
+                            $res_string[] = $field->field_options->options[$opt]->label;
+                        }
+                    }
+                    // Merge the array in a single string
+                    $res_string = implode(', ', $res_string);
+                }
+                return $res_string;
+                break;
+
+            case 'dropdown':
+                if (isset($answer) && isset($field->field_options->options[$answer])) {
+                    return $field->field_options->options[$answer]->label;
+                } else {
+                    return null;
+                }
+                break;
+
+            default:
+                return html::escapeHTML($answer);
+                break;
+        }
     }
     
     /**

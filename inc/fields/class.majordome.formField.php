@@ -39,19 +39,12 @@ abstract class formField
     protected $field;
 
     /**
-     * Do we have to save the answer of this field?
-     * @var bool
-     */
-    public $saveAnswer;
-
-    /**
      * Constructor
      * @param $field_content    The schema of this field
      */
     public function __construct($field_content)
     {
         $this->field = $field_content;
-        $this->saveAnswer = true;
     }
 
     /**

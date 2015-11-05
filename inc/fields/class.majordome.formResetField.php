@@ -33,18 +33,6 @@
 class formResetField extends formField
 {
     /**
-     * Constructor
-     * @param $field_content    The schema of this field
-     */
-    public function __construct($field_content)
-    {
-        parent::__construct($field_content);
-
-        // We don't keep this field in the answer
-        $this->saveAnswer = false;
-    }
-
-    /**
      * @override
      * Render the HTML of the field
      * @param   mixed   $fill   An optional value to use in the field
