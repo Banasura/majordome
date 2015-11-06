@@ -1,7 +1,3 @@
-var ALL_TASKS;
-
-ALL_TASKS = ['concat:all'];
-
 module.exports = function(grunt) {
     var exec, path;
     path = require('path');
@@ -11,6 +7,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-compress');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
     grunt.initConfig({
         pkg: '<json:package.json>',
@@ -53,7 +50,8 @@ module.exports = function(grunt) {
         cssmin: {
             dist: {
                 files: {
-                    '<%= distFolder %>/css/admin.css': 'css/admin.css'
+                    '<%= distFolder %>/css/admin.css': 'css/admin.css',
+                    '<%= distFolder %>/js/formbuilder/dist/formbuilder.css': 'js/formbuilder/dist/formbuilder.css'
                 }
             }
         },
@@ -62,7 +60,8 @@ module.exports = function(grunt) {
             dist: {
                 files: {
                     '<%= distFolder %>/js/vendor.js': 'js/vendor.js',
-                    '<%= distFolder %>/js/majordome.newform.js': 'js/majordome.newform.js'
+                    '<%= distFolder %>/js/majordome.newform.js': 'js/majordome.newform.js',
+                    '<%= distFolder %>/js/formbuilder/dist/formbuilder.js': 'js/formbuilder/dist/formbuilder.js'
                 }
             }
         },
@@ -71,32 +70,44 @@ module.exports = function(grunt) {
             dist: {
                 options: {
                     archive: '<%= distFolder %>/majordome.zip',
-                    mode: 'zip'
+                        mode: 'zip'
                 },
-                files: [{
-                    src: [
-                        '_admin.php',
-                        '_define.php',
-                        'index.php',
-                        '_install.php',
-                        '_prepend.php',
-                        '_public.php',
-                        'LICENSE',
-                        'inc/**',
-                        '<%= distFolder %>/js/*.js',
-                        'js/formbuilder/dist/formbuilder-min.css',
-                        'js/formbuilder/dist/formbuilder-min.js',
-                        '<%= distFolder %>/css/admin.css',
-                        'default-templates/**',
-                        'img/**',
-                        'locales/**.mo'
-                    ]
-                }]
+                files: [
+                    {
+                        src: [
+                            '_admin.php',
+                            '_define.php',
+                            'index.php',
+                            '_install.php',
+                            '_prepend.php',
+                            '_public.php',
+                            'LICENSE',
+                            'inc/**',
+                            'default-templates/**',
+                            'img/**',
+                            'locales/**/*.po'
+                        ]
+                    },
+                    {
+                        src: ['**/*.css', '**/*.js'],
+                        cwd: '<%= distFolder %>'
+                    }
+                ]
+            }
+        },
+
+        clean: {
+            dist: {
+                src: '<%= distFolder %>/!(majordome\.zip)'
             }
         }
     });
 
     grunt.registerTask('default', ALL_TASKS);
     grunt.registerTask('mobile_friendly', ['concat:mobile_friendly']);
-    grunt.registerTask('dist', ['cssmin:dist', 'uglify:dist', 'compress:dist']);
+    grunt.registerTask('dist', ['cssmin:dist', 'uglify:dist', 'compress:dist', 'clean:dist']);
 };
+
+var ALL_TASKS;
+
+ALL_TASKS = ['concat:all'];
