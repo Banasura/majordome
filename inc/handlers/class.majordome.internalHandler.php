@@ -31,6 +31,11 @@
 
 class internalHandler implements majordomeDataHandler {
     private static $table_name = 'mj_storage';
+    private static $display_field_blacklist = array(
+        'reset',
+        'submit',
+        'captcha'
+    );
     
     /**
      * Returns a string identifying this handler
@@ -96,8 +101,7 @@ class internalHandler implements majordomeDataHandler {
             '<thead>',
                 '<th>', __('Num'), '</th>';
                 foreach ($form_content as $field) {
-                    // FIXME Find another solution to avoid listing buttons
-                    if ($field->field_type !== 'submit' && $field->field_type !== 'reset') {
+                    if (!in_array($field->field_type, self::$display_field_blacklist)) {
                         echo '<th>', html::escapeHTML($field->label), '</th>';
                     }
                 }
@@ -111,7 +115,7 @@ class internalHandler implements majordomeDataHandler {
                         '<td>', $answer->answer_id, '</td>';
                     // Loop over each field of the answer
                     foreach ($form_content as $field) {
-                        if ($field->field_type !== 'submit' && $field->field_type !== 'reset') {
+                        if (!in_array($field->field_type, self::$display_field_blacklist)) {
                             $answer_content = $answer_entries->{$field->cid};
                             $answer_string = self::serializeAnswer($answer_content, $field);
                             echo '<td>',
@@ -180,7 +184,7 @@ class internalHandler implements majordomeDataHandler {
                 break;
 
             default:
-                return html::escapeHTML($answer);
+                return is_string($answer) ? html::escapeHTML($answer) : null;
                 break;
         }
     }

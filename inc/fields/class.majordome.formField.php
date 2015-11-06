@@ -122,7 +122,8 @@ abstract class formField
         'number'        => 'formNumberField',
         'email'         => 'formMailField',
         'submit'        => 'formSubmitField',
-        'reset'         => 'formResetField'
+        'reset'         => 'formResetField',
+        'captcha'       => 'formCaptchaField'
     );
 
     /**

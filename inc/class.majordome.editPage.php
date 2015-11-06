@@ -193,6 +193,11 @@ class editPage extends page
 					}
 			echo '<div class="fieldset">',
         			'<h4>', __('Form fields'), '</h4>',
+					($core->plugins->moduleExists('accessibleCaptcha')
+					? ''
+					: '<p class="warn">' .
+						__('In order to use the captcha field, you must install the “Accessible Captcha” plugin.') .
+						'</p>'),
 					'<div id="newform-builder"></div>',
 				'</div>',
 				form::hidden('mj_form_content', ''),
