@@ -101,7 +101,8 @@ class editPage extends page
     			'REMOVE_FIELD: "' . __('Remove field') . '",' .
     			'REMOVE_OPTION: "' . __('Remove option') . '",' .
     			'RESET: "' . __('Reset') . '",' .
-    			'SUBMIT: "' . __('Submit') . '"' .
+    			'SUBMIT: "' . __('Submit') . '",' .
+    			'CAPTCHA: "' . __('Captcha') . '"' .
     		'};',
     	true);
 
