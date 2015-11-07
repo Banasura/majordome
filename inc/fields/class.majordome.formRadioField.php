@@ -44,20 +44,22 @@ class formRadioField extends formField
         $html = '';
 
         foreach ($this->field->field_options->options as $num_opt => $option) {
-            $html .= '<input type="radio" name="' . $id . '[opt]" id="' . $id . '-' . $num_opt . '" value="' . $num_opt .'"' .
+            $html .= '<label class="radio-option" for="' . $id . '-' . $num_opt . '">' .
+                '<input type="radio" name="' . $id . '[opt]" id="' . $id . '-' . $num_opt . '" value="' . $num_opt .'"' .
                 (($option->checked && $fill === null) || ($fill !== null && isset($fill['opt']) && ((int) $fill['opt'] === $num_opt))
                     ? ' checked' : '') .
                 ($this->field->required ? ' required' : '') .
-                '><label for="' . $id . '-' . $num_opt . '">' . html::escapeHTML($option->label) . '</label>';
+                '>' . html::escapeHTML($option->label) . '</label>';
         }
 
         // Include 'other' field if necessary
         if ($this->field->field_options->include_other_option) {
-            $html .= '<input type="radio" name="' . $id . '[opt]" id="' . $id . '-other" value="other"' .
+            $html .= '<label class="radio-option" for="' . $id . '-other">' .
+                '<input type="radio" name="' . $id . '[opt]" id="' . $id . '-other" value="other"' .
                 ($this->field->required ? ' required' : '') .
                 (($fill !== null && isset($fill['opt']) && ((int) $fill['opt'] === $num_opt)) ? ' checked' : '') .
                 '>' .
-                '<label for="' . $id . '-other">' . __('Other') . '</label>' .
+                __('Other') . '</label>' .
                 '<input type="text" name="' . $id . '[other]" id="' . $id . '-other-value"' .
                 (($fill !== null && !empty($fill['other'])) ? ' value="' . html::escapeHTML($fill['other']) . '"' : '') .
                 '>';

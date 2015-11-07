@@ -44,17 +44,19 @@ class formCheckboxField extends formField
         $html = '';
 
         foreach ($this->field->field_options->options as $num_opt => $option) {
-            $html .= '<input type="checkbox" name="' . $id . '[]" id="' . $id . '-' . $num_opt . '" value="' . $num_opt .'"' .
+            $html .= '<label class="checkbox-option" for="' . $id . '-' . $num_opt . '">' .
+                '<input type="checkbox" name="' . $id . '[]" id="' . $id . '-' . $num_opt . '" value="' . $num_opt .'"' .
                 (($option->checked && $fill === null) || ($fill !== null && in_array($num_opt.'', $fill)) ? ' checked' : '') .
-                '><label for="' . $id . '-' . $num_opt . '">' . html::escapeHTML($option->label) . '</label>';
+                '>' . html::escapeHTML($option->label) . '</label>';
         }
 
         // Include 'other' field if necessary
         if ($this->field->field_options->include_other_option) {
-            $html .= '<input type="checkbox" name="' . $id . '[other]" id="' . $id . '-other" ' .
+            $html .= '<label class="checkbox-option" for="' . $id . '-other">' .
+                '<input type="checkbox" name="' . $id . '[other]" id="' . $id . '-other" ' .
                 (($fill !== null && !empty($fill['other'])) ? 'checked' : '') .
                 '>' .
-                '<label for="' . $id . '-other">' . __('Other') . '</label>' .
+                __('Other') . '</label>' .
                 '<input type="text" name="' . $id . '[other-value]" id="' . $id . '-other-value" ' .
                 (($fill !== null && !empty($fill['other-value'])) ? 'value="' . html::escapeHTML($fill['other-value']) . '"' : '') .
                 '>';
