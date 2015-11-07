@@ -33,10 +33,13 @@ global $core;
 $core->tpl->addValue('FormName', array('formView','formName'));
 $core->tpl->addValue('FormDescription', array('formView','formDescription'));
 $core->tpl->addValue('FormURL', array('formView','formURL'));
-$core->tpl->addBlock('FormItems', array('formView','formItems'));
 $core->tpl->addValue('FormItemLabel', array('formView','formItemLabel'));
 $core->tpl->addValue('FormItemField', array('formView','formItemField'));
 $core->tpl->addValue('FormItemDescription', array('formView','formItemDescription'));
 $core->tpl->addValue('FormItemId', array('formView','formItemId'));
+$core->tpl->addValue('FormItemType', array('formView','formItemType'));
 $core->tpl->addValue('FormErrorMsg', array('formView','formErrorMsg'));
 $core->tpl->addValue('FormSuccessMsg', array('formView','formSuccessMsg'));
+
+$core->tpl->addBlock('FormItems', array('formView','formItems'));
+$core->tpl->addBlock('FormItemIf', array('formView','formItemIf'));

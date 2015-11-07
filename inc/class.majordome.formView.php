@@ -81,8 +81,8 @@ class formView extends dcUrlHandlers
 
     /**
      * Display the form
-     * @param $attr     The attributes of the tag
-     * @param $content  The existing content inside the tag
+     * @param array     $attr     The attributes of the tag
+     * @param string    $content  The existing content inside the tag
      * @return string   The form code
      */
     public static function formItems($attr, $content)
@@ -145,6 +145,86 @@ class formView extends dcUrlHandlers
     }
 
     /**
+     * Display the type of a field
+     * @return string   The field's HTML
+     */
+    public static function formItemType()
+    {
+        return '<?php if (!empty($f)) echo html::escapeHTML($f->field_type); ?>';
+    }
+
+    /**
+     * Run a test against an item, and display the content if the test succeeds.
+     * Must be called inside a <tpl:FormItems> loop.
+     * @param array $attr     The value to test. A "!" as first char of an attr invert
+     *                          the test. Can be:
+     *                              type        The field type
+     *                              id          The field's ID property
+     *                              label       The field label
+     *                              operator    The operator used to combine tests (default: and)
+     * @param string $content  The existing content inside the tag
+     * @return string   The form code
+     */
+    public static function formItemIf($attr, $content)
+    {
+        $if = array();
+        $operator = '&&';
+
+        if (isset($attr['operator'])) {
+            switch ($attr['operator']) {
+                case 'or':
+                case '||':
+                    $operator = '||';
+                    break;
+                default:
+                    // Let the and operator
+                    break;
+            }
+        }
+
+        // Run the ID test
+        if (isset($attr['id'])) {
+            $id = addslashes(trim($attr['id']));
+            if (substr($id,0,1) === '!') {
+                $id = substr($id, 1);
+                $if[] = '(\'' . $id . '\' !== $renderer->getFieldId())';
+            } else {
+                $if[] = '(\'' . $attr['id'] . '\' === $renderer->getFieldId())';
+            }
+        }
+
+        // Run the label test
+        if (isset($attr['label'])) {
+            $label = addslashes(trim($attr['label']));
+            if (substr($label,0,1) === '!') {
+                $label = substr($label, 1);
+                $if[] = '(\'' . $label . '\' !== $f->label)';
+            } else {
+                $if[] = '(\'' . $attr['label'] . '\' === $f->label)';
+            }
+        }
+
+        // Run the type test
+        if (isset($attr['type'])) {
+            $type = addslashes(trim($attr['type']));
+            if (substr($type,0,1) === '!') {
+                $type = substr($type, 1);
+                $if[] = '(\'' . $type . '\' !== $f->field_type)';
+            } else {
+                $if[] = '(\'' . $attr['type'] . '\' === $f->field_type)';
+            }
+        }
+
+        if (empty($if)) return $content;
+        else {
+            // We ensure that the block is inside a <tpl:FormItems> loop
+            return '<?php if(isset($f) && (' . implode(' ' . $operator . ' ', $if) . ')): ?>' .
+                $content .
+            '<?php endif; ?>';
+        }
+    }
+
+    /**
      * Display a message explaining the errors in the form
      * @return string   The field's HTML
      */
@@ -176,6 +256,7 @@ class formView extends dcUrlHandlers
      * Validate form answers in POST data against the specification given in
      * parameter
      * @return bool the result of the validation
+     * @throws Exception
      */
     public static function validateForm()
     {
