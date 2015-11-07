@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Majordome 0.1.0\n"
-"POT-Creation-Date: 2015-11-01 22:32+0100\n"
-"PO-Revision-Date: 2015-11-01 22:33+0100\n"
+"POT-Creation-Date: 2015-11-07 19:24+0100\n"
+"PO-Revision-Date: 2015-11-07 19:26+0100\n"
 "Last-Translator: William Hiver <william DOT hiver AT ovh DOT fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.8.4\n"
 "X-Poedit-Basepath: ../..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-KeywordsList: __\n"
@@ -228,90 +228,107 @@ msgstr "Réinitialiser"
 msgid "Submit"
 msgstr "Valider"
 
-#: inc/class.majordome.editPage.php:145
+#: inc/class.majordome.editPage.php:105
+msgid "Captcha"
+msgstr "Captcha"
+
+#: inc/class.majordome.editPage.php:146
 msgid "Form options"
 msgstr "Options du formulaire"
 
-#: inc/class.majordome.editPage.php:148 inc/class.majordome.editPage.php:171
+#: inc/class.majordome.editPage.php:149 inc/class.majordome.editPage.php:172
 msgid "Required field"
 msgstr "Champ requis"
 
-#: inc/class.majordome.editPage.php:149
+#: inc/class.majordome.editPage.php:150
 msgid "Form name"
 msgstr "Nom du formulaire"
 
-#: inc/class.majordome.editPage.php:154
+#: inc/class.majordome.editPage.php:155
 msgid "The form name must not exceed 50 characters."
 msgstr "Le nom du formulaire ne doit pas dépasser 50 caractères."
 
-#: inc/class.majordome.editPage.php:159
+#: inc/class.majordome.editPage.php:160
 msgid "Form description"
 msgstr "Description du formulaire"
 
-#: inc/class.majordome.editPage.php:164
+#: inc/class.majordome.editPage.php:165
 msgid "The form description must not exceed 250 characters."
 msgstr "La description du formulaire ne doit pas dépasser 250 caractères."
 
-#: inc/class.majordome.editPage.php:172
+#: inc/class.majordome.editPage.php:173
 msgid "Data handling"
 msgstr "Traitement des réponses"
 
-#: inc/class.majordome.editPage.php:184
+#: inc/class.majordome.editPage.php:182 inc/class.majordome.homePage.php:74
+#, php-format
+msgid "Unknown data handler “%s”."
+msgstr "Méthode de traitement « %s » inconnue."
+
+#: inc/class.majordome.editPage.php:188
 msgid "Data handling options"
 msgstr "Options de la méthode de traitement"
 
-#: inc/class.majordome.editPage.php:190
+#: inc/class.majordome.editPage.php:195
 msgid "Form fields"
 msgstr "Champs du formulaire"
 
-#: inc/class.majordome.editPage.php:194
+#: inc/class.majordome.editPage.php:199
+msgid ""
+"In order to use the captcha field, you must install the “Accessible Captcha” "
+"plugin."
+msgstr ""
+"Pour pouvoir utiliser le champ « captcha », vous devez installer le plugin « "
+"Accessible Captcha »."
+
+#: inc/class.majordome.editPage.php:204
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: inc/class.majordome.editPage.php:208
+#: inc/class.majordome.editPage.php:218
 #, php-format
 msgid "Unknown form of ID “%s”."
 msgstr "Formulaire d'identifiant « %s » inconnu."
 
-#: inc/class.majordome.editPage.php:213
+#: inc/class.majordome.editPage.php:223
 msgid "Please enter a form name."
 msgstr "Veuillez saisir un nom de formulaire."
 
-#: inc/class.majordome.editPage.php:215
+#: inc/class.majordome.editPage.php:225
 msgid "The form name is too long."
 msgstr "Le nom du formulaire est trop long."
 
-#: inc/class.majordome.editPage.php:220
+#: inc/class.majordome.editPage.php:230
 msgid "The form description is too long."
 msgstr "La description du formulaire est trop longue."
 
-#: inc/class.majordome.editPage.php:226
+#: inc/class.majordome.editPage.php:236
 msgid "Please choose a handler for the form results."
 msgstr ""
 "Veuillez choisir une méthode de traitement des résultats du formulaire."
 
-#: inc/class.majordome.editPage.php:228
+#: inc/class.majordome.editPage.php:238
 msgid "The chosen data handler does not exists."
 msgstr "La méthode de traitement des résultats choisie n'existe pas."
 
-#: inc/class.majordome.editPage.php:234
+#: inc/class.majordome.editPage.php:244
 msgid "The form has no field."
 msgstr "Le formulaire ne comporte aucun champ."
 
-#: inc/class.majordome.editPage.php:246
+#: inc/class.majordome.editPage.php:256
 msgid "The form has been successfully created."
 msgstr "Le formulaire a été créé avec succès."
 
-#: inc/class.majordome.editPage.php:250
+#: inc/class.majordome.editPage.php:260
 msgid "An unknown error occurred. The form could not be created."
 msgstr "Une erreur inconnue est survenue. Le formulaire n'a pas pu être créé."
 
-#: inc/class.majordome.editPage.php:257
+#: inc/class.majordome.editPage.php:267
 #, php-format
 msgid "An unknown error occurred: %s."
 msgstr "Une erreur inconnue est survenue : %s."
 
-#: inc/class.majordome.editPage.php:261
+#: inc/class.majordome.editPage.php:271
 msgid "The form has been successfully updated."
 msgstr "Le formulaire a été mis à jour avec succès."
 
@@ -320,7 +337,7 @@ msgid "The form has been successfully sent. Thank you for your participation."
 msgstr ""
 "Le formulaire a été envoyé avec succès. Merci pour votre participation."
 
-#: inc/class.majordome.formView.php:204
+#: inc/class.majordome.formView.php:290
 msgid ""
 "An error occurred while saving your answers. Sorry for the inconvenience."
 msgstr ""
@@ -353,12 +370,8 @@ msgstr "Mode de traitement"
 msgid "Action"
 msgstr "Action"
 
-#: inc/class.majordome.homePage.php:74
-#, php-format
-msgid "Unknown data handler “%s”."
-msgstr "Méthode de traitement « %s » inconnue."
-
 #: inc/class.majordome.homePage.php:79
+#: inc/handlers/class.majordome.internalHandler.php:123
 msgid "unknown"
 msgstr "inconnu"
 
@@ -407,106 +420,120 @@ msgstr "Impossible de supprimer le formulaire"
 msgid "Plugins"
 msgstr "Plugins"
 
-#: inc/fields/class.majordome.formCheckboxField.php:53
-#: inc/fields/class.majordome.formRadioField.php:55
+#: inc/fields/class.majordome.formCaptchaField.php:74
+#, php-format
+msgid "Please answer the question “%s”."
+msgstr "Veuillez répondre à la question « %s »."
+
+#: inc/fields/class.majordome.formCaptchaField.php:78
+#, php-format
+msgid "The answer to “%s” is wrong. Would you be a robot?"
+msgstr "La réponse à « %s » est incorrecte. Seriez-vous un robot ?"
+
+#: inc/fields/class.majordome.formCheckboxField.php:57
+#: inc/fields/class.majordome.formRadioField.php:60
 msgid "Other"
 msgstr "Autre"
 
-#: inc/fields/class.majordome.formCheckboxField.php:72
-#: inc/fields/class.majordome.formRadioField.php:80
+#: inc/fields/class.majordome.formCheckboxField.php:78
+#: inc/fields/class.majordome.formRadioField.php:88
 #, php-format
 msgid "Please fill in the “other” option in the field “%s”"
 msgstr "Veuillez compléter l'option « autre » du champ « %s »"
 
-#: inc/fields/class.majordome.formCheckboxField.php:78
+#: inc/fields/class.majordome.formCheckboxField.php:84
 #, php-format
 msgid "Please choose only possible answers in “%s”"
 msgstr ""
 "Veuillez choisir uniquement une des réponses proposées dans le champ « %s »"
 
-#: inc/fields/class.majordome.formDateField.php:64
+#: inc/fields/class.majordome.formDateField.php:67
 #, php-format
 msgid "Please enter a valid date format (DD/MM/YYYY) in “%s”"
 msgstr ""
 "Veuillez entrer une date au format valide (JJ/MM/AAAA) dans le champ « %s »"
 
-#: inc/fields/class.majordome.formDateField.php:66
+#: inc/fields/class.majordome.formDateField.php:69
 #, php-format
 msgid "Please enter a valid date in “%s”"
 msgstr "Veuillez saisir une date valide dans le champ « %s »"
 
-#: inc/fields/class.majordome.formDropdownField.php:71
+#: inc/fields/class.majordome.formDropdownField.php:78
 #, php-format
 msgid "Please choose a valid option in “%s”"
 msgstr "Veuillez choisir une option valide dans le champ « %s »"
 
-#: inc/fields/class.majordome.formField.php:95
-#: inc/fields/class.majordome.formRadioField.php:72
+#: inc/fields/class.majordome.formField.php:103
+#: inc/fields/class.majordome.formRadioField.php:80
 #, php-format
 msgid "Please fill in the field “%s”"
 msgstr "Veuillez compléter le champ « %s »"
 
-#: inc/fields/class.majordome.formMailField.php:59
-#: inc/fields/class.majordome.formWebsiteField.php:59
+#: inc/fields/class.majordome.formMailField.php:62
+#: inc/fields/class.majordome.formWebsiteField.php:62
 #, php-format
 msgid "Please enter a valid email address in field “%s”"
 msgstr "Veuillez entrer une adresse électronique valide dans le champ « %s »"
 
-#: inc/fields/class.majordome.formNumberField.php:75
+#: inc/fields/class.majordome.formNumberField.php:80
 #, php-format
 msgid "Please enter an integer number in the field “%s”"
 msgstr "Veuillez entrer un nombre entier dans le champ « %s »"
 
-#: inc/fields/class.majordome.formNumberField.php:77
+#: inc/fields/class.majordome.formNumberField.php:82
 #, php-format
 msgid "Please enter a decimal number in the field “%s”"
 msgstr "Veuillez entrer un nombre décimal dans le champ « %s »"
 
-#: inc/fields/class.majordome.formNumberField.php:82
+#: inc/fields/class.majordome.formNumberField.php:87
 #, php-format
 msgid "Please enter a number above %s in the field “%s”"
 msgstr "Veuillez entrer un nombre supérieur à %s dans le champ « %s »"
 
-#: inc/fields/class.majordome.formNumberField.php:86
+#: inc/fields/class.majordome.formNumberField.php:91
 #, php-format
 msgid "Please enter a number under %s in the field “%s”"
 msgstr "Veuillez entrer un nombre inférieur à %s dans le champ « %s »"
 
-#: inc/fields/class.majordome.formRadioField.php:86
+#: inc/fields/class.majordome.formRadioField.php:94
 #, php-format
 msgid "Please choose a valid option in the field “%s”"
 msgstr "Veuillez choisir une option valide dans le champ « %s »"
 
-#: inc/fields/class.majordome.formTextField.php:83
-#: inc/fields/class.majordome.formTextareaField.php:69
+#: inc/fields/class.majordome.formTextField.php:86
+#: inc/fields/class.majordome.formTextareaField.php:73
 #, php-format
 msgid "Please enter at least %s characters in the field “%s”"
 msgstr "Veuillez saisir au moins %s caractère(s) dans le champ « %s »"
 
-#: inc/fields/class.majordome.formTextField.php:87
-#: inc/fields/class.majordome.formTextareaField.php:73
+#: inc/fields/class.majordome.formTextField.php:90
+#: inc/fields/class.majordome.formTextareaField.php:77
 #, php-format
 msgid "Please enter less than %s characters in the field “%s”"
 msgstr "Veuillez saisir moins de %s caractère(s) dans le champ « %s »"
 
-#: inc/fields/class.majordome.formTimeField.php:62
+#: inc/fields/class.majordome.formTimeField.php:65
 #, php-format
 msgid "Please enter a time date format (HH:MM) in “%s”"
 msgstr "Veuillez entrer une heure au format HH:MM dans le champ « %s »"
 
-#: inc/handlers/class.majordome.internalHandler.php:48
+#: inc/handlers/class.majordome.internalHandler.php:53
 msgid "Internal storage"
 msgstr "Stockage interne"
 
-#: inc/handlers/class.majordome.internalHandler.php:90
+#: inc/handlers/class.majordome.internalHandler.php:95
 msgid "There is no answer to this form yet."
 msgstr "Il n'y a encore aucune réponse à ce formulaire."
 
-#: inc/handlers/class.majordome.internalHandler.php:97
+#: inc/handlers/class.majordome.internalHandler.php:102
 msgid "Num"
 msgstr "N°"
 
-#: inc/handlers/class.majordome.internalHandler.php:113
+#: inc/handlers/class.majordome.internalHandler.php:164
+msgid "other: "
+msgstr "autre :"
+
+#: inc/handlers/class.majordome.internalHandler.php:167
 msgid "empty"
 msgstr "vide"
 
