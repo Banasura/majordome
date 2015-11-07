@@ -63,7 +63,7 @@ class majordomeDBHandler {
 		$res = $db->select('SELECT COUNT(form_name) AS nbf FROM ' . self::getFullTableName() .
 							' WHERE form_name = \'' . $db->escape($name) . '\';');
 
-		$url = html::escapeURL($name);
+		$url = text::tidyURL($name);
 
 		if ($res->nbf > 0) {
 			// At least one other form with the same name exists: we add a number
