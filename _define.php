@@ -25,13 +25,11 @@ SOFTWARE.
 
 if (!defined('DC_RC_PATH')) { return; }
 
-__('A Dotclear plugin which allow user to easily create and manage user forms.'); /* Description */
-
 $this->registerModule(
         /* Name */                      'Majordome',
-        /* Description*/                'A Dotclear plugin which allow user to easily create and manage user forms.',
+        /* Description*/                __('A Dotclear plugin which allow user to easily create and manage user forms.'),
         /* Author */                    'William Hiver',
-        /* Version */                   '0.1.0',
+        /* Version */                   '0.2.0',
         array(
             'type'        =>            'plugin',
             'permissions' =>            'usage,contentadmin'
