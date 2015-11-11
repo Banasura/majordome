@@ -39,6 +39,18 @@ class formView extends dcUrlHandlers
 
         $_ctx->pageArgs = $args;
 
+        // First redirect the page to avoid multiple form submission
+        session_start();
+        if (isset($_POST['mj_fid'])) {
+            $_SESSION['form'] = $_POST ;
+            header('Location: ' . $core->blog->url . $core->url->getBase('majordome_view') . '/' . $_ctx->pageArgs);
+            exit;
+        } elseif (isset($_SESSION['form'])) {
+            // Put back the data in the POST variable to ease processing
+            $_POST = $_SESSION['form'];
+            unset($_SESSION['form']);
+        }
+
         // Get the form corresponding to the URL
         $_ctx->formData = majordomeDBHandler::getFormData($args);
         $_ctx->formData->content = json_decode($_ctx->formData->form_fields)->fields;
@@ -282,13 +294,15 @@ class formView extends dcUrlHandlers
             return false;
         }
         
-        // The answers are valid, we store the results
+        // The answers are valid, we store the results and wipe the validated data
         $data_handler = majordome::getHandlerOfId($_ctx->formData->form_handler);
         try {
             $data_handler::saveAnswer($_ctx->formData, $answer_list);
         } catch (Exception $e) {
             $error_msg[] = __('An error occurred while saving your answers. Sorry for the inconvenience.');
         }
+        unset($_POST);
+        $_POST = array();
 
         return true;
     }

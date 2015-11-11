@@ -39,6 +39,17 @@ class editPage extends page
 
     	parent::__construct($view, 'edit', __('Create a new form'));
 
+		// First redirect the page to avoid multiple form submission
+		if (isset($_POST['mj_save_new_form'])) {
+			$_SESSION['form'] = $_POST ;
+			header('Location: ' . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']);
+			exit;
+		} elseif (isset($_SESSION['form'])) {
+			// Put back the data in the POST variable to ease processing
+			$_POST = $_SESSION['form'];
+			unset($_SESSION['form']);
+		}
+
 		// Check if we have an existing form to edit
 		if (isset($_GET['formid'])) {
 			$form_data = majordomeDBHandler::getFormData($_GET['formid']);
@@ -259,7 +270,6 @@ class editPage extends page
 					// The form has been successfully created, so we hide this page from the view
 					dcPage::addSuccessNotice(__('The form has been successfully created.'));
 					$this->hidden = true;
-
 
 					return true;
 				} else {
