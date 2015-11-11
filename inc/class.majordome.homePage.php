@@ -107,6 +107,7 @@ class homePage extends page
 			$success = majordomeDBHandler::delete($to_delete[0]);
     	} catch (InvalidArgumentException $e) {
     		dcPage::addErrorNotice(__('Unable to delete the form: unknown form identifier'));
+			$success = false;
     		return;
     	}
     	
