@@ -40,7 +40,7 @@ class editPage extends page
     	parent::__construct($view, 'edit', __('Create a new form'));
 
 		// Check if we have an existing form to edit
-		if (!empty($_GET['formid'])) {
+		if (isset($_GET['formid'])) {
 			$form_data = majordomeDBHandler::getFormData($_GET['formid']);
 			if ($form_data === false) {
 				$core->error->add(__('Unable to edit the form.'));
@@ -52,6 +52,14 @@ class editPage extends page
 
 		// Do we have to trigger form registration?
 		$this->resultSaved = true;
+
+		// Load the WYSIWYG editor
+		$desc_editor = $core->auth->getOption('editor');
+
+		if ($desc_editor) {
+			$this->view->addHeader($core->callBehavior('adminPostEditor',
+					$desc_editor['xhtml'], 'form', array('#mj_form_desc')));
+		}
 
     	// Add Formbuilder dependencies
     	$this->view->addJs(dcPage::getPF('/majordome/js/vendor.js'));
@@ -126,7 +134,6 @@ class editPage extends page
 		$title = '';
 		$desc = '';
 
-
 		// We retrieve the informations already entered if the save failed
 		if ($this->resultSaved === false) {
 			$title = empty($_POST['mj_form_name']) ? '' : html::escapeHTML($_POST['mj_form_name']);
@@ -159,11 +166,8 @@ class editPage extends page
         				'<label for="mj_form_desc">',
         					__('Form description'),
         				'</label>',
-						form::textarea('mj_form_desc', 50, 5, $desc, NULL, NULL, false, 'maxlength="250"'),
-        			'</p>',
-					'<p class="form-note">',
-					__('The form description must not exceed 250 characters.'),
-					'</p>';
+						form::textarea('mj_form_desc', 50, 5, $desc, NULL, NULL, false),
+        			'</p>';
 
 					// If we are updating a form, we cannot change the handler (too complicated)
 					if (empty($this->form_data)) {
@@ -255,6 +259,8 @@ class editPage extends page
 					// The form has been successfully created, so we hide this page from the view
 					dcPage::addSuccessNotice(__('The form has been successfully created.'));
 					$this->hidden = true;
+
+
 					return true;
 				} else {
 					$core->error->add(sprintf(__('An unknown error occurred. The form could not be created.'), html::escapeHTML($_POST['mj_form_name'])));

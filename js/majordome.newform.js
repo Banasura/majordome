@@ -26,6 +26,15 @@
 
 // Init the form builder page
 ;(function () {
+	// Draw the WYSIWYG toolbar
+	if($.isFunction(jsToolBar)) {
+		var formDesc = $('#mj_form_desc');
+		if (formDesc.length > 0) {
+			var tbForm = new jsToolBar(formDesc[0]);
+			tbForm.draw('xhtml');
+		}
+	}
+
 	Formbuilder.options.AUTOSAVE = false;
 
 	var options = {

@@ -51,6 +51,12 @@ class view
      * @var array
      */
     private $css;
+
+    /**
+     * An arbitrary code to inject in the <head> tag
+     * @var string
+     */
+    private $head;
     
 	function __construct()
 	{
@@ -58,6 +64,7 @@ class view
 		$this->current = isset($_GET['page']) ? $_GET['page'] : 'home';
 		$this->js = array();
 		$this->css = array();
+        $this->head = '';
 	}
 
     /**
@@ -74,13 +81,14 @@ class view
         	'<html>',
                 '<head>',
                 	dcPage::jsPageTabs($this->current);
-        
+
 			        // Add the CSS files
 			        foreach ($this->css as $key => $file) {
 			        	echo '<link rel="stylesheet" type="text/css" href="', $file, '"/>';
 			        }
         
        echo	        '<title>Majordome</title>',
+                    $this->head,
                 '</head>',
                 '<body>',
                     dcPage::breadcrumb(array(__('Plugins') => '', 'Majordome' => '')),
@@ -122,6 +130,16 @@ class view
     {
     	$this->js[] = $inline 	? '<script>' . $path . '</script>'
     							: '<script src="' . $path . '" type="text/javascript"></script>';
+    }
+
+    /**
+     * Add arbitrary HTML in the <head> tag
+     * @param string $html  The code to inject
+     * @return void
+     */
+    public function addHeader($html)
+    {
+        $this->head .= $html;
     }
     
     /**

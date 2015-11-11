@@ -50,7 +50,7 @@ $new_table = $s->table('mj_forms');
 $new_table->form_id('integer', null, false)
 		->form_name('varchar', 50, false)
 		->form_url('varchar', 100, false)
-		->form_desc('varchar', 250, true)
+		->form_desc('text', 0, true)
 		->form_handler('varchar', 50, false)
 		->form_fields('text', 0, false)
 		->primary('pk_mj_forms', 'form_id')

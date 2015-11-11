@@ -67,7 +67,7 @@ class formView extends dcUrlHandlers
 
     public static function formDescription()
     {
-        return '<?php echo html::escapeHTML($_ctx->formData->form_desc); ?>';
+        return '<?php echo $_ctx->formData->form_desc; ?>';
     }
 
     public static function formURL()
