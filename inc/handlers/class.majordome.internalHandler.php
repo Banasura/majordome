@@ -82,8 +82,15 @@ class internalHandler implements majordomeDataHandler {
             throw new InvalidArgumentException('Cannot display the answers. Invalid or missing form ID.');
         }
         
-        global $core;
+        global $core, $p_url;
 		$db =& $core->con;
+
+        // Delete answers if needed
+        if (isset($_POST['delete-answers'])) {
+            self::deleteAnswers($form_data->form_id, $_POST['delete-answer']);
+            // Redirect the page to avoid multiple deletions
+            header('Location: ' . $p_url . '&page=answer&formid=' . $form_data->form_id);
+        }
         
 		$list = $db->select('SELECT `answer_id`, `answer` FROM ' . DC_DBPREFIX . self::$table_name
             . ' WHERE `form_id` = ' . $form_data->form_id);
@@ -97,9 +104,12 @@ class internalHandler implements majordomeDataHandler {
             return;
         }
         
-        echo '<table>',
-            '<thead>',
-                '<th>', __('Num'), '</th>';
+        echo '<form method="POST" action="', $p_url, '&amp;page=answer&amp;formid=', $form_data->form_id, '">',
+            $core->formNonce(),
+            '<table>',
+                '<thead>',
+                    '<th></th>',
+                    '<th>', __('Num'), '</th>';
                 foreach ($form_content as $field) {
                     if (!in_array($field->field_type, self::$display_field_blacklist)) {
                         echo '<th>', html::escapeHTML($field->label), '</th>';
@@ -112,6 +122,7 @@ class internalHandler implements majordomeDataHandler {
                 foreach ($list as $answer) {
                     $answer_entries = json_decode($answer->answer);
                     echo '<tr>',
+                        '<td><input type="checkbox" name="delete-answer[]" value="', $answer->answer_id, '"></td>',
                         '<td>', $answer->answer_id, '</td>';
                     // Loop over each field of the answer
                     foreach ($form_content as $field) {
@@ -128,7 +139,9 @@ class internalHandler implements majordomeDataHandler {
                     echo '</tr>';
                 }
         echo '</tbody>',
-        '</table>';
+            '</table>',
+            '<input class="delete" type="submit" name="delete-answers" value="', __('Delete selected answers'), '">',
+        '</form>';
     }
 
     /**
@@ -242,6 +255,27 @@ class internalHandler implements majordomeDataHandler {
 		$dataSet->answer_id = $id;
 		$dataSet->answer = $bundle;
 		return $dataSet->insert();		
+    }
+
+    /**
+     * Delete answers of a form
+     * @param int   $form   The form's ID
+     * @param array $ids    The answers' IDs to delete
+     */
+    private static function deleteAnswers ($form_id, $ids)
+    {
+        global $core;
+
+        if (empty($ids) || !is_array($ids) || $ids != array_filter($ids, 'is_numeric')) {
+            return false;
+        } elseif (!is_int($form_id)) {
+            $form_id = (int) $form_id;
+        }
+
+        $db =& $core->con;
+        $db->execute('DELETE FROM ' . DC_DBPREFIX . 'mj_storage WHERE form_id = ' . $form_id .
+            ' AND answer_id IN (' . implode(',', $ids) . ');');
+        return $db->changes() > 0;
     }
 	
 }

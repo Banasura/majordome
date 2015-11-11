@@ -46,14 +46,14 @@ class answerPage extends page
 	{
 		global $core;
         
-    	parent::__construct($view, 'answer', 'Answers');
+    	parent::__construct($view, 'answer', __('Answers'));
         
         // Load the form data
         $error = false;
 		if (!empty($_GET['formid'])) {
 			$form_data = majordomeDBHandler::getFormData($_GET['formid']);
 			if ($form_data === false) {
-				$core->error->add(__('Unable to find the form ' . html::escapeHTML($_GET['formid']) . '.'));
+				$core->error->add(sprintf(__('Unable to find the form %s.'), html::escapeHTML($_GET['formid'])));
 			} else {
 				$this->form_data = $form_data;
 				$this->title = __(sprintf(__('Answers to “%s”'), $form_data->form_name));

@@ -56,16 +56,15 @@ $new_table->form_id('integer', null, false)
 		->primary('pk_mj_forms', 'form_id')
 		->index('idx_mj_forms_url','btree','form_url');
 
-$sync = new dbStruct($core->con, $core->prefix);
-$changes = $sync->synchronize($s);
-
 // Update the DB for the internal storage handler
 $new_table = $s->table('mj_storage');
 $new_table->form_id('integer', null, false)
 		->answer_id('integer', null, false)
         ->answer('text', 0, false)
         ->primary('pk_mj_storage', 'form_id', 'answer_id');
+$s->mj_storage->reference('fk_form_id','form_id','mj_forms','form_id','cascade','cascade');
 
+$sync = new dbStruct($core->con, $core->prefix);
 $changes = $sync->synchronize($s);
 
 return true;
