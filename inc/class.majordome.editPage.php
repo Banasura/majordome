@@ -38,6 +38,7 @@ class editPage extends page
 		global $core;
 
     	parent::__construct($view, 'edit', __('Create a new form'));
+		$this->existingEntries = false;
 
 		// First redirect the page to avoid multiple form submission
 		if (isset($_POST['mj_save_new_form'])) {
@@ -47,6 +48,7 @@ class editPage extends page
 		} elseif (isset($_SESSION['form'])) {
 			// Put back the data in the POST variable to ease processing
 			$_POST = $_SESSION['form'];
+			$_GET['formid'] = $_POST['mj_form_id'];
 			unset($_SESSION['form']);
 		}
 
@@ -57,12 +59,9 @@ class editPage extends page
 				$core->error->add(__('Unable to edit the form.'));
 			} else {
 				$this->form_data = $form_data;
-				$this->title = __(sprintf(__('Edit form “%s”'), $form_data->form_name));
+				$this->title = sprintf(__('Edit form “%s”'), $form_data->form_name);
 			}
 		}
-
-		// Do we have to trigger form registration?
-		$this->resultSaved = true;
 
 		// Load the WYSIWYG editor
 		$desc_editor = $core->auth->getOption('editor');
@@ -133,10 +132,11 @@ class editPage extends page
     	// Run Formbuilder
     	$this->view->addJs(dcPage::getPF('/majordome/js/majordome.newform.js'));
 
-    	// Handle the results if any
-    	if (isset($_POST['mj_save_new_form'])) {
-    		$this->resultSaved = $this->saveForm();
-    	}
+		// Handle the results if any
+		if (isset($_POST['mj_save_new_form'])) {
+			// If the save failed, we have entries to restore in the page
+			$this->existingEntries = $this->saveForm() === false;
+		}
 	}
 
     public function content()
@@ -146,7 +146,7 @@ class editPage extends page
 		$desc = '';
 
 		// We retrieve the informations already entered if the save failed
-		if ($this->resultSaved === false) {
+		if ($this->existingEntries) {
 			$title = empty($_POST['mj_form_name']) ? '' : html::escapeHTML($_POST['mj_form_name']);
 			$desc = empty($_POST['mj_form_desc']) ? '' : html::escapeHTML($_POST['mj_form_desc']);
 		} elseif (!empty($this->form_data)) {
@@ -240,11 +240,6 @@ class editPage extends page
     		$core->error->add(__('The form name is too long.'));
     	}
 
-    	// Form description check
-    	if (!empty($_POST['mj_form_desc']) && strlen($_POST['mj_form_desc']) > 250) {
-    		$core->error->add(__('The form description is too long.'));
-    	}
-
     	// Form data handler check, only if we are creating a new form
 		if (empty($_POST['mj_form_id'])) {
 			if (empty($_POST['mj_form_action'])) {
@@ -256,7 +251,14 @@ class editPage extends page
 
     	// Form fields check
     	if (empty($_POST['mj_form_content'])) {
-    		$core->error->add(__('The form has no field.'));
+			/* If we are editing an existing form, an empty content means that
+			 * it is unchanged
+			 */
+			if (isset($_POST['mj_form_id']) && isset($this->form_data)) {
+				$_POST['mj_form_content'] = $this->form_data->form_fields;
+			} else {
+				$core->error->add(__('The form has no field.'));
+			}
     	}
 
     	if ($core->error->flag() === false) {
@@ -289,11 +291,6 @@ class editPage extends page
 				return true;
 			}
     	}
-
-		if (!empty($_POST['mj_form_id'])) {
-			// If there is an error during form update, we must pass the form ID again to the page
-			$_GET['formid'] = $_POST['mj_form_id'];
-		}
 
 		return false;
 	}
