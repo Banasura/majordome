@@ -85,6 +85,12 @@ class internalHandler implements majordomeDataHandler {
         global $core, $p_url;
 		$db =& $core->con;
 
+        // Handle export
+        if (isset($_GET['export']) && $_GET['export'] === 'csv') {
+            self::exportCSV($form_data);
+            break;
+        }
+
         // Delete answers if needed
         if (isset($_POST['delete-answers'])) {
             self::deleteAnswers($form_data->form_id, $_POST['delete-answer']);
@@ -141,7 +147,12 @@ class internalHandler implements majordomeDataHandler {
         echo '</tbody>',
             '</table>',
             '<input class="delete" type="submit" name="delete-answers" value="', __('Delete selected answers'), '">',
-        '</form>';
+        '</form>',
+        '<p style="margin-top: 1em;">',
+            __('Export answers as: '),
+            '<a href="', $p_url, '&amp;page=answer&amp;formid=', $form_data->form_id, '&amp;export=csv" ',
+                'title="', __('Export answers as a CSV file'), '">CSV</a> ',
+        '</p>';
     }
 
     /**
@@ -149,17 +160,22 @@ class internalHandler implements majordomeDataHandler {
      * field
      * @param mixed     $answer       The answer given to the field
      * @param string    $field        The field's schema
+     * @param boolean   $escape       Should we escape the result string?
      */
-    private static function serializeAnswer ($answer, $field)
+    private static function serializeAnswer ($answer, $field, $escape = true)
     {
         switch ($field->field_type) {
             case 'radio':
                 if (isset($answer)) {
                     if (isset($answer->opt)) {
                         if ($answer->opt === 'other' && isset($answer->other)) {
-                            return html::escapeHTML($answer->other);
+                            return $escape
+                                ? html::escapeHTML($answer->other)
+                                : $answer->other;
                         } elseif (isset($field->field_options->options[$answer->opt])) {
-                            return html::escapeHTML($field->field_options->options[$answer->opt]->label);
+                            return $escape
+                                ? html::escapeHTML($field->field_options->options[$answer->opt]->label)
+                                : $field->field_options->options[$answer->opt]->label;
                         }
                     }
                 }
@@ -176,7 +192,7 @@ class internalHandler implements majordomeDataHandler {
                         if ($key === 'other') {
                             $res_string[] = __('other: ') .
                                 (isset($answer['other-value'])
-                                ? html::escapeHTML($answer['other-value'])
+                                ? ($escape ? html::escapeHTML($answer['other-value']) : $answer['other-value'])
                                 : __('empty'));
                         } elseif ($key !== 'other-value') {
                             $res_string[] = $field->field_options->options[$opt]->label;
@@ -197,7 +213,9 @@ class internalHandler implements majordomeDataHandler {
                 break;
 
             default:
-                return is_string($answer) ? html::escapeHTML($answer) : null;
+                return is_string($answer)
+                    ? ($escape ? html::escapeHTML($answer) : $answer)
+                    : null;
                 break;
         }
     }
@@ -277,5 +295,51 @@ class internalHandler implements majordomeDataHandler {
             ' AND answer_id IN (' . implode(',', $ids) . ');');
         return $db->changes() > 0;
     }
-	
+    
+    /**
+     * Export answers to a CSV file
+     * @param   mixed   $form_data  The form's schema
+     */
+    private static function exportCSV ($form_data)
+    {
+        global $core, $p_url;
+		$db =& $core->con;
+        
+        // Clean the already generated HTML
+        ob_clean();
+        header('Content-Type: text/csv');
+        header('Content-disposition: filename="' . $form_data->form_name . '.csv"');
+        
+        $list = $db->select('SELECT `answer_id`, `answer` FROM ' . DC_DBPREFIX . self::$table_name
+            . ' WHERE `form_id` = ' . $form_data->form_id);
+        
+        $form_content = json_decode($form_data->form_fields)->fields;
+        
+        if (empty($list->answer)) {
+            // There is no answer
+            exit;
+        }
+        
+        // Loop over each existing answer
+        foreach ($list as $answer) {
+            $answer_entries = json_decode($answer->answer);
+            $row = array($answer->answer_id);
+            
+            // Loop over each field of the answer
+            foreach ($form_content as $field) {
+                if (!in_array($field->field_type, self::$display_field_blacklist)) {
+                    $answer_content = $answer_entries->{$field->cid};
+                    $answer_string = self::serializeAnswer($answer_content, $field, false);
+                    if (!isset($answer_string)) {
+                        $answer_string = '';
+                    }
+                    $row[] = $answer_string;
+                }
+            }
+            
+            echo implode(',', $row), "\n";
+        }
+        // Skip the end of the page's generation
+        exit;
+    }	
 }
