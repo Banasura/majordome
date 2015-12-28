@@ -191,8 +191,8 @@ class internalHandler implements majordomeDataHandler {
                     foreach ($answer as $key => $opt) {
                         if ($key === 'other') {
                             $res_string[] = __('other: ') .
-                                (isset($answer['other-value'])
-                                ? ($escape ? html::escapeHTML($answer['other-value']) : $answer['other-value'])
+                                (isset($answer->{'other-value'})
+                                ? ($escape ? html::escapeHTML($answer->{'other-value'}) : $answer->{'other-value'})
                                 : __('empty'));
                         } elseif ($key !== 'other-value') {
                             $res_string[] = $field->field_options->options[$opt]->label;
