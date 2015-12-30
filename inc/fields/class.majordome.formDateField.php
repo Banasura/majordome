@@ -54,18 +54,32 @@ class formDateField extends formField
      * @param mixed $answer The user's answer to the field
      * @return array   The error messages explaining the problem, if any
      */
-    public function validate($answer)
+    public function validate(&$answer)
     {
         $error = parent::validate($answer);
 
         // Date format verification
         if (!empty($answer)) {
-            // FIXME The only supported pattern is currently the French date format (DD/MM/YYYY)
             $date_items = array();
+            
             // Check if preg_match equals 0 or false: do NOT replace == with === !
             if (preg_match('/^(0?[1-9]|[12]\d|3[01])\/(0?[1-9]|1[12])\/(\d{4})$/', $answer, $date_items) == 0) {
-                $error[] = sprintf(__('Please enter a valid date format (DD/MM/YYYY) in “%s”'), $this->renderLabel());
-            } elseif (checkdate($date_items[2], $date_items[1], $date_items[3]) === false) {
+                // Wrong format: we try to parse a YYYY-MM-DD format
+                if (preg_match('/^(\d{4})-(0?[1-9]|1[12])-(0?[1-9]|[12]\d|3[01])$/', $answer, $date_items) == 0) {
+                    $error[] = sprintf(__('Please enter a valid date format (DD/MM/YYYY) in “%s”'), $this->renderLabel());
+                    return $error;
+                } else {
+                    // The date is in the US format: we swap day & year
+                    $tmp = $date_items[1];
+                    $date_items[1] = $date_items[3];
+                    $date_items[3] = $tmp;
+                    
+                    // FIXME For compatibility purpose, we tranform the date in the right format
+                    $answer = $date_items[1] . '/' . $date_items[2] . '/' . $date_items[3];
+                }
+            }
+            
+            if (checkdate($date_items[2], $date_items[1], $date_items[3]) === false) {
                 $error[] = sprintf(__('Please enter a valid date in “%s”'), $this->renderLabel());
             }
         }
