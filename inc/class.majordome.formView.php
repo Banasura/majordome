@@ -50,6 +50,9 @@ class formView extends dcUrlHandlers
             $_POST = $_SESSION['form'];
             unset($_SESSION['form']);
         }
+        
+        // Remember the status of the form's sending
+        $_ctx->sent = false;
 
         // Get the form corresponding to the URL
         $_ctx->formData = majordomeDBHandler::getFormData($args);
@@ -258,7 +261,7 @@ class formView extends dcUrlHandlers
     {
         return '<?php
             $_ctx =& $GLOBALS[\'_ctx\'];
-            if (empty($_ctx->formData->errorMsg) && !empty($_POST[\'mj_fid\'])) {
+            if ($_ctx->sent === true) {
                 echo __(\'The form has been successfully sent. Thank you for your participation.\');
             }
         ?>';
@@ -303,6 +306,7 @@ class formView extends dcUrlHandlers
         }
         unset($_POST);
         $_POST = array();
+        $_ctx->sent = true;
 
         return true;
     }
